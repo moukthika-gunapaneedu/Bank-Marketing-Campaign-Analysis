@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <!-- Page Title -->
+<!-- EDA Page Hero Section -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>Data Preparation and EDA</span>
+    </h1>
+  </div>
+</section>
+
+
+
+  <!-- DATA COLLECTION -->
+  <section class="py-12 px-6 max-w-6xl mx-auto">
+  <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-8 space-y-6 text-gray-300 leading-relaxed text-justify">
+    
+<h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+  📂 <span>Data Collection</span>
+</h2>
+
+<hr class="border-t border-gray-600 my-4">
+
+    <p>
+      The dataset used in this project comes from a bank marketing campaign, where a Portuguese bank contacted potential customers to promote term deposit subscriptions. The data provides insights into customer demographics, past interactions, and economic factors influencing financial decisions. The objective is to analyze this data, prepare it for machine learning models, and optimize marketing strategies by predicting customer responses.
+    </p>
+
+    <div class="space-y-2">
+      <p>
+        <strong class="text-white">🔗 Link to the Dataset:</strong>
+        <a href="https://archive.ics.uci.edu/dataset/222/bank+marketing" target="_blank" class="text-blue-400 underline"> UC Irvine ML Repository – Bank Marketing </a>
+      </p>
+      <p>
+        <strong class="text-white">🌐 API:</strong>
+        <a href="https://bankdata-gvl5.onrender.com/data" target="_blank" class="text-blue-400 underline">https://bankdata-gvl5.onrender.com/data</a>
+      </p>
+    </div>
+
+    <p>
+      To streamline data access and retrieval, an API was utilized for programmatic access instead of downloading the dataset manually. The Bank Data API was hosted on Render, allowing dynamic data retrieval and integration into the analysis workflow. The API response was converted into a Pandas DataFrame for further analysis.
+    </p>
+
+    <p> This dataset was selected because it contains detailed customer insights, including age, job, marital status, financial background, and response to previous campaigns. This helps us ensure authenticity and real-world applicability. By analyzing this data, we can identify patterns in customer behavior, optimize marketing strategies, and improve customer outreach efficiency.</p>
+  </div>
+</section>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Code/Moukthika_Gunapaneedu_EDA.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CLICK HERE TO VIEW THE CODE
+  </a>
+</div>
+
+<section class="max-w-6xl mx-auto px-6 py-10">
+  <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-6">
+    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">🔧 API Endpoint & Example GET Request</h3>
+    <pre class="bg-gray-800 text-gray-200 text-sm md:text-base p-4 rounded-lg overflow-x-auto whitespace-pre-wrap">
+import requests
+import pandas as pd
+
+# Define API URL
+url = "https://bankdata-gvl5.onrender.com/data"
+
+# Define headers with API key
+headers = {
+    "API_KEY": "your_api_key_here"
+}
+
+# Make the GET request
+response = requests.get(url, headers=headers)
+
+# Check for successful response
+if response.status_code == 200:
+    data = response.json()
+    # Convert JSON data to a Pandas DataFrame
+    df = pd.DataFrame(data)
+    </pre>
+  </div>
+</section>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/initial_dataset.png" alt="Initial dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>INITIAL DATASET</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_raw_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE RAW DATASET
+  </a>
+</div>
+
+
+<!-- Dataset Summary + Chart Bubble -->
+  <section class="py-12 px-6 max-w-6xl mx-auto">
+  <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-8 space-y-6 text-gray-300 leading-relaxed text-justify">
+    
+<h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+  📌 <span> Dataset Summary</span>
+</h2>
+
+<hr class="border-t border-gray-600 my-4">
+
+  <!-- Summary Text -->
+    <p>
+      The dataset consists of <strong class="text-white font-semibold">45,211 records</strong> with <strong class="text-white font-semibold">17 features</strong>, including demographic details, financial attributes, and marketing interactions.
+      The target variable, <code class="bg-gray-800 px-2 py-1 rounded text-white font-semibold">y</code>, indicates whether a client subscribed to a term deposit.
+    </p>
+    <p>
+      Initially, some categorical features (such as <em>job</em>, <em>education</em>, <em>contact</em>, and <em>poutcome</em>) had missing values, which were handled during data cleaning.
+      The dataset includes both numerical and categorical variables, with key features such as <em>age</em>, <em>balance</em>, and <em>duration</em> playing a critical role in influencing customer decisions.
+    </p>
+
+    <p>The dataset consists of more categorical features (58.8%) than numerical ones (41.2%), indicating that much of the analysis will involve handling non-numeric data, such as job type, education, and contact methods. </p>
+
+  <!-- Chart Container -->
+  <div class="max-w-md mx-auto">
+    <canvas id="featureTypeChart"></canvas>
+  </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<!-- Custom Chart Script -->
+<script>
+  const ctx = document.getElementById('featureTypeChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Categorical', 'Numerical'],
+      datasets: [{
+        data: [58.8, 41.2],
+        backgroundColor: ['#38bdf8', '#6b7280'],
+        borderColor: '#111827',
+        borderWidth: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            color: 'white',
+            font: {
+              family: 'Poppins',
+              size: 14,
+              weight: '600'
+            },
+            padding: 20
+          }
+        },
+        title: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: context => `${context.label}: ${context.raw}%`
+          }
+        }
+      },
+      cutout: '60%'
+    }
+  });
+
+</script>
+
+<!-- Feature Description Section -->
+<div class="max-w-6xl mx-auto mt-12 bg-gray-900 border border-gray-700 p-10 rounded-2xl shadow-lg text-gray-300 font-[Poppins]">
+  <h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+   <span> 📋 Feature Description </span>
+</h2>
+  <hr class="border-t border-gray-600 my-4">
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full text-left border-collapse">
+      <thead>
+        <tr class="text-blue-400 text-sm uppercase border-b border-gray-700">
+          <th class="px-4 py-3">Feature</th>
+          <th class="px-4 py-3">Type</th>
+          <th class="px-4 py-3">Description</th>
+        </tr>
+      </thead>
+      <tbody class="text-sm text-gray-200 divide-y divide-gray-700">
+        <!-- Client Info -->
+        <tr class="bg-gray-800">
+          <td colspan="3" class="px-4 py-2 font-semibold text-blue-300">Client Information</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">age</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Age of the client</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">job</td>
+          <td class="px-4 py-3">Categorical</td>
+          <td class="px-4 py-3">Client’s occupation (e.g., admin., technician)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">marital</td>
+          <td class="px-4 py-3">Categorical</td>
+          <td class="px-4 py-3">Marital status (married, single, divorced)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">education</td>
+          <td class="px-4 py-3">Categorical</td>
+          <td class="px-4 py-3">Level of education (e.g., high.school, university.degree)</td>
+        </tr>
+
+        <!-- Financial -->
+        <tr class="bg-gray-800">
+          <td colspan="3" class="px-4 py-2 font-semibold text-blue-300">Financial & Loan Status</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">default</td>
+          <td class="px-4 py-3">Binary</td>
+          <td class="px-4 py-3">Has credit in default (yes or no)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">balance</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Average yearly balance in euros</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">housing</td>
+          <td class="px-4 py-3">Binary</td>
+          <td class="px-4 py-3">Has a housing loan</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">loan</td>
+          <td class="px-4 py-3">Binary</td>
+          <td class="px-4 py-3">Has a personal loan</td>
+        </tr>
+
+        <!-- Marketing -->
+        <tr class="bg-gray-800">
+          <td colspan="3" class="px-4 py-2 font-semibold text-blue-300">Marketing Contact Info</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">contact</td>
+          <td class="px-4 py-3">Categorical</td>
+          <td class="px-4 py-3">Contact communication type (cellular, telephone)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">day_of_week</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Last contact day (1 = Mon, 5 = Fri)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">month</td>
+          <td class="px-4 py-3">Categorical</td>
+          <td class="px-4 py-3">Last contact month (e.g., may, nov)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">duration</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Duration of last contact in seconds</td>
+        </tr>
+
+        <!-- Previous Campaign -->
+        <tr class="bg-gray-800">
+          <td colspan="3" class="px-4 py-2 font-semibold text-blue-300">Previous Campaign Performance</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">campaign</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Number of contacts in current campaign</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">pdays</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Days since last contact (-1 = never)</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">previous</td>
+          <td class="px-4 py-3">Integer</td>
+          <td class="px-4 py-3">Times contacted before this campaign</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">poutcome</td>
+          <td class="px-4 py-3">Categorical</td>
+          <td class="px-4 py-3">Previous campaign outcome (success, failure, nonexistent)</td>
+        </tr>
+
+        <!-- Target -->
+        <tr class="bg-gray-800">
+          <td colspan="3" class="px-4 py-2 font-semibold text-blue-300">Target Variable</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">y</td>
+          <td class="px-4 py-3">Binary</td>
+          <td class="px-4 py-3">Subscribed to term deposit (yes or no)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="max-w-6xl mx-auto mt-12 bg-gray-900 border border-gray-700 p-10 rounded-2xl shadow-lg text-gray-300 font-[Poppins]">
+  <h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+   <span> 🧼 Data Cleaning and Preprocessing </span>
+</h2>
+  <hr class="border-t border-gray-600 my-4">
+
+<div class="overflow-x-auto mt-6">
+  <h3 class="text-xl font-semibold text-blue-400 mb-4">Identified Issues</h3>
+  <table class="w-full table-auto border border-gray-700 text-sm text-center ">
+    <thead class="bg-gray-800 text-blue-300">
+      <tr>
+        <th class="px-6 py-3 border-b border-gray-700">Category</th>
+        <th class="px-6 py-3 border-b border-gray-700">Feature</th>
+        <th class="px-6 py-3 border-b border-gray-700">Details</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-800 text-gray-200">
+      <tr>
+        <td class="px-6 py-3">Missing</td>
+        <td class="px-6 py-3">job</td>
+        <td class="px-6 py-3"><strong>288</strong> unknown values</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3">Missing</td>
+        <td class="px-6 py-3">education</td>
+        <td class="px-6 py-3"><strong>1857</strong> unknown values</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3">Missing</td>
+        <td class="px-6 py-3">contact</td>
+        <td class="px-6 py-3"><strong>13020</strong> unknown values</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3">Missing</td>
+        <td class="px-6 py-3">poutcome</td>
+        <td class="px-6 py-3"><strong>36959</strong> unknown values</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3">Incorrect</td>
+        <td class="px-6 py-3">job, education</td>
+        <td class="px-6 py-3">"Unknown" values in categorical fields</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3">Negative</td>
+        <td class="px-6 py-3">balance</td>
+        <td class="px-6 py-3">Valid overdrafts (retained)</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3">Duplicates</td>
+        <td class="px-6 py-3">All</td>
+        <td class="px-6 py-3">No duplicate rows found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- Clean dataset -->
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>CLEAN DATASET</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE CLEAN DATASET
+  </a>
+</div>
+
+<section class="py-10 px-6 max-w-6xl mx-auto">
+
+  <div class="max-w-6xl mx-auto mt-12 bg-gray-900 border border-gray-700 p-10 rounded-2xl shadow-lg text-gray-300 font-[Poppins]">
+  <h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+   <span> 📌 Summary of Cleaning Steps Performed </span>
+</h2>
+  <hr class="border-t border-gray-600 my-4">
+  <div class="space-y-6">
+    <!-- Step 1 -->
+    <div class="bg-gray-800 rounded-lg p-5 border border-gray-700 hover:bg-gray-700 transition duration-300">
+      <h3 class="font-semibold text-white text-lg mb-1">
+        -> Replaced <span class="text-blue-400">"Unknown"</span> values in <span class="font-bold">job</span> and <span class="font-bold">education</span> with the mode
+      </h3>
+      <p class="text-gray-300 text-sm">
+        Job and education are important personal attributes, so removing missing values would reduce data size. Using the mode ensures useful information is retained without making random assumptions.
+      </p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="bg-gray-800 rounded-lg p-5 border border-gray-700 hover:bg-gray-700 transition duration-300">
+      <h3 class="font-semibold text-white text-lg mb-1">
+        -> Kept <span class="text-blue-400">"Unknown"</span> values in <span class="font-bold">contact</span> as a separate category
+      </h3>
+      <p class="text-gray-300 text-sm">
+        The contact method is campaign-specific, not a customer trait. Keeping "Unknown" as a category allows to see if it affects subscription rates without incorrectly assuming a common contact type.
+      </p>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="bg-gray-800 rounded-lg p-5 border border-gray-700 hover:bg-gray-700 transition duration-300">
+      <h3 class="font-semibold text-white text-lg mb-1">
+        -> Kept <span class="font-bold">poutcome</span> as categorical (not binary)
+      </h3>
+      <p class="text-gray-300 text-sm">
+        Poutcome shows if a previous campaign was successful, failed, or nonexistent. Converting it to binary would remove this key distinction, so keeping it categorical helps in better prediction.
+      </p>
+    </div>
+  </div>
+</div>
+
+    <div class="max-w-6xl mx-auto mt-12 bg-gray-900 border border-gray-700 p-10 rounded-2xl shadow-lg text-gray-300 font-[Poppins]">
+  <h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+   📊 <span>Statistical Insights</span>
+</h2>
+<hr class="border-t border-gray-600 my-4">
+  <div class="overflow-x-auto rounded-lg">
+    <table class="min-w-full table-auto text-sm text-center border border-white/20">
+      <thead class="bg-gray-800 text-blue-400">
+        <tr>
+          <th class="px-4 py-2">Statistic</th>
+          <th class="px-4 py-2">Age</th>
+          <th class="px-4 py-2">Balance</th>
+          <th class="px-4 py-2">Day of Week</th>
+          <th class="px-4 py-2">Duration</th>
+          <th class="px-4 py-2">Campaign</th>
+          <th class="px-4 py-2">Pdays</th>
+          <th class="px-4 py-2">Previous</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-300 divide-y divide-gray-700">
+        <tr><td class="py-2">Count</td><td>45211.0</td><td>45211.0</td><td>45211.0</td><td>45211.0</td><td>45211.0</td><td>45211.0</td><td>45211.0</td></tr>
+        <tr><td class="py-2">Mean</td><td>40.94</td><td>1362.27</td><td>15.81</td><td>258.16</td><td>2.76</td><td>40.2</td><td>0.58</td></tr>
+        <tr><td class="py-2">Std Dev</td><td>10.62</td><td>3044.77</td><td>8.32</td><td>257.53</td><td>3.1</td><td>100.13</td><td>2.3</td></tr>
+        <tr><td class="py-2">Min</td><td>18.0</td><td>-8019.0</td><td>1.0</td><td>0.0</td><td>1.0</td><td>-1.0</td><td>0.0</td></tr>
+        <tr><td class="py-2">25%</td><td>33.0</td><td>72.0</td><td>8.0</td><td>103.0</td><td>1.0</td><td>-1.0</td><td>0.0</td></tr>
+        <tr><td class="py-2">50%</td><td>39.0</td><td>448.0</td><td>16.0</td><td>180.0</td><td>2.0</td><td>-1.0</td><td>0.0</td></tr>
+        <tr><td class="py-2">75%</td><td>48.0</td><td>1428.0</td><td>21.0</td><td>319.0</td><td>3.0</td><td>-1.0</td><td>0.0</td></tr>
+        <tr><td class="py-2">Max</td><td>95.0</td><td>102127.0</td><td>31.0</td><td>4918.0</td><td>63.0</td><td>871.0</td><td>275.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-700 mt-10 text-justify text-gray-300 space-y-6">
+  <h2 class="text-3xl font-bold text-white flex items-center gap-2 border-b border-gray-600 pb-2">Summary of Statistical Insights</h2>
+
+  <div>
+    <h3 class="font-semibold text-white"> -> Age Distribution</h3>
+    <p>The average age of clients is <strong>40.9 years</strong>, with most falling between <strong>33</strong> and <strong>48 years</strong>. The youngest client is <strong>18</strong>, and the oldest is <strong>95</strong>, indicating a broad customer base.</p>
+  </div>
+
+  <div>
+    <h3 class="font-semibold text-white">-> Balance (Annual Bank Account Balance in Euros)</h3>
+    <p>The average balance is <strong>€1362</strong>, but the standard deviation (<strong>€3044</strong>) suggests high variation. The minimum balance is <strong>-€8019</strong>, indicating overdrafts, while the maximum is <strong>€102,127</strong>. <strong>75%</strong> of clients have a balance below <strong>€1428</strong>, meaning a small group holds very high balances.</p>
+  </div>
+
+  <div>
+    <h3 class="font-semibold text-white">-> Day of the Week (Last Contact Day)</h3>
+    <p>The range is from <strong>1 (Monday)</strong> to <strong>31</strong>, possibly indicating errors or a non-standard encoding.</p>
+  </div>
+
+  <div>
+    <h3 class="font-semibold text-white">-> Duration (Call Duration in Seconds)</h3>
+    <p>The average call lasts <strong>258 seconds</strong> (~4.3 minutes), with a wide variation. Some calls were as long as <strong>4918 seconds</strong> (~82 minutes), likely indicating customer interest.</p>
+  </div>
+
+  <div>
+    <h3 class="font-semibold text-white">-> Campaign (Number of Contacts in This Campaign)</h3>
+    <p>Clients were contacted an average of <strong>2.76 times</strong>, but some were contacted up to <strong>63 times</strong>, which might indicate aggressive marketing.</p>
+  </div>
+
+  <div>
+    <h3 class="font-semibold text-white">-> pdays (Days Since Last Contact from a Previous Campaign)</h3>
+    <p><strong>-1</strong> is the most frequent value, meaning many clients had no previous contact. Among those previously contacted, the range is from <strong>1</strong> to <strong>871 days</strong>, showing that some clients were re-engaged after long periods.</p>
+  </div>
+
+  <div>
+    <h3 class="font-semibold text-white">-> previous (Number of Contacts in Past Campaigns)</h3>
+    <p>Most clients had <strong>zero</strong> previous contacts, but a few had been contacted as many as <strong>275 times</strong>, indicating repeat interactions.</p>
+  </div>
+</div>
+</div>
+
+<!-- Exploratory Data Analysis Section -->
+<section class="max-w-6xl mx-auto mt-12 bg-gray-900 border border-gray-700 p-10 rounded-2xl shadow-lg text-gray-300 font-[Poppins]">
+
+  <!-- Section Heading -->
+  <h2 class="text-3xl font-bold flex items-center gap-3 text-white">
+    📈 <span>Exploratory Data Analysis (EDA)</span>
+  </h2>
+  <hr class="border-t border-gray-600 my-4">
+
+  <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+      <!-- Image -->
+      <div class="w-full md:w-1/2">
+        <img src="assets/age_dist.png" alt="Age distribution histogram" class="rounded-lg shadow-md w-full object-contain">
+      </div>
+
+      <!-- Text -->
+      <div class="w-full md:w-1/2 text-justify leading-relaxed">
+        <p>
+          This histogram represents the age distribution of clients in the dataset. Most clients fall within the 
+          <strong class="text-white">30 to 50-year-old</strong> range, with the highest concentration around 
+          <strong class="text-white">30 to 40 years old</strong>. There are fewer younger and older individuals in the dataset, 
+          suggesting that the bank's primary customer base consists of 
+          <strong class="text-white">middle-aged clients</strong>. Understanding this distribution is crucial, 
+          as different age groups may have varying financial needs, investment habits, and responsiveness to marketing campaigns.
+        </p>
+      </div>
+    </div>
+
+  <hr class="border-t border-gray-600 my-4">
+   <!--  Job Distribution Image -->
+  <div class="flex justify-center mt-6">
+    <img src="assets/job_dist.png" alt="Job Distribution of Clients" class="rounded-lg shadow-md border border-gray-700 w-full md:w-3/4">
+  </div>
+
+    <div class="mt-6 space-y-4 text-justify leading-relaxed text-gray-300">
+      <p>
+        This pie chart illustrates the breakdown of clients by occupation. The most common job categories include <strong class="text-white">blue-collar workers (22.2%)</strong>, <strong class="text-white">management (20.9%)</strong>, and <strong class="text-white">technicians (16.8%)</strong>.
+      </p>
+      <p>
+        Other notable categories include administrative roles, services, and self-employed individuals. This insight helps in tailoring financial products, as different professions may have varying income levels, financial priorities, and likelihood to invest in term deposits.
+        The relatively small proportion of students and retired individuals indicates that the bank's marketing strategy primarily targets working professionals.
+      </p>
+    </div>
+
+    <hr class="border-t border-gray-600 my-4">
+      <div class="flex justify-center mt-6">
+       <img src="assets/martial_Status.png" alt="Martial Status" class="rounded-lg shadow-md border border-gray-700 w-full md:w-3/4">
+      </div>
+
+    <div class="mt-6 space-y-4 text-justify leading-relaxed text-gray-300">
+      <p class="text-justify">
+      This bar chart displays the distribution of clients based on their marital status. A significant portion of the clients are <strong>married</strong>, followed by <strong>single</strong> and <strong>divorced</strong> individuals. This suggests that a large part of the bank’s customer base may be financially stable individuals managing household finances. Understanding marital status can help in designing targeted financial products such as joint savings accounts, home loans, or investment plans catered to families.
+    </p>
+    </div>
+
+    <hr class="border-t border-gray-600 my-4">
+      <div class="flex justify-center mt-6">
+       <img src="assets/edu.png" alt="Education Level Breakdown" class="rounded-lg shadow-md border border-gray-700 w-full md:w-3/4">
+      </div>
+
+    <div class="mt-6 space-y-4 text-justify leading-relaxed text-gray-300">
+      <p class="text-justify">
+      This graph highlights the educational background of clients. <strong>Secondary education</strong> is the most common level, followed by <strong>tertiary</strong> (university-level) and <strong>primary education</strong>. Clients with higher education levels may have better financial literacy and may be more likely to invest in banking products. Those with lower education levels may require simplified financial products or additional guidance in decision-making. This insight helps in designing marketing campaigns that cater to different customer segments based on their financial knowledge.
+    </p>
+    </div>
+</section>
+
+
+
+
+</body>
+</html>
+

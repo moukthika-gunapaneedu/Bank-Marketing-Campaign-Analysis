@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>Clustering</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Clustering Overview Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white flex items-center gap-2 mb-4">
+ Overview
+  </h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed mb-4 mt-6 text-justify">
+    Clustering is an <span class="text-blue-400 font-medium">unsupervised learning</span> technique that groups data points based on their similarity. It is used to identify patterns and segment data without predefined labels. The goal is to minimize <span class="text-blue-400 font-medium">intra-cluster distance</span> (points within a cluster should be close together) and maximize <span class="text-blue-400 font-medium">inter-cluster distance</span> (different clusters should be well-separated).
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In this project, clustering was applied to segment customers based on <span class="text-blue-400 font-medium">financial and behavioral attributes</span>, helping optimize marketing strategies and customer engagement. Different clustering techniques were explored to compare their effectiveness in revealing meaningful groupings.
+  </p>
+</div>
+
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white flex items-center gap-2 mb-6">
+     Distance Metrics in Clustering
+  </h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Distance metrics determine how similar or different two data points are. The most common ones include:
+  </p>
+
+  <div class="text-gray-300 text-lg leading-relaxed space-y-6">
+
+  <div>
+    <h3 class="text-white font-bold text-xl">1. Euclidean Distance</h3>
+    <div class="bg-gray-800 px-3 py-1 rounded inline-block mt-2 font-mono text-blue-400 text-sm">
+      d(i, j) = √(Σ(xᵢ − xⱼ)²)
+    </div>
+    <ul class="list-disc list-inside mt-3 space-y-1">
+      <li>Best for: K-Means, DBSCAN, Hierarchical Clustering (single linkage).</li>
+      <li>Measures straight-line distance between points.</li>
+      <li>Ideal for low-dimensional spaces.</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3 class="text-white font-bold text-xl">2. Manhattan Distance (L1 Norm)</h3>
+    <div class="bg-gray-800 px-3 py-1 rounded inline-block mt-2 font-mono text-blue-400 text-sm">
+      d₁(I₁, I₂) = Σ |I₁ᵖ − I₂ᵖ|
+    </div>
+    <ul class="list-disc list-inside mt-3 space-y-1">
+      <li>Best for: Grid-based clustering.</li>
+      <li>Uses sum of absolute differences.</li>
+      <li>Suitable for city-block-like data.</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3 class="text-white font-bold text-xl">3. Cosine Similarity (Angle-Based)</h3>
+    <div class="bg-gray-800 px-3 py-1 rounded inline-block mt-2 font-mono text-blue-400 text-sm">
+      cos(θ) = (A · B) / (‖A‖‖B‖) = Σ AᵢBᵢ / √(Σ Aᵢ² · Σ Bᵢ²)
+    </div>
+    <ul class="list-disc list-inside mt-3 space-y-1">
+      <li>Best for: High-dimensional data (e.g., text data, document clustering).</li>
+      <li>Measures angle between two vectors, not magnitude.</li>
+      <li>Useful when direction matters more than distance.</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3 class="text-white font-bold text-xl">4. Mahalanobis Distance</h3>
+    <div class="bg-gray-800 px-3 py-1 rounded inline-block mt-2 font-mono text-blue-400 text-sm">
+      D² = (x − m)<sup>T</sup> · C<sup>−1</sup> · (x − m)
+    </div>
+    <ul class="list-disc list-inside mt-3 space-y-1">
+      <li>Best for: Data with correlated features or different scales.</li>
+      <li>Accounts for variance and correlation structure.</li>
+      <li>Useful in multivariate anomaly detection and clustering.</li>
+    </ul>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- Comparison of Clustering Techniques Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Comparison of Clustering Techniques</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The three main clustering methods, <span class="text-blue-400 font-medium">K-Means</span>, 
+    <span class="text-blue-400 font-medium">Hierarchical Clustering</span>, and 
+    <span class="text-blue-400 font-medium">DBSCAN</span>, each have unique approaches to identifying patterns within the data.
+  </p>
+
+  <!-- K-Means -->
+  <div class="mb-12">
+    <h3 class="text-white text-2xl font-semibold mb-2">K-Means Clustering (Partition-Based)</h3>
+    <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed space-y-2 text-justify">
+      <li>Divides data into <span class="text-blue-400 font-medium">k predefined clusters</span> by minimizing the distance between data points and cluster centroids.</li>
+      <li>Requires selecting the number of clusters (<span class="text-blue-400 font-medium">k</span>) in advance.</li>
+      <li>Works well for globular, well-separated clusters but struggles with complex shapes and noise.</li>
+      <li><span class="text-blue-400 font-medium">Distance Metric Used:</span> Euclidean Distance.</li>
+    </ul>
+    <div class="flex justify-center mt-6">
+      <img src="assets/kmeans.png" alt="K-Means Clustering" class="rounded-lg shadow-md w-full max-w-xl">
+    </div>
+  </div>
+
+  <!-- Hierarchical -->
+  <div class="mb-12">
+    <h3 class="text-white text-2xl font-semibold mb-2">Hierarchical Clustering</h3>
+    <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed space-y-2 text-justify">
+      <li>Builds a tree-like structure (dendrogram) by iteratively merging or splitting clusters.</li>
+      <li>Does not require specifying <span class="text-blue-400 font-medium">k</span> beforehand but requires a cut-off point to determine final clusters.</li>
+      <li>More computationally expensive but useful for discovering hierarchical relationships in data.</li>
+      <li><span class="text-blue-400 font-medium">Distance Metrics Used:</span></li>
+      <ul class="list-disc list-inside ml-6 space-y-1">
+        <li>Single Linkage → Uses minimum Euclidean distance.</li>
+        <li>Complete Linkage → Uses maximum Euclidean distance.</li>
+        <li>Ward’s Method → Uses Mahalanobis distance to minimize variance.</li>
+      </ul>
+    </ul>
+    <div class="flex justify-center mt-6">
+      <img src="assets/hierarchical.png" alt="Hierarchical Clustering" class="rounded-lg shadow-md w-full max-w-xl">
+    </div>
+  </div>
+
+  <!-- DBSCAN -->
+  <div>
+    <h3 class="text-white text-2xl font-semibold mb-2">DBSCAN (Density-Based Clustering)</h3>
+    <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed space-y-2 text-justify">
+      <li>Groups points based on <span class="text-blue-400 font-medium">density</span> rather than distance, identifying clusters of varying shapes and sizes.</li>
+      <li>Can detect outliers as noise, unlike K-Means and Hierarchical Clustering.</li>
+      <li>Works well for arbitrarily shaped clusters but struggles with varying densities and parameter tuning.</li>
+      <li><span class="text-blue-400 font-medium">Distance Metric Used:</span> Euclidean Distance (default).</li>
+    </ul>
+    <div class="flex justify-center mt-6">
+      <img src="assets/dbscan.png" alt="DBSCAN Clustering" class="rounded-lg shadow-md w-full max-w-xl">
+    </div>
+  </div>
+</div>
+
+<!-- Why Distance Metrics Matter in Clustering Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Why Distance Metrics Matter in Clustering?</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Choosing the right distance metric is critical in clustering because it impacts:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed space-y-2 text-justify mb-6">
+    <li><span class="text-blue-400 font-medium">The shape of clusters:</span> Euclidean distance works best for spherical clusters, while Mahalanobis accounts for correlations in the data.</li>
+    <li><span class="text-blue-400 font-medium">The interpretability of results:</span> Cosine similarity is ideal for text-based or high-dimensional clustering, where direction matters more than magnitude.</li>
+    <li><span class="text-blue-400 font-medium">Scalability:</span> Manhattan distance can be computationally cheaper and more efficient in some scenarios compared to Euclidean.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In this project, <span class="text-blue-400 font-medium">K-Means, Hierarchical Clustering, and DBSCAN</span> were tested using Euclidean distance to identify the best segmentation strategy for customer data. The results showed that <span class="text-blue-400 font-medium">K-Means with k=2</span> provided the most effective clustering, while DBSCAN helped highlight potential outliers.
+  </p>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Code/Moukthika_Gunapaneedu_Clustering.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF CLUSTERING
+  </a>
+</div>
+
+<!-- Data Selection and Preprocessing Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Data Selection and Preprocessing</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Before applying clustering algorithms, the dataset underwent careful preprocessing. Categorical variables were converted using one-hot encoding, and numerical variables were standardized to ensure fair distance measurements. Irrelevant or redundant features were removed to improve clustering performance.
+  </p>
+
+  <!-- Image with Caption -->
+  <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <div class="flex flex-col items-center mt-10">
+    <img src="assets/clean_data.png" alt="Dataset Before Cleaning for Clustering" class="rounded-lg shadow-md w-[90%] max-w-4xl mb-4" />
+    <p class="text-sm text-gray-400 text-center italic">DATASET BEFORE PREPARING FOR CLUSTERING</p>
+  </div>
+  </div>
+
+  <div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR CLUSTERING
+  </a>
+</div>
+
+<!-- Label Removal Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Label Removal</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The dataset was preprocessed for clustering by removing the <span class="text-blue-400 font-medium">target variable (y)</span>. This label was stored separately to evaluate clustering results post-analysis. By excluding the output label during clustering, the unsupervised nature of the algorithm is preserved, allowing natural groupings to emerge from the input features alone.
+  </p>
+
+  <!-- Image with Caption -->
+  <div class="flex flex-col items-center mt-10">
+    <img src="assets/data_no_label.png" alt="Dataset After Removing Labels" class="rounded-lg shadow-md w-[90%] max-w-4xl mb-4" />
+    <p class="text-sm text-gray-400 text-center italic">DATASET AFTER REMOVING LABELS</p>
+  </div>
+</div>
+
+  <div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Clustering/df_removed_labels_clustering.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER REMOVING LABELS
+  </a>
+</div>
+
+<!-- Selecting Numerical Features Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Selecting Numerical Features</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    To prepare the data for clustering, only <span class="text-blue-400 font-medium">numerical columns</span> were retained. Clustering algorithms like K-Means and DBSCAN rely on distance metrics, which require numerical input to compute meaningful similarities between data points. Removing categorical features ensures more consistent and interpretable clustering results.
+  </p>
+
+  <!-- Image with Caption -->
+  <div class="flex flex-col items-center mt-10">
+    <img src="assets/data_num_cols.png" alt="Dataset After Selecting Only Numeric Columns" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+    <p class="text-sm text-gray-400 text-center italic">DATASET AFTER SELECTING ONLY NUMERIC COLUMNS</p>
+  </div>
+</div>
+
+  <div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Clustering/df_numeric_clustering.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER SELECTING ONLY NUMERIC COLUMNS
+  </a>
+</div>
+
+<!-- Data Normalization Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Data Normalization</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    All <span class="text-blue-400 font-medium">numerical features</span> were standardized using <code class="bg-gray-800 text-blue-400 px-2 py-1 rounded">StandardScaler</code>. This transformation ensures each feature has a <span class="text-blue-400 font-medium">mean of 0</span> and <span class="text-blue-400 font-medium">standard deviation of 1</span>, eliminating bias caused by different feature scales. Standardization is essential for clustering techniques that use distance-based metrics.
+  </p>
+
+  <!-- Image with Caption -->
+  <div class="flex flex-col items-center mt-10">
+    <img src="assets/data_scaled.png" alt="Scaled Dataset" class="rounded-lg shadow-md w-[90%] max-w-4xl mb-4" />
+    <p class="text-sm text-gray-400 text-center italic">SCALED DATASET FOR CLUSTERING</p>
+  </div>
+</div>
+
+  <div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Clustering/df_scaled_clustering.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE SCALED DATASET FOR CLUSTERING
+  </a>
+</div>
+</div>
+
+<!-- K-Means Clustering Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">K-MEANS CLUSTERING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    K-Means clustering was performed to segment the dataset, with <span class="text-blue-400 font-medium">k = 2</span> identified as the optimal number of clusters based on the <span class="text-blue-400 font-medium">Silhouette Score</span>. The clustering results demonstrate two well-separated groups, preventing over-segmentation and maintaining interpretability. Compared to higher k values, k = 2 provides the best balance between simplicity and accuracy, making it the preferred choice for clustering.
+  </p>
+
+  <div class="flex flex-col items-center mt-8">
+    <img src="assets/sil_kmeans.png" alt="Silhouette Score for K-Means" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+    <p class="text-sm text-gray-400 text-center italic">Silhouette score plot showing k = 2 as the optimal number of clusters</p>
+  </div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6">
+    The <span class="text-blue-400 font-medium">Silhouette Score plot</span> suggests that <span class="text-blue-400 font-medium">k = 2</span> is the optimal choice for clustering, as it has the highest silhouette score (~0.34). This indicates that the dataset is best separated into two well-defined clusters with minimal overlap. While other values such as k = 6 and k = 9 also show moderate scores, their separation is weaker compared to k = 2. Choosing k = 2 ensures that the clusters are more distinct and compact, making it the most effective option for K-Means clustering in this scenario.
+  </p>
+
+  <!-- K-Means Clustering Carousel -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">K-Means Cluster Comparison</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="relative overflow-hidden rounded-lg">
+    <div id="carousel-images" class="flex transition-transform duration-500">
+      <div class="min-w-full flex flex-col items-center">
+        <img src="assets/kmeans2.png" alt="K-Means Clustering with k=2" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+        <p class="text-sm text-gray-400 italic">K = 2: Well-separated clusters, most optimal</p>
+      </div>
+      <div class="min-w-full flex flex-col items-center">
+        <img src="assets/kmeans8.png" alt="K-Means Clustering with k=8" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+        <p class="text-sm text-gray-400 italic">K = 8: Over-segmentation, less interpretability</p>
+      </div>
+      <div class="min-w-full flex flex-col items-center">
+        <img src="assets/kmeans9.png" alt="K-Means Clustering with k=9" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+        <p class="text-sm text-gray-400 italic">K = 9: Similar to k=8, less compact clusters</p>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button onclick="moveSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-gray-700 text-white rounded-full w-10 h-10 flex items-center justify-center z-10">
+      &#8592;
+    </button>
+    <button onclick="moveSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-800 hover:bg-gray-700 text-white rounded-full w-10 h-10 flex items-center justify-center z-10">
+      &#8594;
+    </button>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  function moveSlide(direction) {
+    const container = document.getElementById("carousel-images");
+    const totalSlides = container.children.length;
+    currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+</script>
+
+<!-- K-Means Clustering Analysis Summary -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">K-Means Clustering Analysis</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="space-y-6 text-gray-300 text-lg leading-relaxed text-justify">
+    <div>
+      <h3 class="text-white font-semibold text-xl mb-2">1. K-Means with k = 2</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>The dataset is split into two broad groups.</li>
+        <li>The clusters show some overlap, suggesting a binary split may not fully capture complexity.</li>
+        <li>Silhouette Score indicates k=2 is optimal, though potential subclusters exist.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-white font-semibold text-xl mb-2">2. K-Means with k = 9</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>More distinct groups are formed, capturing finer data variations.</li>
+        <li>Some clusters are closely packed, risking overfitting with unnecessary complexity.</li>
+        <li>Centroids are well-spread, aiming for balanced group division.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-white font-semibold text-xl mb-2">3. K-Means with k = 8</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Similar structure to k=9 but with slightly larger clusters.</li>
+        <li>Some clusters appear redundant or overlapping.</li>
+        <li>Higher k may reduce interpretability due to dense overlaps.</li>
+      </ul>
+    </div>
+
+    <div class="mt-8">
+      <h3 class="text-white font-semibold text-xl mb-2">Why k = 2 is the Best Choice?</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li><span class="text-blue-400 font-medium">Most Distinct Separation:</span> Simplifies the data into two broad groups.</li>
+        <li><span class="text-blue-400 font-medium">Highest Silhouette Score:</span> Indicates optimal clustering structure.</li>
+        <li><span class="text-blue-400 font-medium">Prevents Over-Segmentation:</span> Avoids unnecessary and noisy clusters.</li>
+        <li><span class="text-blue-400 font-medium">Efficient and Practical:</span> Eases interpretation and downstream analysis.</li>
+      </ul>
+    </div>
+
+    <div class="mt-8">
+      <h3 class="text-white font-semibold text-xl mb-2">Why k = 8 and k = 9 are Less Favorable?</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Clusters become too fragmented and hard to interpret.</li>
+        <li>Overlapping clusters reduce meaningful separation.</li>
+        <li>Insights do not improve significantly—added complexity with minimal gain.</li>
+      </ul>
+    </div>
+
+    <p class="mt-6">
+      <span class="text-blue-400 font-medium">Conclusion:</span> K=2 offers the best balance of clarity and statistical strength. It aligns with the silhouette analysis and provides a practical segmentation of the customer data.
+    </p>
+  </div>
+</div>
+
+<!-- K-Means Clustering (k=2) Conclusion -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION: K-Means Clustering (k = 2)</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="flex justify-center mb-6">
+    <img src="assets/kmeansc2.png" alt="K-Means Clustering Result with k=2" class="rounded-lg w-full max-w-2xl border border-gray-700 shadow-md" />
+  </div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The K-Means clustering (k=2) effectively divided the dataset into two distinct groups, revealing natural patterns within the data. The centroids (black markers) represent the center of each cluster, showing the average characteristics of each group. The visualization highlights a clear segmentation, indicating that the dataset has inherent structure that can be leveraged for strategic decision-making. The overlap in some areas suggests that while the clusters are distinct, there may be some similarity between certain data points.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This segmentation provides valuable insights for customer profiling and targeted marketing. If one cluster represents high-engagement customers, personalized campaigns can be tailored to maximize conversion rates. Meanwhile, the other cluster might indicate low-engagement customers, requiring different outreach strategies. This analysis confirms that K-Means is an effective technique for understanding customer behavior, enabling businesses to optimize resource allocation and enhance decision-making.
+  </p>
+</div>
+
+</div>
+
+<!-- Hierarchical Clustering Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">HIERARCHICAL CLUSTERING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="space-y-6 text-gray-300 text-lg leading-relaxed text-justify">
+    <div>
+      <h3 class="text-white font-semibold text-xl mb-2">Two distance metrics were explored:</h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li><span class="text-blue-400 font-medium">Euclidean Distance (Ward’s Method):</span> Groups points based on magnitude while minimizing intra-cluster variance.</li>
+        <li><span class="text-blue-400 font-medium">Cosine Distance:</span> Clusters points based on the angle between vectors, focusing on pattern similarity rather than size. This provides a different perspective on the data, often useful when dealing with high-dimensional or behaviorally similar data.</li>
+      </ul>
+    </div>
+
+    <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Dendrogram Using Euclidean Distance</h2>
+  <hr class="border-gray-700 mb-6" />
+      <p>
+        Hierarchical clustering was applied using Ward's method, which minimizes variance within clusters. The dendrogram visualization helps determine the optimal number of clusters by identifying natural splits in the data. The structure suggests hat two main clusters can be formed, aligning with the K-Means results. Compared to K-Means, hierarchical clustering provides a more interpretable, tree-like structure, making it useful for understanding relationships between data points.
+      </p>
+      <p class="mt-3">
+        The Hierarchical Clustering Dendrogram, generated using Ward’s method, illustrates how data points are hierarchically merged into clusters. The clear separation at higher distances suggests that two main clusters naturally emerge, reinforcing findings from K-Means clustering. Unlike K-Means, this method does not require a predefined number of clusters, making it valuable for exploratory analysis and understanding the dataset's structure. 
+      </p>
+      <p class="mt-3">
+        The dendrogram represents how data points are iteratively merged into clusters based on their similarity. The y-axis (Euclidean Distance) shows the linkage distance at which clusters are combined.
+        </p>
+          <div class="flex justify-center mt-8">
+      <img src="assets/wards.png" alt="Hierarchical Clustering Dendrogram" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+    </div>
+  <p>To avoid an overcrowded and unreadable dendrogram, a random subset of 100 data points was selected from the full dataset. This allows for clearer visualization of the hierarchical clustering structure without compromising interpretability. Sampling ensures that the dendrogram remains meaningful and visually clean while still capturing the general clustering patterns in the data.</p>
+    <div class="flex justify-center mt-8">
+      <img src="assets/euclidean_dendogram.png" alt="Hierarchical Clustering Dendrogram" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+    </div>
+
+    <!-- Key Observations Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Key Observations</h2>
+  <hr class="border-gray-700 mb-6" />
+  
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>
+      <span class="text-blue-400 font-medium">Two main clusters emerge:</span>
+      The large vertical jumps in the dendrogram suggest that splitting the data at this level would result in two distinct groups. This aligns with the K-Means (k=2) results, reinforcing that the dataset naturally separates into two main clusters.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Shorter branches at the bottom:</span>
+      Represent data points that are very similar and were merged earlier in the process.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Larger vertical distances between merges:</span>
+      Indicate less similar groups being combined, meaning the dataset has some structure but is not highly segmented.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Sampling 100 points:</span>
+      Helped simplify the plot and made the cluster structure easier to interpret.
+    </li>
+  </ul>
+</div>
+</div>
+    </div>
+
+<!-- Dendrogram Using Cosine Distance Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Dendrogram Using Cosine Distance</h2>
+  <hr class="border-gray-700 mb-6" />
+
+      <div class="flex justify-center mt-8">
+      <img src="assets/cosine_dendogram.png" alt="Hierarchical Clustering Dendrogram" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
+    </div>
+  
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The dendrogram above illustrates the results of hierarchical clustering using 
+    <span class="text-blue-400 font-medium">cosine distance</span> as the similarity measure and 
+    <span class="text-blue-400 font-medium">average linkage</span> as the clustering method. 
+    Unlike Euclidean distance, which considers the absolute difference between points, 
+    cosine distance measures the angle between vectors, focusing on their direction rather than magnitude.
+  </p>
+  
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-4">
+    This is particularly useful when working with high-dimensional or normalized data, 
+    where the <span class="text-blue-400 font-medium">pattern of attributes</span> 
+    matters more than their actual values.
+  </p>
+</div>
+
+<!-- Cosine Distance Key Observations Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Key Observations</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc pl-6 space-y-3 text-gray-300 text-lg leading-relaxed">
+    <li>
+      The <span class="text-blue-400 font-medium">y-axis</span> represents cosine distance, 
+      ranging from <span class="text-blue-400 font-medium">0 (perfect similarity)</span> 
+      to <span class="text-blue-400 font-medium">1 (complete dissimilarity)</span>, 
+      with cluster merges shown as vertical lines.
+    </li>
+    <li>
+      Several clusters form at <span class="text-blue-400 font-medium">low cosine distances</span>, 
+      indicating tightly grouped, directionally similar data points.
+    </li>
+    <li>
+      Higher in the dendrogram, a <span class="text-blue-400 font-medium">significant merge</span> 
+      occurs, suggesting a natural split between two major clusters, 
+      similar to the result from the Euclidean-based dendrogram and K-Means with <span class="text-blue-400 font-medium">k = 2</span>.
+    </li>
+    <li>
+      The structure indicates that <span class="text-blue-400 font-medium">cosine similarity</span> 
+      captures meaningful relationships in the data, 
+      validating clustering results from a different perspective.
+    </li>
+  </ul>
+</div>
+
+<!-- Why Use Cosine Distance Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Why Use Cosine Distance?</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc pl-6 space-y-3 text-gray-300 text-lg leading-relaxed">
+    <li>
+      <span class="text-blue-400 font-medium">It is scale-invariant:</span> clustering is based on vector orientation rather than length.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Ideal for sparse or behavioral datasets</span> (e.g., text, customer interactions) where the shape of data matters more than size.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Offers a complementary view</span> to Euclidean-based clustering, strengthening the interpretability of results.
+    </li>
+  </ul>
+</div>
+
+
+<!-- Comparison of Dendrogram vs. K-Means Results Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Comparison of Dendrogram (Hierarchical Clustering) vs. K-Means Results</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="text-gray-300 text-lg leading-relaxed space-y-6">
+    <div>
+      <p class="text-blue-400 font-semibold">Similar Findings: k=2 is the Best Choice</p>
+      <p>The dendrogram suggests two natural clusters, as seen in the large vertical jump in the hierarchy.</p>
+      <p>This supports the K-Means result where k=2 was found to have the highest Silhouette Score, indicating well-separated clusters.</p>
+      <p>Both methods agree that the dataset is best segmented into two main groups.</p>
+    </div>
+
+    <div>
+      <p class="text-blue-400 font-semibold">Key Differences Between K-Means and Hierarchical Clustering</p>
+      <ul class="list-decimal pl-6 space-y-4">
+        <li>
+          <span class="text-blue-300 font-medium">Number of Clusters</span><br />
+          <b>K-Means:</b> Requires specifying the number of clusters (k) in advance.<br />
+          <b>Hierarchical Clustering:</b> Automatically forms a tree structure (dendrogram) where the number of clusters can be determined by cutting at a certain level.
+        </li>
+        <li>
+          <span class="text-blue-300 font-medium">Cluster Formation</span><br />
+          <b>K-Means:</b> Assigns each point to the closest centroid, forming compact, spherical clusters.<br />
+          <b>Hierarchical Clustering:</b> Merges similar points step by step, creating a hierarchy of clusters.
+        </li>
+        <li>
+          <span class="text-blue-300 font-medium">Visualization</span><br />
+          <b>K-Means:</b> Uses scatter plots to show cluster assignments and centroids.<br />
+          <b>Hierarchical Clustering:</b> Uses a dendrogram to illustrate how clusters are merged at different distances.
+        </li>
+        <li>
+          <span class="text-blue-300 font-medium">Flexibility</span><br />
+          <b>K-Means:</b> Fixed number of clusters; changes require re-running the algorithm.<br />
+          <b>Hierarchical Clustering:</b> Allows exploration of different cluster levels without re-running the algorithm.
+        </li>
+        <li>
+          <span class="text-blue-300 font-medium">Efficiency</span><br />
+          <b>K-Means:</b> Faster and more scalable for large datasets.<br />
+          <b>Hierarchical Clustering:</b> Computationally expensive for large datasets due to merging steps.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+
+
+
+
+
+</body>
+</html>
