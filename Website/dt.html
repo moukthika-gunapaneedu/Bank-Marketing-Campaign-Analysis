@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- MathJax CDN -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>DECISION TREES</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Decision Tree Overview Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERVIEW</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">What is a Decision Tree?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    A Decision Tree is a simple yet powerful machine learning algorithm used for both classification and regression tasks. It models decisions using a tree-like structure where each internal node represents a question or condition on a feature, each branch represents an outcome of that condition, and each leaf node represents a final prediction. The model learns by splitting the data based on the feature that best separates the classes, making it easy to interpret and visualize how predictions are made. Decision Trees are known for their transparency, speed, and ability to handle both numerical and categorical data.
+  </p>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">How does a Decision Tree work?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The Decision Tree algorithm works like a series of yes/no questions that help make predictions. Imagine trying to decide whether a customer will subscribe to a term deposit. Instead of guessing, the algorithm creates a “tree” where each question narrows down the possibilities. These questions are based on patterns found in the data, such as whether the customer was contacted in a certain month or how they responded to a previous campaign.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Training the model means feeding it past data so it can learn which questions to ask and in what order. The algorithm looks through all the available information and finds the features that do the best job of separating customers who said "yes" from those who said "no." At each step, it picks the most useful question, splits the data accordingly, and continues doing this until it reaches a decision. The final outcome appears at the bottom of the tree, known as the “leaf,” where the model makes its prediction.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Once trained, the tree can take in new customer information and follow the same path of questions to reach a prediction. For example, if a new customer was contacted in August, had no housing loan, and responded positively in the past, the tree might follow those branches and conclude that this customer is likely to subscribe. This makes the prediction process fast, transparent, and easy to understand.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    What makes Decision Trees especially useful is their ability to show how a decision is made. Each branch of the tree tells a story of why a certain outcome was predicted. This makes the model not just accurate but also explainable—an important feature when decisions affect real people, like in banking or marketing campaigns.
+  </p>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Structure of a Decision Tree</h3>
+    <div class="flex justify-center my-8">
+    <img src="assets/DT1.png" alt="DECISION TREES" class="rounded-lg shadow-md w-[90%] max-w-xl border border-gray-700" />
+  </div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    This image visually explains the basic structure of a Decision Tree. At the top is the Root Node, which represents the first decision the model makes based on a feature. It branches into Internal Nodes, each representing further decision points based on different feature values. These eventually lead to Leaf Nodes, which are the final outputs or predictions made by the model. Leaf nodes are not split any further and usually represent class labels (e.g., "yes" or "no"). This hierarchical structure reflects how a Decision Tree breaks down complex decisions into a series of simpler, interpretable rules.
+  </p>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">What Are Decision Trees Used For?</h3>
+        <div class="flex justify-center my-8">
+    <img src="assets/DT2.png" alt="DECISION TREES" class="rounded-lg shadow-md w-[90%] max-w-xl border border-gray-700" />
+  </div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Decision Trees are widely used in real-world applications where interpretability and decision logic matter. Common use cases include:
+  </p>
+  <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg leading-relaxed mb-6">
+    <li>Customer segmentation – identifying which customers are more likely to respond to a campaign.</li>
+    <li>Credit scoring and risk analysis – evaluating loan or credit risk based on customer profiles.</li>
+    <li>Medical diagnosis – helping to identify conditions based on symptoms and test results.</li>
+    <li>Marketing strategy – understanding what factors influence customer decisions.</li>
+  </ul>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- Infinite Trees Explanation Section -->
+ <h3 class="text-2xl font-semibold text-white mb-2">Why It’s Possible to Create an Infinite Number of Trees?</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    In theory, it is possible to construct an infinite number of different Decision Trees for a dataset—especially if we allow:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-6">
+    <li>Very small splits on continuous features</li>
+    <li>Random variations in how splits are selected</li>
+    <li>Overfitting with deep trees that memorize the training data</li>
+    <li>Variants like randomized trees (used in Random Forests)</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This flexibility is powerful, but it also makes Decision Trees prone to overfitting. That’s why techniques like 
+    <span class="text-white font-semibold">pruning</span>, 
+    <span class="text-white font-semibold">depth limiting</span>, and 
+    <span class="text-white font-semibold">ensemble methods</span> (e.g., Random Forests) are commonly used to help trees generalize better to unseen data.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In this project, Decision Trees were used to uncover the most important factors influencing a customer’s likelihood to subscribe to a term deposit, offering both predictions and actionable insights.
+  </p>
+
+<div class="bg-white border-l-4 border-blue-600 shadow-lg rounded-2xl p-6 my-6">
+  <h2 class="text-2xl font-bold text-blue-700 mb-4">Information Gain Example</h2>
+
+  <p class="text-justify text-gray-800 mb-4">
+    Imagine a dataset of 10 customers:
+  </p>
+  <ul class="list-disc list-inside text-gray-700 mb-4">
+    <li>6 did not subscribe (<code>"no"</code>), and 4 did subscribe (<code>"yes"</code>).</li>
+    <li>The target variable is binary: yes/no.</li>
+  </ul>
+
+  <h3 class="font-semibold text-blue-600 mb-2">Step 1: Calculate Entropy Before Split</h3>
+  <p class="text-gray-800 mb-2">
+    \[
+    \text{Entropy(parent)} = -\left( \frac{6}{10} \log_2 \frac{6}{10} + \frac{4}{10} \log_2 \frac{4}{10} \right) \approx 0.97
+    \]
+  </p>
+
+  <h3 class="font-semibold text-blue-600 mb-2 mt-4">Step 2: Split Based on Feature (e.g., Contact Month = March)</h3>
+  <ul class="list-disc list-inside text-gray-700 mb-2">
+    <li>March group: 4 samples → 3 yes, 1 no → Entropy ≈ 0.81</li>
+    <li>Not March group: 6 samples → 1 yes, 5 no → Entropy ≈ 0.65</li>
+  </ul>
+
+  <h3 class="font-semibold text-blue-600 mb-2 mt-4">Step 3: Calculate Weighted Entropy After Split</h3>
+  <p class="text-gray-800 mb-2">
+    \[
+    \text{Weighted Entropy} = \left( \frac{4}{10} \cdot 0.81 \right) + \left( \frac{6}{10} \cdot 0.65 \right) = 0.715
+    \]
+  </p>
+
+  <h3 class="font-semibold text-blue-600 mb-2 mt-4">Step 4: Information Gain</h3>
+  <p class="text-gray-800 mb-2">
+    \[
+    \text{Information Gain} = 0.97 - 0.715 = 0.255
+    \]
+  </p>
+  <p class="text-sm text-gray-600 italic">
+    Splitting on <code>Contact Month = March</code> results in a 25.5% reduction in uncertainty, making it a strong candidate for the root or next node.
+  </p>
+
+  <div class="mt-4 border-t border-gray-200 pt-4">
+    <h4 class="font-bold text-blue-700 mb-2">Takeaways:</h4>
+    <ul class="list-disc list-inside text-gray-700">
+      <li>Gini is faster to compute and used by default in many libraries.</li>
+      <li>Entropy offers a more information-theoretic view ideal for clarity.</li>
+      <li>Information Gain helps select the best feature to split, maximizing separation.</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Code/Moukthika_Gunapaneedu_DT.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF DECISION TREES
+  </a>
+</div>
+
+<!-- Data Preparation Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR DECISION TREES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR DECISION TREES
+  </a>
+</div>
+
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-4">
+    The dataset used in this project originates from a cleaned version of a Portuguese bank marketing campaign. To prepare the data for machine learning:
+  </p>
+
+  <ul class="list-disc list-inside text-justify text-gray-300 text-lg leading-relaxed mb-6">
+    <li>The <span class="text-white font-semibold">duration</span> column was removed, as it directly reveals whether a customer subscribed, making it unsuitable for predictive modeling.</li>
+    <li>All categorical variables were encoded using <span class="text-white font-semibold">Label Encoding</span>, converting string labels into numeric values. This step is essential for compatibility with scikit-learn models like Decision Trees.</li>
+    <li>The final dataset contained only numeric values, allowing for efficient training and evaluation.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This preprocessing step ensured the dataset was clean, consistent, and fully compatible with supervised learning models.
+  </p>
+</div>
+
+<!-- Train-Test Split Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-12">
+  <h2 class="text-3xl font-bold text-white mb-4">TRAIN–TEST SPLIT</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    To evaluate model performance fairly, the data was split into two disjoint sets:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">Training Set:</span> 80% of the data used to train the model.</li>
+    <li><span class="text-white font-semibold">Testing Set:</span> 20% reserved exclusively for evaluating model performance.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    This separation is crucial to avoid data leakage and to ensure that the model is assessed on unseen data, providing a reliable estimate of how well it will generalize in real-world scenarios.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Why They Must Be Disjoint?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Using the same data for both training and testing would lead to <span class="text-white font-semibold">data leakage</span>, causing the model to "memorize" answers and artificially inflate performance. Disjoint datasets simulate real-world scenarios by testing how well the model performs on unseen customers, which is critical for determining how it would behave in actual deployment.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-4">
+    This separation guarantees that performance metrics like <span class="text-white font-semibold">accuracy, precision, and recall</span> are trustworthy and reflect the model’s ability to generalize.
+  </p>
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_dt.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET AFTER PREPARING FOR DECISION TREES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Decision%20Tree/prepared_data_dt.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER PREPARING FOR DECISION TREES
+  </a>
+</div>
+
+</div>
+
+
+<!-- Model Training Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">MODEL TRAINING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Three Decision Tree classifiers were trained using different configurations to compare performance and behavior:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-6 space-y-4">
+    <li>
+      <span class="text-white font-semibold">Decision Tree 1 (Default Settings)</span><br>
+      No restrictions on depth or features.<br>
+      Captures complex patterns but may overfit if not pruned.<br>
+      Visualized up to depth 3 for interpretability.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Decision Tree 2 (max_features='sqrt')</span><br>
+      Restricts the number of features considered at each split.<br>
+      Useful for reducing complexity and improving generalization.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Decision Tree 3 (max_depth=3, criterion='entropy')</span><br>
+      Limits the tree’s depth to avoid overfitting.<br>
+      Uses entropy (information gain) to choose the best splits, promoting pure branches.<br>
+      More interpretable and balanced.
+    </li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Each tree was visualized to demonstrate how decisions are made based on customer attributes, such as job type, marital status, and previous campaign outcomes. These visualizations make it easier to understand the logic behind each prediction, which is especially valuable for business stakeholders seeking transparency in automated decision-making.
+  </p>
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/dt1.png" alt="DECISION TREE 1" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://drive.google.com/file/d/10hpOr2dS1RnDa-aB9xvOD41LD1TnoVvR/view" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE FOR A CLEAR IMAGE OF DECISION TREE 1
+  </a>
+</div>
+
+<p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-6">
+    The image above displays the structure of a Decision Tree trained with default parameters, visualized up to a depth of 3 for clarity.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    At the top is the root node, which splits the dataset based on the feature <span class="text-white font-semibold">poutcome</span> (previous campaign outcome). This indicates that whether or not a previous campaign was successful plays a significant role in predicting future subscription behavior.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    From there, the tree branches out based on features such as:
+  </p>
+
+  <ul class="list-disc list-inside space-y-3 text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">Month and age</span>, which influence seasonal behavior and age-based patterns.</li>
+    <li><span class="text-white font-semibold">Contact type and housing loan status</span>, offering insights into communication preferences and financial commitments.</li>
+    <li><span class="text-white font-semibold">pdays</span> (days since last contact), which appears frequently—suggesting that the recency of contact strongly affects the likelihood of subscription.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Each node contains:
+  </p>
+
+  <ul class="list-disc list-inside space-y-3 text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">The splitting condition</span> (e.g., <code>pdays &le; 217.5</code>)</li>
+    <li><span class="text-white font-semibold">The Gini impurity</span>, which reflects how mixed the classes are at that node</li>
+    <li><span class="text-white font-semibold">The number of samples</span> reaching that node</li>
+    <li><span class="text-white font-semibold">The value counts</span> for each class ([no, yes])</li>
+    <li><span class="text-white font-semibold">The predicted class</span> based on majority vote</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This tree shows a combination of business logic (e.g., recent follow-up, age groups) and campaign history as influential factors, and serves as a highly interpretable way to understand model decisions.
+  </p>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/dt2.png" alt="DECISION TREE 2" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://drive.google.com/file/d/10hpOr2dS1RnDa-aB9xvOD41LD1TnoVvR/view" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE FOR A CLEAR IMAGE OF DECISION TREE 2
+  </a>
+</div>
+
+ <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-6">
+    This tree was trained by limiting the number of features considered at each split using the square root of total features. This technique is often used to reduce overfitting and increase diversity in ensemble methods like Random Forests.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    In this visualization:
+  </p>
+
+  <ul class="list-disc list-inside space-y-3 text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">The tree begins by splitting on the feature <code>previous</code></span>, representing the number of times a client was contacted before. This suggests that past engagement history influences subscription behavior.</li>
+    <li><span class="text-white font-semibold">The next layers focus on features like <code>balance</code>, <code>marital</code> status, and <code>month</code></span>, which relate to a client’s financial condition, social status, and timing of contact.</li>
+    <li><span class="text-white font-semibold">Even with a restricted feature set at each node</span>, the model still builds meaningful rules and maintains strong interpretability.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This tree helps emphasize which limited combinations of attributes can still yield reasonably good predictions, making it efficient and less prone to noise.
+  </p>
+
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/dt3.png" alt="DECISION TREE 3" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://drive.google.com/file/d/1KkIyBK_w1Wa1Gx1aS1sjkdirbbe7VzYV/view" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE FOR A CLEAR IMAGE OF DECISION TREE 3
+  </a>
+</div>
+
+ <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-6">
+    This model is trained with two constraints:
+  </p>
+
+  <ul class="list-disc list-inside space-y-3 text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">Maximum Depth = 3</span>, limiting the tree to 3 levels for simplicity.</li>
+    <li><span class="text-white font-semibold">Splitting Criterion = Entropy</span>, which uses Information Gain to choose the best features.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Despite being shallow, the model captures key decision-making paths:
+  </p>
+
+  <ul class="list-disc list-inside space-y-3 text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">The root node splits on <code>poutcome</code></span>, again reinforcing the importance of previous campaign success.</li>
+    <li><span class="text-white font-semibold">One side of the tree explores <code>contact</code> type and <code>month</code></span>, indicating that how and when a client was contacted significantly affects outcomes.</li>
+    <li><span class="text-white font-semibold">The other side evaluates <code>housing</code> loan status and <code>pdays</code></span>, reflecting the client’s current commitments and timing since last contact.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    By prioritizing purity of splits using entropy, this tree ensures each decision brings maximum clarity. Its limited depth also makes it ideal for business presentations and quick interpretation.
+  </p>
+</div>
+
+<!-- Model Performance Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">MODEL PERFORMANCE COMPARISON</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The confusion matrices below display the performance of all three Decision Tree models on the test data. Each matrix shows how many predictions the model got right and where it made errors, helping to visually compare their effectiveness.
+  </p>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/dt_cm.png" alt="DECISION TREE CONFUSION MATRICES" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Tree 1 (Default Settings)</h3>
+  <ul class="list-disc list-inside space-y-2 text-gray-300 text-justify text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">Accuracy:</span> 82.6%</li>
+    <li><span class="text-white font-semibold">True Positives (Yes predicted as Yes):</span> 346</li>
+    <li>While it offers decent overall accuracy, it has a higher false positive and false negative count, meaning it’s less reliable in identifying true subscribers.</li>
+  </ul>
+
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Tree 2 (max_features='sqrt')</h3>
+  <ul class="list-disc list-inside space-y-2 text-justify text-gray-300 text-lg leading-relaxed mb-6">
+    <li><span class="text-white font-semibold">Accuracy:</span> 83.3%</li>
+    <li>Slight improvement over Tree 1 with better true negative identification, but still struggles to accurately capture the "yes" class.</li>
+    <li>A good balance between generalization and complexity.</li>
+  </ul>
+
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Tree 3 (max_depth=3, criterion='entropy')</h3>
+  <ul class="list-disc list-inside space-y-2 text-justify text-gray-300 text-lg leading-relaxed">
+    <li><span class="text-white font-semibold">Accuracy:</span> 89.1%</li>
+    <li><span class="text-white font-semibold">True Positives (Yes predicted as Yes):</span> 197</li>
+    <li>Highest accuracy among the three, with very few false positives but at the cost of many missed "yes" predictions.</li>
+    <li>Prioritizes certainty and precision over recall—ideal for applications where false positives are more costly than false negatives.</li>
+  </ul>
+</div>
+
+<!-- Feature Importance Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">FEATURE IMPORTANCE</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Understanding which features contributed the most to model decisions is key for making data-driven business strategies:
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li>
+      <span class="font-semibold text-white">Tree 1 and Tree 2:</span> Emphasized <span class="text-white">balance</span>, <span class="text-white">age</span>, and <span class="text-white">day_of_week</span>, showing that financial health and contact timing are central to predicting subscription outcomes.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Tree 3:</span> Focused heavily on <span class="text-white">poutcome</span> (previous campaign result), <span class="text-white">contact type</span>, and <span class="text-white">month</span>—prioritizing historical responsiveness and communication context over demographics.
+    </li>
+    <li>
+      Across all trees, features like <span class="text-white">default</span>, <span class="text-white">loan</span>, and <span class="text-white">marital status</span> had minimal influence, suggesting they may be less predictive in this campaign dataset.
+    </li>
+    <li>
+      These insights are not just algorithmic—they guide practical targeting: re-engaging previously successful contacts, optimizing the <span class="text-white">month</span> of outreach, and using the right <span class="text-white">channel</span> can substantially lift campaign success rates.
+    </li>
+  </ul>
+
+  
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/feature_imp1.png" alt="DECISION TREE FEATURE IMPORTANCE" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<h4 class="text-3xl font-bold text-white mb-4">FEATURE IMPORTANCE – TREE 1 (DEFAULT SETTINGS)</h4>
+  <hr class="border-gray-700 mb-6" />
+<p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The feature importance chart for Tree 1 reveals which variables the default decision tree relied on most:
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li>
+      <span class="text-white font-semibold">balance</span> emerged as the most influential predictor, indicating that clients with higher average yearly balances were more likely to subscribe.
+    </li>
+    <li>
+      <span class="text-white font-semibold">age</span> and <span class="text-white font-semibold">day_of_week</span> also held notable weight, suggesting behavioral patterns based on demographics and timing.
+    </li>
+    <li>
+      Other features such as <span class="text-white font-semibold">poutcome</span>, <span class="text-white font-semibold">month</span>, and <span class="text-white font-semibold">job</span> played supporting roles, showing some alignment with trends seen in other trees.
+    </li>
+    <li>
+      Interestingly, <span class="text-white font-semibold">contact</span> and <span class="text-white font-semibold">housing</span> were not major contributors here—unlike Tree 3—highlighting that the default tree distributes importance across more variables due to deeper splits and no constraints.
+    </li>
+    <li>
+      This tree captures a broader pattern by integrating both behavioral and demographic features, though it risks overfitting without a pruning strategy.
+    </li>
+  </ul>
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/feature_imp2.png" alt="DECISION TREE FEATURE IMPORTANCE" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<h4 class="text-3xl font-bold text-white mb-4">FEATURE IMPORTANCE – TREE 2 (max_features='sqrt')</h4>
+  <hr class="border-gray-700 mb-6" />
+
+   <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Tree 2’s feature importance plot, generated with limited feature sampling, highlights a slightly different hierarchy:
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li>
+      <span class="text-white font-semibold">balance</span>, <span class="text-white font-semibold">age</span>, and <span class="text-white font-semibold">day_of_week</span> dominated the model, showing that financial stability and timing were primary cues even under limited feature consideration.
+    </li>
+    <li>
+      Features like <span class="text-white font-semibold">job</span>, <span class="text-white font-semibold">month</span>, and <span class="text-white font-semibold">campaign</span> also contributed significantly, pointing to insights into employment type and timing of interactions.
+    </li>
+    <li>
+      Notably, <span class="text-white font-semibold">poutcome</span>, though important in other models, played a relatively smaller role here. This could be attributed to it being less frequently selected under the square root feature restriction.
+    </li>
+    <li>
+      Tree 2 shows how adjusting feature availability can shift model focus and may help prevent overfitting while maintaining competitive performance.
+    </li>
+  </ul>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/feature_imp3.png" alt="DECISION TREE FEATURE IMPORTANCE" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+
+<h4 class="text-3xl font-bold text-white mb-4">FEATURE IMPORTANCE – TREE 3 (max_depth=3, criterion='entropy')</h4>
+  <hr class="border-gray-700 mb-6" />
+<p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The bar chart above shows the relative importance of each feature used in Decision Tree 3, which was trained using a maximum depth of 3 and entropy as the splitting criterion.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-white mb-4">Top Influential Features:</h3>
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li>
+      <span class="text-white font-semibold">poutcome (Previous Campaign Outcome)</span> – This was by far the most important feature, accounting for over 60% of the model's decision power. It suggests that a customer's prior response history is the strongest indicator of future subscription.
+    </li>
+    <li>
+      <span class="text-white font-semibold">contact (Type of Contact)</span> – Contributed over 20% to decision-making. The method of communication—whether cell phone or telephone—significantly influences the likelihood of a positive outcome.
+    </li>
+    <li>
+      <span class="text-white font-semibold">month (Month of Contact)</span> – Played a moderate role. Certain months may align with seasonal trends or campaign timing that affect customer responsiveness.
+    </li>
+    <li>
+      <span class="text-white font-semibold">housing</span> and <span class="text-white font-semibold">pdays</span> – Although their importance was smaller, these features still influenced splits. They reflect whether the client has a housing loan and how recently they were contacted, both of which relate to financial readiness and timing.
+    </li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mb-4">Less Influential Features:</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Attributes like <span class="text-white font-semibold">job</span>, <span class="text-white font-semibold">education</span>, <span class="text-white font-semibold">loan</span>, <span class="text-white font-semibold">marital status</span>, and <span class="text-white font-semibold">balance</span> contributed very little to Tree 3’s decisions—likely due to either strong correlation with more dominant features or limited influence under a constrained tree depth.
+  </p>
+</div>
+
+<!-- ROC Curve Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h4 class="text-3xl font-bold text-white mb-4">ROC CURVE COMPARISON</h4>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The Receiver Operating Characteristic (ROC) curve is a graphical representation of a model’s ability to distinguish between classes. The Area Under the Curve (AUC) gives a single value summary of this ability:
+  </p>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify mb-6 space-y-2">
+    <li><span class="text-white font-semibold">AUC = 1</span> means perfect classification.</li>
+    <li><span class="text-white font-semibold">AUC = 0.5</span> suggests random guessing.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Although all models perform above chance, Tree 3 stands out in ROC-AUC performance, reflecting a stronger trade-off between true positive rate and false positive rate. It’s especially useful when correctly identifying the "yes" class (subscribers) is important—even at the cost of missing a few non-subscribers.
+  </p>
+
+  <!-- Tree 1 -->
+  <div class="max-w-96 mx-auto my-10">
+    <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+      <img src="assets/dt_roc1.png" alt="Decision Tree ROC 1" class="rounded-md w-full object-contain">
+      <figcaption class="text-gray-400 text-center mt-4 text-lg">Tree 1 – AUC: 0.61<br>Slightly better than random. Indicates that the default tree has limited ability to separate the "yes" class from the "no" class.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Tree 2 -->
+  <div class="max-w-96 mx-auto my-10">
+    <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+      <img src="assets/dt_roc2.png" alt="Decision Tree ROC 2" class="rounded-md w-full object-contain">
+      <figcaption class="text-gray-400 text-center mt-4 text-lg">Tree 2 – AUC: 0.60<br>Almost identical to Tree 1. Shows that while the structure differs (due to <code>max_features='sqrt'</code>), discriminative power remains modest.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Tree 3 -->
+  <div class="max-w-96 mx-auto my-10">
+    <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+      <img src="assets/dt_roc3.png" alt="Decision Tree ROC 3" class="rounded-md w-full object-contain">
+      <figcaption class="text-gray-400 text-center mt-4 text-lg">Tree 3 – AUC: 0.68<br>The best ROC performance of all three trees. Suggests that constraining depth and using entropy as the splitting criterion improved the model’s ability to capture relevant patterns and reduce overfitting.</figcaption>
+    </figure>
+  </div>
+</div>
+
+
+<!-- Accuracy Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h4 class="text-3xl font-bold text-white mb-4">ACCURACY COMPARISON OF DECISION TREE MODELS</h4>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The bar chart below presents a side-by-side comparison of accuracy scores for three Decision Tree models trained on the marketing campaign dataset.
+  </p>
+
+  <div class="max-w-2xl mx-auto my-8">
+    <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+      <img src="assets/comparisionDT.png" alt="Accuracy Comparison of Decision Tree Models" class="rounded-md w-[500px] mx-auto object-contain">
+      <figcaption class="mt-4 text-center text-gray-400 text-sm italic">
+        Tree 1 (Default) vs Tree 2 (max_features='sqrt') vs Tree 3 (max_depth=3, entropy)
+      </figcaption>
+    </figure>
+  </div>
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Tree 1 – Default Parameters</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <span class="text-white font-semibold">Accuracy: 82.65%</span><br />
+    A baseline tree that evaluates all features without restrictions. While simple, it offers decent predictive power and a good starting point for comparison.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Tree 2 – <code>max_features='sqrt'</code></h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <span class="text-white font-semibold">Accuracy: 83.32%</span><br />
+    Slightly improves performance by limiting the number of features considered at each split. This adds randomness and reduces the risk of overfitting.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Tree 3 – <code>max_depth=3</code>, <code>criterion='entropy'</code></h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    <span class="text-white font-semibold">Accuracy: 89.07%</span><br />
+    The best-performing model. Limiting depth helps generalize better on unseen data, while using entropy ensures more informative splits. This balance between simplicity and precision allows Tree 3 to make the most accurate predictions.
+  </p>
+</div>
+
+<!-- Key Results & Conclusion Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">KEY RESULTS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-8 space-y-2">
+    <li><span class="text-white font-semibold">Tree 3</span> (<code>max_depth=3</code>, <code>criterion='entropy'</code>) delivered the best performance with an accuracy of <span class="text-white font-semibold">89.07%</span>, indicating strong generalization with minimal overfitting.</li>
+    <li><span class="text-white font-semibold">Tree 2</span> (<code>max_features='sqrt'</code>) achieved a moderate accuracy of <span class="text-white font-semibold">83.32%</span>, slightly outperforming Tree 1 by introducing controlled feature selection at each split.</li>
+    <li><span class="text-white font-semibold">Tree 1</span> (Default parameters) reached <span class="text-white font-semibold">82.65%</span> accuracy, serving as a reliable baseline for comparison.</li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mb-3">ROC Curve Analysis:</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-8 space-y-2">
+    <li><span class="text-white font-semibold">Tree 3</span> had the highest AUC score at <span class="text-white font-semibold">0.68</span>, showing better class separation than Tree 1 (0.61) and Tree 2 (0.60).</li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mb-3">Feature Importance:</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-8 space-y-2">
+    <li><span class="text-white font-semibold">Tree 3</span> prioritized <code>poutcome</code>, <code>contact</code>, and <code>month</code> as the most influential factors—indicating that previous campaign results and timing are critical.</li>
+    <li><span class="text-white font-semibold">Trees 1 and 2</span> ranked <code>balance</code>, <code>age</code>, and <code>day_of_week</code> highly, showing a shift in feature relevance based on model configuration.</li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mb-3">Confusion Matrix Observations:</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed mb-8 space-y-2">
+    <li><span class="text-white font-semibold">Tree 3</span> achieved the best balance between correctly identifying both "yes" and "no" classes.</li>
+    <li><span class="text-white font-semibold">Tree 1 and Tree 2</span> slightly favored the dominant "no" class, with higher false negatives.</li>
+  </ul>
+  </div>
+
+  <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The analysis helped uncover what truly influences a customer's decision to subscribe to a term deposit. One of the most important discoveries was the impact of previous campaign outcomes. Customers who had a positive experience or showed interest during earlier campaigns were much more likely to subscribe again. This shows that past behavior is a powerful indicator of future decisions and can help identify customers who are more open to offers.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Another valuable insight was the significance of when and how the customer was contacted. Certain months showed better results than others, and the method of contact—whether it was through a call or another channel—also made a difference. This suggests that timing and communication style are just as important as the message itself. These patterns can help tailor future campaigns by choosing the most effective times and channels to reach potential customers, ultimately leading to better responses.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Interestingly, the analysis showed that some commonly assumed important factors—like job title, marital status, or education level—played a much smaller role in predicting outcomes. This shifts the focus toward behavioral and engagement-based attributes rather than demographic profiles. It suggests that customers should not be grouped only by who they are, but more importantly by how they interact with the bank and how they’ve responded in the past.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In the end, the approach used in this project allowed for simple, easy-to-understand decision paths that explain exactly how a conclusion was reached. This makes the results not only accurate but also actionable. The findings can be used to design more focused and cost-effective campaigns by identifying the right people to contact and the best way to engage them. Overall, this approach supports smarter, more efficient decision-making in marketing without relying on overly complex or hidden methods.
+  </p>
+</div>
+
+
+</body>
+</html>

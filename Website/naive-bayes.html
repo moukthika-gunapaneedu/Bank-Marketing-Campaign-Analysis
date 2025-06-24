@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>NAIVE BAYES</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Naïve Bayes Overview Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERVIEW</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-white text-2xl font-semibold mb-3">What is Naïve Bayes?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Naïve Bayes is a supervised machine learning algorithm commonly used for classification tasks. It is based on Bayes’ Theorem, a fundamental rule in probability that describes how to update the probability of a hypothesis based on new evidence. The "naïve" aspect comes from the assumption that all features are independent of each other, which simplifies computation. Despite this assumption rarely holding true in real-world data, Naïve Bayes often delivers competitive performance.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Bayes' Theorem allows us to combine prior knowledge (<span class="text-blue-400">P(H)</span>) with new evidence (<span class="text-blue-400">P(E|H)</span>) to make predictions. In classification, this means estimating which class label is most likely given the features of a data point. Naïve Bayes applies this by assuming feature independence and using it to efficiently compute these probabilities even in high-dimensional datasets.
+  </p>
+
+  <!-- Bayes Theorem Image -->
+  <div class="flex justify-center my-8">
+    <img src="assets/bayes.png" alt="Bayes Theorem Breakdown" class="rounded-lg shadow-md w-[90%] max-w-xl border border-gray-700" />
+  </div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The image above illustrates Bayes’ Theorem, which is the foundational concept behind the Naïve Bayes algorithm. It provides a mathematical framework to calculate the probability of a hypothesis (H) given some observed evidence (E).
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">What Does Naïve Bayes Do in General?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Naïve Bayes calculates the probability that a given input belongs to a certain class based on its features. It evaluates each feature independently and multiplies their probabilities to find the most likely class. The algorithm is probabilistic, meaning it not only classifies the input but also provides the probability behind the classification decision.
+    <br />
+    <span class="italic text-blue-400 block mt-2">In simple terms:</span> “Given these input features, which class is most likely?”
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">When is Naïve Bayes Used?</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2 mb-6">
+    <li>Speed and efficiency in both training and prediction.</li>
+    <li>Robust performance on high-dimensional datasets (e.g., text).</li>
+    <li>Effectiveness even with limited data.</li>
+    <li>Interpretability, making it a preferred model in many baseline experiments.</li>
+  </ul>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Why is Naïve Bayes Used?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Naïve Bayes is frequently applied in domains that involve classification of structured or text-based data. It is particularly suitable for:
+  </p>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2 mb-6">
+    <li>Spam filtering</li>
+    <li>Sentiment analysis</li>
+    <li>Medical diagnosis</li>
+    <li>Document classification</li>
+    <li>Real-time classification tasks</li>
+  </ul>
+
+      <div class="flex justify-center my-8">
+    <img src="assets/applicationsNB.png" alt="Applications of naive-bayes" class="rounded-lg shadow-md w-[90%] max-w-xl border border-gray-700" />
+  </div>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Types of Naïve Bayes in Scikit-learn</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Scikit-learn offers four major variants of the Naïve Bayes classifier. Each is optimized for a specific data distribution and feature type.
+  </p>
+
+  <!-- Naïve Bayes Variants -->
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-6">
+    <li>
+      <span class="text-blue-400 font-medium">Gaussian Naïve Bayes (GNB):</span><br />
+      <span class="italic">Purpose:</span> Handles continuous numeric features.<br />
+      <span class="italic">Assumption:</span> Features follow a Gaussian (normal) distribution.<br />
+      <span class="italic">Example:</span> Predicting heart disease using age, blood pressure, cholesterol.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Multinomial Naïve Bayes (MNB):</span><br />
+      <span class="italic">Purpose:</span> Designed for discrete count-based features.<br />
+      <span class="italic">Assumption:</span> Features follow a multinomial distribution.<br />
+      <span class="italic">Example:</span> Spam classification using bag-of-words or TF-IDF.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Bernoulli Naïve Bayes:</span><br />
+      <span class="italic">Purpose:</span> Best for binary (0 or 1) features.<br />
+      <span class="italic">Assumption:</span> Features follow a Bernoulli distribution.<br />
+      <span class="italic">Example:</span> Binary sentiment classification based on word presence.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Categorical Naïve Bayes (CNB):</span><br />
+      <span class="italic">Purpose:</span> Handles categorical/discrete feature values.<br />
+      <span class="italic">Assumption:</span> Features follow a categorical distribution.<br />
+      <span class="italic">Example:</span> Insurance risk prediction using region, gender, or job type.
+    </li>
+  </ul>
+
+  <!-- Naïve Bayes Variants Table -->
+<div class="overflow-x-auto mt-12">
+  <table class="min-w-full bg-gray-900 border border-gray-800 text-gray-300 text-lg">
+    <caption class="text-white text-xl font-semibold mb-4 text-left px-2">Comparison Table of Naïve Bayes Variants</caption>
+    <thead>
+      <tr class="bg-gray-800 text-white">
+        <th class="px-6 py-4 text-left border-b border-gray-700">Variant</th>
+        <th class="px-6 py-4 text-left border-b border-gray-700">Feature Type</th>
+        <th class="px-6 py-4 text-left border-b border-gray-700">Data</th>
+        <th class="px-6 py-4 text-left border-b border-gray-700">Typical Use Case</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="hover:bg-gray-800 transition">
+        <td class="px-6 py-4 border-b border-gray-800">Gaussian NB</td>
+        <td class="px-6 py-4 border-b border-gray-800">Continuous numeric</td>
+        <td class="px-6 py-4 border-b border-gray-800">Normal (Gaussian)</td>
+        <td class="px-6 py-4 border-b border-gray-800">Medical or sensor data</td>
+      </tr>
+      <tr class="hover:bg-gray-800 transition">
+        <td class="px-6 py-4 border-b border-gray-800">Multinomial NB</td>
+        <td class="px-6 py-4 border-b border-gray-800">Count/Frequency</td>
+        <td class="px-6 py-4 border-b border-gray-800">Multinomial distribution</td>
+        <td class="px-6 py-4 border-b border-gray-800">Text classification, spam detection</td>
+      </tr>
+      <tr class="hover:bg-gray-800 transition">
+        <td class="px-6 py-4 border-b border-gray-800">Bernoulli NB</td>
+        <td class="px-6 py-4 border-b border-gray-800">Binary (0/1)</td>
+        <td class="px-6 py-4 border-b border-gray-800">Bernoulli distribution</td>
+        <td class="px-6 py-4 border-b border-gray-800">Binary text features, presence detection</td>
+      </tr>
+      <tr class="hover:bg-gray-800 transition">
+        <td class="px-6 py-4">Categorical NB</td>
+        <td class="px-6 py-4">Categorical labels</td>
+        <td class="px-6 py-4">Categorical distribution</td>
+        <td class="px-6 py-4">Demographic or survey data</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Code/Moukthika_Gunapaneedu_NB.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF NAIVE BAYES
+  </a>
+</div>
+
+<!-- Multinomial Naive Bayes Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">MULTINOMIAL NAIVE BAYES</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The Multinomial Naïve Bayes algorithm is a supervised classification technique based on Bayes' Theorem. It is especially well-suited for discrete feature data, such as word counts in text classification or frequency-based attributes. What makes it "naïve" is the assumption that all features are conditionally independent given the class label — a simplification that allows the model to perform surprisingly well, even when the assumption doesn’t hold perfectly.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    In the Multinomial variant, the algorithm calculates the probability of a sample belonging to each class based on the frequency of features, and then predicts the class with the highest probability. It works particularly well in applications where input features represent counts or proportions, such as spam detection, document classification, or in this case, predicting customer responses to marketing efforts.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Despite its simplicity, the Multinomial Naïve Bayes model is computationally efficient, easy to implement, and often performs competitively with more complex models, especially when the dataset contains categorical or textual features.
+  </p>
+
+  <img src="assets/mnb.png" alt="Multinomial Naive Bayes Diagram" class="rounded-xl border border-gray-700 my-8 mx-auto w-full max-w-2xl" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    This image provides a simplified visual representation of how the Multinomial Naïve Bayes algorithm works. It illustrates the core idea that the model calculates the probability of a data point belonging to a particular class based on the frequency of features, assuming that all features are conditionally independent. Each input feature contributes to the final prediction through a calculated likelihood, which is combined with the overall class probability (prior). This approach makes Multinomial Naïve Bayes particularly effective for categorical or count-based data, as used in this project.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-white mt-10 mb-4">Why Smoothing is Important in Naïve Bayes?</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In Naïve Bayes models, particularly the Multinomial variant, smoothing is essential to handle cases where a particular feature-category combination does not appear in the training data. This scenario leads to a zero probability, which can cause the entire posterior probability of a class to become zero — effectively eliminating that class from consideration during prediction.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-4">
+    To prevent this, a technique called <span class="text-blue-400 font-medium">Laplace Smoothing</span> (also known as add-one smoothing) is applied. It adjusts the probability estimates slightly to ensure that no probability is ever exactly zero, even for unseen combinations. This makes the model more robust, especially when working with sparse or limited datasets, and improves its ability to generalize to new or rare observations in the test set.
+  </p>
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE CLEANING FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+
+<!-- Data Preparation for Multinomial Naive Bayes -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The dataset was carefully preprocessed to align with the assumptions of the Multinomial Naive Bayes model, which requires non-negative, categorical or frequency-based features. The following steps were performed:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">Feature Selection:</span> Numerical columns unsuitable for Multinomial Naive Bayes, such as <code>duration</code>, <code>pdays</code>, and <code>day_of_week</code>, were removed to prevent skewed or misleading results.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Binning Numerical Features:</span> Continuous features including <code>age</code>, <code>balance</code>, <code>campaign</code>, and <code>previous</code> were discretized into four quantile-based bins using <code>KBinsDiscretizer</code>. This transformation converted raw numerical values into categorical groupings, ensuring compatibility with the Naive Bayes algorithm.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Encoding Categorical Variables:</span> All relevant categorical features (<code>job</code>, <code>marital</code>, <code>education</code>, <code>default</code>, <code>housing</code>, <code>loan</code>, <code>contact</code>, <code>month</code>, and <code>poutcome</code>) were transformed using one-hot encoding to create binary indicator variables.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Target Encoding:</span> The target variable <code>y</code> (subscription status) was label-encoded as binary: <code>0</code> for "no" and <code>1</code> for "yes".
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Train-Test Split:</span> The processed data was split into training and testing subsets using an 80/20 ratio to evaluate the model’s generalizability.
+    </li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mt-10 mb-4">Why Training and Testing Sets Must Be Disjoint?</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    It is essential that there is no overlap between the training and testing sets. If the model were tested on data it had already seen during training, the results would be misleading—it could appear to perform better than it actually does in real-world scenarios. A disjoint split ensures that the test results accurately reflect the model's true ability to generalize to new customers.
+  </p>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/mnb2.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE DATASET AFTER PREPARING FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/prepared_bank_data_nb.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER CLEANING FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+
+<!-- Multinomial Naive Bayes Training Summary -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The dataset was successfully preprocessed for the Multinomial Naïve Bayes model, resulting in a feature matrix with 47 columns. The full dataset (<code>prepared_bank_data_nb.csv</code>) contains 45,211 records, which were split into training (<code>train_data_nb.csv</code>, 36,168 records) and testing (<code>test_data_nb.csv</code>, 9,043 records) sets. Importantly, no missing values were found in any of the files, ensuring the data is clean and ready for modeling.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-4">
+    The Multinomial Naïve Bayes model was trained on the preprocessed dataset using an 80-20 train-test split. After fitting the model, predictions were made on the test set.
+  </p>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/training_mnb.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TRAINING DATASET FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/train_data_nb.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_mnb.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TEST DATASET FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/test_data_nb.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+
+<!-- Feature and Target Separation + Model Results -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-white text-2xl font-bold mb-4">Feature and Target Separation</h2>
+  <hr class="border-gray-700 mb-6" />
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Before training the Multinomial Naïve Bayes model, the dataset was divided into features (<code>X</code>) and the target variable (<code>y</code>). The <code>y</code> column, which indicates whether a customer subscribed to a term deposit ("yes" or "no"), was extracted as a separate variable and removed from the feature set. This step ensures that the model is trained only on the input features and does not accidentally learn from the outcome labels. The resulting feature matrix (<code>X_mnb</code>) was then used for model training, while the target series (<code>y_mnb</code>) was used for supervision during learning and evaluation.
+  </p>
+</div>
+
+<!-- MultinomialNB Results Output -->
+ <div class="bg-gray-900 rounded-xl p-6 border border-gray-700 max-w-4xl mx-auto my-10 shadow-lg">
+  <pre class="text-green-200 text-sm overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">
+=== MultinomialNB Results ===
+Accuracy: 0.8865
+
+Classification Report:
+              precision    recall  f1-score   support
+
+          no       0.91      0.97      0.94      7952
+         yes       0.55      0.31      0.40      1091
+
+    accuracy                           0.89      9043
+   macro avg       0.73      0.64      0.67      9043
+weighted avg       0.87      0.89      0.87      9043
+  </pre>
+</div>
+
+<!-- Key Results Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">KEY RESULTS </h2>
+  <hr class="border-gray-700 mb-6" />
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify">
+    <li><strong>Accuracy:</strong> 88.65%</li>
+    <li><strong>Strong recall (97%) for the 'no' class</strong>, meaning the model effectively identifies customers unlikely to subscribe.</li>
+    <li><strong>Lower recall (31%) for the 'yes' class</strong>, suggesting potential for improvement through resampling or alternative models.</li>
+  </ul>
+</div>
+</div>
+
+<!-- Bernoulli Naive Bayes Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">BERNOULLI NAIVE BAYES</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Bernoulli Naïve Bayes is a variant of the Naïve Bayes classification algorithm that is specifically designed for binary or boolean feature data. It is based on the assumption that features follow a Bernoulli distribution, meaning each feature is either present (1) or absent (0) in a given sample.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    This model is particularly effective when the input data consists of binary indicators, such as in text classification tasks, where features often represent the presence or absence of specific keywords. Unlike Multinomial Naïve Bayes, which considers feature counts, Bernoulli Naïve Bayes only considers whether a feature appears or not.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The foundation of Bernoulli Naïve Bayes lies in Bayes’ Theorem, which is used to calculate the probability of a data point belonging to a certain class, given the features it contains. The algorithm makes a simplifying assumption that all features are conditionally independent of one another within each class — an assumption that rarely holds true in real-world data, but often still yields good results due to the model’s robustness and efficiency.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Before applying Bernoulli Naïve Bayes, all features must be converted into binary format. In this project, continuous numerical features such as <code>age</code>, <code>balance</code>, <code>campaign</code>, and <code>previous</code> were binarized using quantile-based discretization. This transformation split the data into high and low values. Categorical variables were one-hot encoded, converting each unique category into a separate binary column.
+  </p>
+
+  <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/bernoulli.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+This image offers a clear visual explanation of how the Bernoulli Naïve Bayes algorithm works. It highlights the key idea that the model assumes features are binary—either present (1) or absent (0)—and uses this information to calculate the probability of a data point belonging to each class. The algorithm evaluates the presence or absence of each feature using the Bernoulli distribution, multiplying these probabilities along with the prior probability of each class. This makes it especially effective for datasets with one-hot encoded or binarized features, such as in text classification or, in this case, customer attributes.
+</p>
+
+  <h3 class="text-2xl font-semibold text-white mt-10 mb-4">Key Characteristics</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2">
+    <li>Works best with binary features (e.g., word present or not).</li>
+    <li>Uses Laplace smoothing to avoid zero probabilities.</li>
+    <li>Compares the presence and absence of features in documents.</li>
+    <li>Simpler and faster than many other classifiers, especially with sparse data.</li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mt-10 mb-4">Limitations</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2">
+    <li>Assumes binary feature values — numeric or count-based features must be preprocessed into binary form.</li>
+    <li>Performs less effectively when feature frequencies matter more than just their presence.</li>
+  </ul>
+
+  <!-- Data Preparation for Bernoulli Naive Bayes -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR BERNOULLI NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR BERNOULLI NAIVE BAYES
+  </a>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-6">
+    To prepare the dataset for the Bernoulli Naïve Bayes model, the following preprocessing steps were performed:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">Created a fresh copy of the original dataset:</span> A new dataframe was created to preserve the original data and avoid unintentional modifications.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Dropped unsuitable columns:</span> Columns such as <code>duration</code>, <code>pdays</code>, and <code>day_of_week</code> were removed as they are either continuous, not binary, or not relevant for the Bernoulli model.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Binarized numerical features:</span> Continuous numerical columns like <code>age</code>, <code>balance</code>, <code>campaign</code>, and <code>previous</code> were discretized into two bins using quantile-based binning, effectively converting them into binary values.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">One-hot encoded categorical features:</span> Categorical variables such as <code>job</code>, <code>marital</code>, <code>education</code>, and others were one-hot encoded to represent each category as a binary column.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Converted the dataset to binary integer format:</span> The resulting features were converted to integers (0 or 1) to match the input requirements of the Bernoulli Naïve Bayes classifier. The target column <code>y</code> was label-encoded for classification.
+    </li>
+  </ul>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/bernoulli_clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE DATASET AFTER PREPARING FOR BERNOULLI NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/prepared_bank_data_bernoulli.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER CLEANING FOR BERNOULLI NAIVE BAYES
+  </a>
+</div>
+
+<!-- Train-Test Split Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">TRAIN–TEST SPLIT</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The binarized dataset was split into training and testing sets using an 80–20 split to evaluate the model’s performance on unseen data.
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>
+      <span class="font-semibold text-white">Model Initialization</span><br>
+      A <code>BernoulliNB</code> classifier from <code>sklearn.naive_bayes</code> was initialized using default parameters.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Model Training</span><br>
+      The model was trained on the binary training data (<code>Xb_train</code>) and corresponding target labels (<code>yb_train</code>) using the <code>.fit()</code> method.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Prediction</span><br>
+      The trained model was used to make predictions on the test set (<code>Xb_test</code>) using the <code>.predict()</code> method.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Evaluation</span><br>
+      The predicted labels were compared against the true test labels (<code>yb_test</code>) using <code>accuracy_score</code> and <code>classification_report</code> to assess the model’s performance.
+    </li>
+  </ul>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/training_bernoulli.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TRAINING DATASET FOR BERNOULLI NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/train_data_bernoulli.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR BERNOULLI NAIVE BAYES
+  </a>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_bernoulli.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TEST DATASET FOR BERNOULLI NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/test_data_bernoulli.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR BERNOULLI NAIVE BAYES
+  </a>
+</div>
+
+
+</div>
+
+<!-- BernoulliNB Results Output -->
+<div class="bg-gray-900 rounded-xl p-6 border border-gray-700 max-w-4xl mx-auto my-10 shadow-lg">
+  <pre class="text-green-200 text-sm overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">
+=== BernoulliNB Results ===
+Accuracy: 0.8616
+
+Classification Report:
+              precision    recall  f1-score   support
+
+          no       0.92      0.92      0.92      7952
+         yes       0.42      0.42      0.42      1091
+
+    accuracy                           0.86      9043
+   macro avg       0.67      0.67      0.67      9043
+weighted avg       0.86      0.86      0.86      9043
+  </pre>
+</div>
+
+<!-- Key Results Section for Bernoulli Naive Bayes -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">KEY RESULTS</h2>
+  <hr class="border-gray-700 mb-6" />
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2">
+    <li><strong>Overall Accuracy:</strong> The model achieved an accuracy of 86.16% on the test dataset.</li>
+    <li><strong>Majority Class Performance ("no")</strong>
+      <ul class="list-disc list-inside ml-6">
+        <li><strong>Precision:</strong> 0.92</li>
+        <li><strong>Recall:</strong> 0.92</li>
+        <li><strong>F1-score:</strong> 0.92</li>
+      </ul>
+    </li>
+    <li><strong>Minority Class Performance ("yes")</strong>
+      <ul class="list-disc list-inside ml-6">
+        <li><strong>Precision:</strong> 0.42</li>
+        <li><strong>Recall:</strong> 0.42</li>
+        <li><strong>F1-score:</strong> 0.42</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</div>
+
+<!-- Categorical Naive Bayes Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">CATEGORICAL NAIVE BAYES</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The Categorical Naïve Bayes algorithm is a probabilistic classification model specifically designed for datasets in which all the input features are categorical in nature. Unlike other variants such as Gaussian Naïve Bayes (which assumes features are continuous and normally distributed) or Multinomial Naïve Bayes (which works with frequency or count-based features), Categorical Naïve Bayes operates on data where each feature can take one of a fixed number of discrete values, such as "married", "single", "unemployed", or "tertiary education".
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    At its core, Categorical Naïve Bayes uses Bayes’ Theorem to calculate the probability that a data point belongs to a particular class, based on the combination of its feature values. It works by learning the likelihood of each category value occurring within each class from the training data. When a new observation is encountered, the model combines these probabilities with prior class probabilities to make a prediction. The "naïve" assumption it makes—that all features are independent given the class—allows it to perform these calculations efficiently, even on high-dimensional data.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-white mt-8 mb-4">Key Features</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2 mb-6">
+    <li>Accepts unordered categorical values directly without needing one-hot or binary encoding.</li>
+    <li>Each feature is treated as a categorical variable, and probabilities are learned for each category-class combination.</li>
+    <li>Often requires label encoding of features (converting categories to integers) before fitting the model.</li>
+    <li>Uses Laplace smoothing to handle unseen category-class combinations during prediction.</li>
+  </ul>
+
+  <h3 class="text-2xl font-semibold text-white mt-8 mb-4">Use Cases</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-2">
+    <li>Predicting customer behavior based on categorical survey responses</li>
+    <li>Classifying risk profiles or insurance claims with label-based data</li>
+    <li>Any classification task where features are purely nominal and non-numeric</li>
+  </ul>
+
+<!-- Data Preparation for Categorical Naive Bayes -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR CATEGORICAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR CATEGORICAL NAIVE BAYES
+  </a>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6 mt-6">
+    To ensure compatibility with the Categorical Naïve Bayes algorithm, the dataset was carefully preprocessed with the goal of representing all input features as discrete categorical values. Below is a detailed explanation of each step:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">Created a fresh copy of the dataset:</span> A new copy of the original dataset was created to avoid modifying the original data and to allow model-specific preprocessing.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Dropped irrelevant or incompatible columns:</span> The columns <code>duration</code>, <code>pdays</code>, and <code>day_of_week</code> were removed. These features were either not meaningful for modeling or not suitable for categorical encoding.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Binned continuous numerical features into discrete categories:</span> Continuous numeric features such as <code>age</code>, <code>balance</code>, <code>campaign</code>, and <code>previous</code> were discretized into four quantile-based bins using <code>KBinsDiscretizer</code>. This transformation converted them into ordinal categorical variables, suitable for use in the Categorical Naïve Bayes model.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Applied ordinal encoding to categorical columns:</span> Categorical features such as <code>job</code>, <code>marital</code>, <code>education</code>, <code>loan</code>, and <code>contact</code> were encoded using Ordinal Encoding, which converts each category into an integer label. Unlike one-hot encoding, this method preserves categorical structure in a format directly usable by the classifier.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Separated features and target variable:</span> The final dataset was split into <code>X_cat</code> (feature matrix) and <code>y_cat</code> (target labels), preparing it for training with the Categorical Naïve Bayes algorithm. The target column <code>y</code> was label-encoded into binary form: <code>"no"</code> as 0 and <code>"yes"</code> as 1.
+    </li>
+  </ul>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/categorical_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET AFTER PREPARING FOR CATEGORICAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/prepared_bank_data_categorical.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER CLEANING FOR CATEGORICAL NAIVE BAYES
+  </a>
+</div>
+
+<!-- Train-Test Split Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">TRAIN–TEST SPLIT</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The fully preprocessed categorical dataset was divided into training and testing sets using an 80–20 split to evaluate the model’s generalization performance on unseen data.
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>
+      <span class="font-semibold text-white">Model Initialization</span><br>
+      A <code>CategoricalNB</code> model from <code>sklearn.naive_bayes</code> was initialized using default parameters.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Model Training</span><br>
+      The model was trained on the encoded training data (<code>Xc_train</code>) and corresponding target labels (<code>yc_train</code>) using the <code>.fit()</code> method.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Prediction</span><br>
+      The trained model was used to generate predictions on the test set (<code>Xc_test</code>) using the <code>.predict()</code> method.
+    </li>
+    <li>
+      <span class="font-semibold text-white">Evaluation</span><br>
+      Model performance was evaluated by comparing predicted labels to the true labels (<code>yc_test</code>) using <code>accuracy_score</code> and <code>classification_report</code>.
+    </li>
+  </ul>
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/training_cat.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>TRAINING DATASET FOR CATEGORICAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href=https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/train_data_categorical.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR CATEGORICAL NAIVE BAYES
+  </a>
+</div>
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_cat.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>TEST DATASET FOR CATEGORICAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Naive%20Bayes/test_data_categorical.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR CATEGORICAL NAIVE BAYES
+  </a>
+</div>
+</div>
+
+<!-- CategoricalNB Results Output -->
+<div class="bg-gray-900 rounded-xl p-6 border border-gray-700 max-w-4xl mx-auto my-10 shadow-lg">
+  <pre class="text-green-200 text-sm overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">
+=== CategoricalNB Results ===
+Accuracy: 0.8857
+
+Classification Report:
+              precision    recall  f1-score   support
+
+          no       0.91      0.96      0.94      7952
+         yes       0.54      0.32      0.41      1091
+
+    accuracy                           0.89      9043
+   macro avg       0.73      0.64      0.67      9043
+weighted avg       0.87      0.89      0.87      9043
+  </pre>
+</div>
+
+<!-- Key Results Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">KEY RESULTS</h2>
+  <hr class="border-gray-700 mb-6" />
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify">
+    <li><strong>Accuracy:</strong> 88.57%</li>
+    <li><strong>Strong performance for the "no" class</strong> with a high recall (96%) and F1-score (94%), indicating effective identification of non-subscribers.</li>
+    <li><strong>Moderate performance for the "yes" class</strong> with a precision of 54% and recall of 32%, highlighting potential areas for model enhancement.</li>
+  </ul>
+</div>
+
+
+</div>
+
+<!-- Results and Discussions Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">RESULTS AND DISCUSSIONS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- MultinomialNB -->
+  <h3 class="text-2xl font-semibold text-white mt-4 mb-2">MULTINOMIAL NAIVE BAYES</h3>
+  <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_mnb.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The model correctly predicted <strong>7,682</strong> non-subscribers (true negatives) and <strong>335</strong> subscribers (true positives).<br><br>
+    It misclassified <strong>270</strong> non-subscribers as subscribers (false positives) and missed <strong>756</strong> actual subscribers (false negatives).<br><br>
+    This indicates the model performs well overall, especially for the <strong>"no"</strong> class, but has room for improvement in detecting <strong>"yes"</strong> responses — which is typical in class-imbalanced datasets.
+  </p>
+  
+  <hr class="border-gray-700 mb-6 mt-6" />
+
+  <!-- BernoulliNB -->
+  <h3 class="text-2xl font-semibold text-white mt-8 mb-2">BERNOULLI NAIVE BAYES</h3>
+    <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_bnb.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The model performs reasonably well, identifying the majority of non-subscribers correctly. Compared to MultinomialNB:<br><br>
+    • It improved recall for the <strong>"yes"</strong> class (<strong>456</strong> vs. 335 true positives).<br>
+    • But also introduced more false positives, misclassifying more <strong>"no"</strong> instances as <strong>"yes"</strong>.<br><br>
+    This trade-off shows that BernoulliNB is slightly better at detecting actual subscribers, though it sacrifices some precision on the <strong>"no"</strong> class.
+  </p>
+
+  <hr class="border-gray-700 mb-6 mt-6" />
+
+  <!-- CategoricalNB -->
+  <h3 class="text-2xl font-semibold text-white mt-8 mb-2">CATEGORICAL NAIVE BAYES</h3>
+    <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_cnb.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Compared to MultinomialNB and BernoulliNB:<br><br>
+    • It strikes a balance between precision and recall for the <strong>"yes"</strong> class.<br>
+    • Fewer false positives than BernoulliNB (<strong>295</strong> vs. 617).<br>
+    • Better true positive count than MultinomialNB (<strong>352</strong> vs. 335).<br><br>
+    Overall, CategoricalNB offers more balanced performance, especially in handling class imbalance without heavily compromising on either side.
+  </p>
+</div>
+
+<!-- Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">COMPARISON OF ACCURACY ACROSS THE MODELS</h2>
+  <hr class="border-gray-700 mb-6" />
+      <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/comparision_nb.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The bar chart illustrates the accuracy scores achieved by three different variants of the Naïve Bayes classification algorithm—<strong>MultinomialNB</strong>, <strong>BernoulliNB</strong>, and <strong>CategoricalNB</strong>—when applied to the same marketing dataset.
+  </p>
+
+  <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li><strong>Multinomial Naïve Bayes</strong> achieved the highest accuracy at <strong>88.7%</strong>, performing well with count-based features.</li>
+    <li><strong>Categorical Naïve Bayes</strong> followed closely at <strong>88.6%</strong>, leveraging ordinal-encoded categorical features.</li>
+    <li><strong>Bernoulli Naïve Bayes</strong> scored <strong>86.2%</strong>, with stronger recall for the minority class (“yes”).</li>
+  </ul>
+
+  <h2 class="text-3xl font-bold text-white mt-10 mb-4">ROC CURVE COMPARISON</h2>
+  <hr class="border-gray-700 mb-6" />
+        <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/roc_nb.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The Receiver Operating Characteristic (ROC) curve plots the True Positive Rate against the False Positive Rate at different thresholds. The closer the curve is to the top-left corner, the better the model performs.
+  </p>
+
+  <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li><strong>CategoricalNB</strong> achieved the highest AUC at <strong>0.751</strong>.</li>
+    <li><strong>MultinomialNB</strong> closely followed with <strong>0.750</strong>.</li>
+    <li><strong>BernoulliNB</strong> recorded an AUC of <strong>0.744</strong>.</li>
+    <li>The dashed red line (AUC = 0.5) serves as the baseline.</li>
+  </ul>
+
+  <h2 class="text-3xl font-bold text-white mt-10 mb-4">PRECISION-RECALL CURVES</h2>
+  <hr class="border-gray-700 mb-6" />
+          <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/precision_recall_nb.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The Precision-Recall (PR) curve is ideal for evaluating imbalanced datasets. It shows how well a model identifies the minority class (“yes”).
+  </p>
+
+  <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li><strong>MultinomialNB</strong> and <strong>CategoricalNB</strong> both achieved an AP of <strong>0.405</strong>.</li>
+    <li><strong>BernoulliNB</strong> had a slightly lower AP of <strong>0.397</strong>.</li>
+    <li>All models exhibit the common precision-recall trade-off typical in imbalanced datasets.</li>
+    <li>MultinomialNB and CategoricalNB strike a slightly better balance in identifying actual subscribers without compromising much on precision.</li>
+  </ul>
+
+  <h2 class="text-3xl font-bold text-white mt-10 mb-4">GROUPED BAR CHART FOR PRECISION, RECALL, F1</h2>
+  <hr class="border-gray-700 mb-6" />
+            <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/nbchart.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    This bar chart compares how well each Naïve Bayes model predicts the minority class ("yes") using three metrics:
+  </p>
+
+  <ul class="list-disc list-inside space-y-2 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li><strong>Precision</strong>: Of predicted positives, how many were actually correct.</li>
+    <li><strong>Recall</strong>: Of all actual positives, how many were correctly predicted.</li>
+    <li><strong>F1-score</strong>: Harmonic mean of precision and recall.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The best model depends on campaign goals:
+    <br><br>
+    • <strong>BernoulliNB</strong> is best when maximizing outreach (high recall).<br>
+    • <strong>MultinomialNB</strong> is best when minimizing waste (high precision).<br>
+    • <strong>CategoricalNB</strong> is the most balanced across all three metrics.
+  </p>
+</div>
+
+<!-- SMOTE Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">ADDRESSING THE DOMINANT "NO" CLASS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-4">Addressing Class Imbalance with SMOTE</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    SMOTE (Synthetic Minority Over-sampling Technique) is a popular method used to address class imbalance in classification problems. Instead of simply duplicating existing minority class samples, SMOTE generates new synthetic examples by interpolating between actual minority class instances. This helps the model learn more generalizable patterns and reduces bias toward the majority class.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    In this project, the original dataset was imbalanced, with the <strong>"no"</strong> class (non-subscribers) significantly outnumbering the <strong>"yes"</strong> class (subscribers). To counter this, SMOTE was applied only to the training set, creating a balanced distribution of both classes. This ensured that the Multinomial Naïve Bayes model had equal exposure to examples from both classes during training, helping it better detect potential subscribers.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Although SMOTE improved the model's <strong>recall</strong> for the "yes" class, it also introduced more <strong>false positives</strong>, lowering precision. This trade-off was addressed further through <strong>threshold tuning</strong>, which aimed to find the optimal balance between precision and recall.
+  </p>
+
+  <div class="bg-gray-900 rounded-xl p-6 border border-gray-700 max-w-4xl mx-auto my-10 shadow-lg">
+  <pre class="text-green-200 text-sm overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">
+=== DEFAULT THRESHOLD RESULTS ===
+Accuracy: 0.7030
+
+Classification Report:
+              precision    recall  f1-score   support
+
+         no       0.94      0.71      0.81      7952
+        yes       0.24      0.66      0.35      1091
+
+    accuracy                           0.70      9043
+   macro avg       0.59      0.68      0.58      9043
+weighted avg       0.85      0.70      0.75      9043
+  </pre>
+</div>
+  </pre>
+
+  <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DEFAULT THRESHOLD RESULTS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>
+      The model exhibits high precision but low recall for the <span class="font-semibold text-white">"no"</span> class, indicating accurate predictions but a tendency to miss actual non-subscribers.
+    </li>
+    <li>
+      For the <span class="font-semibold text-white">"yes"</span> class, precision is low, suggesting many false positives, while recall is relatively high, meaning more actual subscribers are identified.
+    </li>
+    <li>
+      This behavior reflects the model's bias toward recall for the minority class, influenced by the application of <code>SMOTE</code>.
+    </li>
+    <li>
+      The outcome highlights a trade-off: improved detection of subscribers comes at the cost of increased misclassification of non-subscribers.
+    </li>
+  </ul>
+</div>
+
+<!-- Threshold Tuning Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">THRESHOLD TUNING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    In binary classification, models typically use a default probability threshold of <code>0.5</code> to assign class labels—predicting a sample as positive ("yes") if the predicted probability is greater than or equal to 0.5. However, this default threshold may not yield the best results, especially in imbalanced datasets where one class is significantly underrepresented.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    To improve the model’s performance on the minority class ("yes"), threshold tuning was performed. Instead of relying on the default threshold, the model’s predicted probabilities for the "yes" class were evaluated across a range of thresholds (from 0.0 to 1.0 in small increments).
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>The model’s predictions were recalculated for each threshold value.</li>
+    <li>Precision, Recall, and F1-score were computed specifically for the <span class="font-semibold text-white">"yes"</span> class.</li>
+  </ul>
+
+  <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/threshholdNB.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<!-- Threshold Tuning Plot Analysis Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">INTERPRETING THE THRESHOLD TUNING PLOT</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The plot above illustrates how precision, recall, and F1-score for the <span class="font-semibold text-white">"yes"</span> class change across different classification thresholds. The goal was to identify the threshold that best balances precision and recall, as measured by the F1-score.
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li>
+      At lower thresholds, the model classifies more instances as "yes", resulting in high recall but low precision due to an increase in false positives.
+    </li>
+    <li>
+      At higher thresholds, the model becomes more conservative in predicting "yes", which increases precision but reduces recall.
+    </li>
+    <li>
+      The F1-score curve (green line) highlights the trade-off and identifies the best threshold for balanced performance.
+    </li>
+    <li>
+      The optimal threshold was found to be approximately <span class="font-semibold text-white">0.735</span>, as indicated by the red dashed line. At this point, the F1-score for the "yes" class reached its maximum.
+    </li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This fine-tuning enables the model to make more effective marketing predictions—improving its ability to identify potential subscribers while minimizing false alarms.
+  </p>
+</div>
+
+</div>
+
+</div>
+
+<!-- Final Model Evaluation Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">FINAL MODEL EVALUATION WITH TUNED THRESHOLD</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    After applying threshold tuning (<span class="font-semibold text-white">best threshold ≈ 0.735</span>), the Multinomial Naïve Bayes model demonstrated improved balance between precision and recall, particularly for the minority <span class="font-semibold text-white">"yes"</span> class.
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <li>
+      <span class="font-semibold text-white">Improved recall</span> for the "yes" class (from <code>0.31</code> at default threshold to <code>0.46</code>).
+    </li>
+    <li>
+      <span class="font-semibold text-white">Better F1-score</span> for "yes" (from <code>0.35</code> to <code>0.43</code>), indicating more balanced performance.
+    </li>
+    <li>
+      Slight drop in precision, but a worthwhile trade-off given the better identification of actual subscribers.
+    </li>
+    <li>
+      Overall, this tuned model is more effective at identifying likely subscribers without significantly compromising performance on the majority class.
+    </li>
+  </ul>
+
+  <div class="bg-gray-900 rounded-xl p-6 border border-gray-700 max-w-4xl mx-auto my-10 shadow-lg">
+  <pre class="text-green-200 text-sm overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">
+=== FINAL MODEL EVALUATION WITH TUNED THRESHOLD ===
+Accuracy: 0.8543
+
+Classification Report:
+              precision    recall  f1-score   support
+
+         no       0.92      0.91      0.92      7952
+        yes       0.41      0.46      0.43      1091
+
+    accuracy                           0.85      9043
+   macro avg       0.67      0.69      0.67      9043
+weighted avg       0.86      0.85      0.86      9043
+
+Confusion Matrix:
+[[7221  731]
+ [ 587  504]]
+  </pre>
+</div>
+
+  <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_tuned.png" alt="Confusion Matrix" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<div>
+   <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>
+      The model correctly predicted <span class="font-semibold text-white">504 actual subscribers</span>, a significant improvement over previous results using the default threshold.
+    </li>
+    <li>
+      <span class="font-semibold text-white">False positives (731)</span> slightly increased, indicating more non-subscribers were misclassified as subscribers.
+    </li>
+    <li>
+      <span class="font-semibold text-white">False negatives (587)</span> were reduced compared to the default threshold, meaning fewer actual subscribers were missed.
+    </li>
+    <li>
+      This updated balance leads to a <span class="font-semibold text-white">better F1-score</span> for the minority class, making the model more effective for targeting likely subscribers in a marketing context.
+    </li>
+  </ul>
+</div>
+
+
+</div>
+
+<!-- Feature Exploration Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">FEATURE EXPLORATION – INDICATORS OF SUBSCRIPTION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The analysis identified the top 10 features most strongly associated with a customer subscribing to a term deposit ("yes"). These were ranked based on their influence in the model, with higher values indicating stronger positive association with the target class.
+  </p>
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li><span class="font-semibold text-white">poutcome_success (2.66)</span> – Customers who had a successful outcome in a previous campaign are much more likely to subscribe again.</li>
+    <li><span class="font-semibold text-white">month_mar (2.31)</span> – Contacts made in March were significantly more successful.</li>
+    <li><span class="font-semibold text-white">month_sep (2.16)</span> – September also showed high likelihood of positive response.</li>
+    <li><span class="font-semibold text-white">month_dec (2.10)</span> – December contacts correlated well with subscription.</li>
+    <li><span class="font-semibold text-white">month_oct (1.99)</span> – October was another impactful campaign month.</li>
+    <li><span class="font-semibold text-white">job_student (1.24)</span> – Students were more likely than average to subscribe.</li>
+    <li><span class="font-semibold text-white">month_apr (0.89)</span> – April showed moderate positive association.</li>
+    <li><span class="font-semibold text-white">job_retired (0.89)</span> – Retired individuals responded well to campaigns.</li>
+    <li><span class="font-semibold text-white">month_feb (0.60)</span> – February had mild predictive power.</li>
+    <li><span class="font-semibold text-white">job_unemployed (0.53)</span> – Surprisingly, even unemployed individuals showed some positive interest.</li>
+  </ul>
+
+   <div class="bg-gray-900 rounded-xl p-6 border border-gray-700 max-w-4xl mx-auto my-10 shadow-lg">
+  <pre class="text-green-200 text-sm overflow-x-auto whitespace-pre-wrap font-mono leading-relaxed">
+=== FEATURE EXPLORATION ===
+Top 10 features most indicative of 'yes':
+poutcome_success: 2.6608
+month_mar: 2.3094
+month_sep: 2.1556
+month_dec: 2.1045
+month_oct: 1.9884
+job_student: 1.2429
+month_apr: 0.8889
+job_retired: 0.8885
+month_feb: 0.6030
+job_unemployed: 0.5270
+  </pre>
+</div>
+
+<!-- Feature Insights Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">FEATURE INSIGHTS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>
+      <span class="text-white font-semibold">Previous campaign success</span> (<code>poutcome_success</code>) is the strongest predictor of future subscriptions.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Specific months</span>—notably <code>March</code>, <code>September</code>, <code>December</code>, and <code>October</code>—align with higher engagement, highlighting <span class="italic">seasonal trends</span> in customer responsiveness.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Demographic segments</span> such as <code>students</code> and <code>retired individuals</code> are more likely to subscribe, indicating that <span class="italic">targeted campaigns</span> for these groups could enhance marketing effectiveness.
+    </li>
+  </ul>
+</div>
+
+</div>
+
+<!-- Conclusion Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    This study applied multiple variants of the Naïve Bayes algorithm to predict whether a customer is likely to subscribe to a term deposit based on their personal, financial, and interaction history with the bank. Despite the simplicity of Naïve Bayes models, they proved to be surprisingly effective for this marketing prediction task—particularly when paired with thoughtful preprocessing, class balancing, and threshold tuning.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    One of the most valuable takeaways is that even basic models can yield meaningful insights when properly tuned. By addressing the imbalance between subscribers and non-subscribers using techniques like SMOTE, and by fine-tuning decision thresholds, we were able to significantly improve the model's ability to detect potential subscribers—without sacrificing overall accuracy.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    From a business standpoint, the findings revealed that past campaign success, certain contact months (like March, September, and December), and customer demographics such as students and retirees are strong indicators of future subscription interest. This knowledge can directly inform how and when to engage different segments of customers, helping the bank personalize its outreach strategy for better results.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    While Naïve Bayes may not always outperform more complex models, its transparency, efficiency, and interpretability make it a reliable starting point for predicting customer behavior in marketing campaigns. The models built here not only help identify which customers are most likely to respond positively—but also offer clear, actionable insights that can drive smarter and more strategic marketing decisions.
+  </p>
+</div>
+
+</div>
+
+
+
+
+</body>
+</html>

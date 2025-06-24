@@ -552,9 +552,8 @@
     where the <span class="text-blue-400 font-medium">pattern of attributes</span> 
     matters more than their actual values.
   </p>
-</div>
 
-<!-- Cosine Distance Key Observations Bubble -->
+  <!-- Cosine Distance Key Observations Bubble -->
 <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
   <h2 class="text-3xl font-bold text-white mb-4">Key Observations</h2>
   <hr class="border-gray-700 mb-6" />
@@ -582,7 +581,6 @@
     </li>
   </ul>
 </div>
-
 <!-- Why Use Cosine Distance Bubble -->
 <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
   <h2 class="text-3xl font-bold text-white mb-4">Why Use Cosine Distance?</h2>
@@ -600,7 +598,7 @@
     </li>
   </ul>
 </div>
-
+</div>
 
 <!-- Comparison of Dendrogram vs. K-Means Results Bubble -->
 <div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
@@ -608,51 +606,185 @@
   <hr class="border-gray-700 mb-6" />
 
   <div class="text-gray-300 text-lg leading-relaxed space-y-6">
-    <div>
-      <p class="text-blue-400 font-semibold">Similar Findings: k=2 is the Best Choice</p>
-      <p>The dendrogram suggests two natural clusters, as seen in the large vertical jump in the hierarchy.</p>
-      <p>This supports the K-Means result where k=2 was found to have the highest Silhouette Score, indicating well-separated clusters.</p>
-      <p>Both methods agree that the dataset is best segmented into two main groups.</p>
+    <div class="bubble-container">
+  <p><span class= "text-blue-400 font-semibold">Similar Findings: k=2 is the Best Choice</span></p>
+  <ul style="list-style-type: disc; padding-left: 1.5rem; font-size: 1.1rem; line-height: 1.8; color: #d1d5db;">
+  <li>The dendrogram suggests two natural clusters, as seen in the large vertical jump in the hierarchy.</li>
+  <li>This supports the K-Means result where <strong style="color: #fff;">k=2</strong> was found to have the highest <span style="color: #3f8efc;">Silhouette Score</span>, indicating well-separated clusters.</li>
+  <li>Both methods agree that the dataset is best segmented into two main groups.</li>
+</ul>
+</div>
+
+<!-- Key Takeaways Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Key Takeaways</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside space-y-4 text-gray-300 text-lg leading-relaxed text-justify">
+    <li>Hierarchical Clustering confirms the K-Means result that the data naturally separates into two clusters.</li>
+    <li>K-Means is computationally faster, making it better for large datasets.</li>
+    <li>Hierarchical Clustering provides better interpretability, allowing a flexible choice of clusters without needing to predefine k.</li>
+    <li>If cluster relationships are important, the dendrogram is more useful, as it shows how clusters are formed step by step.</li>
+  </ul>
+</div>
+</div>
+</div>
+
+<!-- Conclusion Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION: HEIRARCHIAL CLUSTERING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In conclusion, both K-Means and Hierarchical Clustering consistently revealed that the dataset naturally separates into two distinct clusters. The use of Euclidean and cosine distances in hierarchical clustering provided complementary perspectives, magnitude-based and pattern-based similarity, strengthening the reliability of the findings. Truncating the dendrogram by sampling data improved visualization without compromising insight. While K-Means offers speed and scalability, hierarchical clustering adds interpretability and flexibility, making the combined approach a robust strategy for uncovering the dataset’s underlying structure.
+  </p>
+</div>
+</div>
+
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">DBSCAN</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    <span class="text-blue-400 font-medium">What is DBSCAN?</span><br>
+    DBSCAN (Density-Based Spatial Clustering of Applications with Noise) is an unsupervised machine learning algorithm designed to identify clusters based on data density. Unlike K-Means, DBSCAN does not require specifying the number of clusters (k) beforehand. Instead, it groups dense regions of data points while treating sparse regions as outliers (noise).
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6">
+    <span class="text-blue-400 font-medium">How DBSCAN Works?</span><br>
+    DBSCAN relies on two key parameters:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg ml-6">
+    <li><span class="text-blue-400 font-medium">Epsilon (eps)</span> – Defines the radius around a point to search for neighbors.</li>
+    <li><span class="text-blue-400 font-medium">Min_samples</span> – Minimum number of points required in a neighborhood to form a dense cluster.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6">
+    The algorithm categorizes points into:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg ml-6">
+    <li><span class="text-blue-400 font-medium">Core Points</span> – Points with at least min_samples neighbors within eps.</li>
+    <li><span class="text-blue-400 font-medium">Border Points</span> – Points within eps of a core point but with fewer than min_samples neighbors.</li>
+    <li><span class="text-blue-400 font-medium">Noise (Outliers)</span> – Points that do not fit in any cluster.</li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6">
+    DBSCAN was applied to the dataset to identify density-based clusters and detect potential outliers. The algorithm was first run with its default parameters (eps=0.5, min_samples=5), leading to the formation of 78 clusters and 8408 outliers. This suggested that the dataset did not naturally form well-defined density-based clusters, and many points were classified as noise due to low local density.
+  </p>
+
+  <p class="text-blue-400 text-lg font-semibold mt-8">Parameter Tuning for Better Clustering:</p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-2">
+    To improve the clustering results, eps was increased to 0.8 and min_samples was set to 10. With these adjusted parameters, DBSCAN identified 5 meaningful clusters while reducing the number of outliers to 3861. This adjustment helped DBSCAN recognize broader density-based structures instead of breaking the data into too many small, fragmented groups.
+  </p>
+
+      <div class="flex justify-center mt-8">
+      <img src="assets/dbscan2.png" alt="Hierarchical Clustering Dendrogram" class="rounded-lg shadow-md w-[90%] max-w-2xl mb-4" />
     </div>
 
+    <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6">
+    While parameter tuning improved DBSCAN's performance, the results still show significant overlap between clusters, making it less effective for structured segmentation. However, DBSCAN remains valuable for detecting outliers, which could represent unique customer behaviors or anomalies in the dataset. Compared to K-Means and Hierarchical Clustering, which provided clearer segmentations, DBSCAN is best suited for anomaly detection rather than structured clustering in this dataset.
+  </p>
+
+<!-- DBSCAN vs. Other Clustering Techniques Comparison Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Comparison of DBSCAN vs. Other Clustering Results</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    After testing <span class="text-blue-400 font-medium">K-Means</span>, 
+    <span class="text-blue-400 font-medium">Hierarchical Clustering</span>, and 
+    <span class="text-blue-400 font-medium">DBSCAN</span>, the results highlight 
+    significant differences in their performance and suitability for the dataset.
+  </p>
+
+  <div class="space-y-8 text-gray-300 text-lg leading-relaxed text-justify">
+    <!-- K-Means -->
     <div>
-      <p class="text-blue-400 font-semibold">Key Differences Between K-Means and Hierarchical Clustering</p>
-      <ul class="list-decimal pl-6 space-y-4">
-        <li>
-          <span class="text-blue-300 font-medium">Number of Clusters</span><br />
-          <b>K-Means:</b> Requires specifying the number of clusters (k) in advance.<br />
-          <b>Hierarchical Clustering:</b> Automatically forms a tree structure (dendrogram) where the number of clusters can be determined by cutting at a certain level.
-        </li>
-        <li>
-          <span class="text-blue-300 font-medium">Cluster Formation</span><br />
-          <b>K-Means:</b> Assigns each point to the closest centroid, forming compact, spherical clusters.<br />
-          <b>Hierarchical Clustering:</b> Merges similar points step by step, creating a hierarchy of clusters.
-        </li>
-        <li>
-          <span class="text-blue-300 font-medium">Visualization</span><br />
-          <b>K-Means:</b> Uses scatter plots to show cluster assignments and centroids.<br />
-          <b>Hierarchical Clustering:</b> Uses a dendrogram to illustrate how clusters are merged at different distances.
-        </li>
-        <li>
-          <span class="text-blue-300 font-medium">Flexibility</span><br />
-          <b>K-Means:</b> Fixed number of clusters; changes require re-running the algorithm.<br />
-          <b>Hierarchical Clustering:</b> Allows exploration of different cluster levels without re-running the algorithm.
-        </li>
-        <li>
-          <span class="text-blue-300 font-medium">Efficiency</span><br />
-          <b>K-Means:</b> Faster and more scalable for large datasets.<br />
-          <b>Hierarchical Clustering:</b> Computationally expensive for large datasets due to merging steps.
-        </li>
+      <h3 class="text-white font-semibold text-xl mb-2">1. K-Means Clustering <span class="text-blue-400">(Best Choice)</span></h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Identified <span class="text-blue-400 font-medium">2 clusters</span>, which align well with the dataset’s natural structure.</li>
+        <li>Achieved a <span class="text-blue-400 font-medium">high Silhouette Score</span>, indicating well-separated clusters.</li>
+        <li><span class="text-blue-400 font-medium">Fast and efficient</span>, making it the most practical clustering method for this analysis.</li>
+      </ul>
+    </div>
+
+    <!-- Hierarchical -->
+    <div>
+      <h3 class="text-white font-semibold text-xl mb-2">2. Hierarchical Clustering <span class="text-blue-400">(Supports K-Means)</span></h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Dendrogram suggested <span class="text-blue-400 font-medium">2 primary clusters</span>, reinforcing the K-Means findings.</li>
+        <li><span class="text-blue-400 font-medium">More interpretable</span> than DBSCAN but <span class="text-blue-400 font-medium">computationally expensive</span>.</li>
+        <li>Useful for understanding <span class="text-blue-400 font-medium">cluster relationships</span>, but less practical for large datasets.</li>
+      </ul>
+    </div>
+
+    <!-- DBSCAN -->
+    <div>
+      <h3 class="text-white font-semibold text-xl mb-2">3. DBSCAN <span class="text-blue-400">(Not Ideal)</span></h3>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Initially detected <span class="text-blue-400 font-medium">78 clusters and 8408 outliers</span> — overly fragmented.</li>
+        <li>After tuning, detected only <span class="text-blue-400 font-medium">1 main cluster</span> with 1320 outliers, indicating poor segmentation.</li>
+        <li>More effective at <span class="text-blue-400 font-medium">detecting outliers</span> than structured clusters.</li>
       </ul>
     </div>
   </div>
 </div>
-
-
 </div>
 
+<!-- Final Clustering Results Summary (Bullet Points Justified) -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">RESULTS</h2>
+  <hr class="border-gray-700 mb-6" />
 
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>
+      K-Means was the best choice, as it provided the most clear and interpretable clusters.
+    </li>
+    <li>
+      Hierarchical Clustering confirmed the findings, making it useful for validation.
+    </li>
+    <li>
+      DBSCAN struggled, highlighting that it is better for datasets with non-uniform density or noise detection rather than well-separated groups.
+    </li>
+    <li>
+      Outlier detection using DBSCAN could still be useful for identifying anomalies or rare patterns in the dataset.
+    </li>
+  </ul>
+</div>
 
+<!-- Key Takeaways Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">KEY TAKEAWAYS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>
+      K-Means should be used for final clustering because of its efficiency and strong separation.
+    </li>
+    <li>
+      DBSCAN can be useful for detecting anomalies, but not ideal for structured segmentation in this dataset.
+    </li>
+    <li>
+      Hierarchical Clustering provided valuable insights but is computationally expensive.
+    </li>
+  </ul>
+</div>
+
+<!-- Clustering Conclusion Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The clustering analysis helped uncover hidden patterns in customer behavior, providing valuable insights into how different groups interact. The data revealed that customers naturally fall into distinct segments, allowing for a better understanding of their preferences, financial habits, and engagement levels. This knowledge can be used to tailor services, improve customer experience, and create targeted marketing strategies.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Additionally, the analysis identified a group of customers with unusual behavior, which could indicate potential outliers or special cases that require a different approach. These could be customers with unique financial needs, irregular engagement patterns, or high-value clients who should be given personalized attention. By recognizing these patterns, businesses can enhance decision-making, optimize customer interactions, and better allocate resources to meet different needs.
+  </p>
+</div>
 
 
 

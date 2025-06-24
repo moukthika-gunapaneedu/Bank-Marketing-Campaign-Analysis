@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>ARM</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Association Rule Mining Overview Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERVIEW</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Association Rule Mining (ARM) is a data mining technique used to identify patterns and relationships between different items in large datasets. It is commonly applied in market basket analysis, where businesses analyze customer purchase behavior to discover which products are frequently bought together. ARM helps uncover hidden correlations that can be used for recommendation systems, cross-selling strategies, and decision-making.
+  </p>
+
+  
+  <h3 class="text-white text-2xl font-semibold mb-3">Key Measures in ARM</h3>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">Support:</span> The frequency of an itemset appearing in the dataset.
+      <br />
+      <span class="bg-gray-800 px-2 py-1 inline-block rounded mt-6 text-blue-400 font-mono text-sm">
+        Support(X) = (Transactions containing X) / (Total transactions)
+      </span>
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Confidence:</span> The likelihood that a transaction containing X also contains Y.
+      <br />
+      <span class="bg-gray-800 px-2 py-1 inline-block rounded mt-6 text-blue-400 font-mono text-sm">
+        Confidence(X → Y) = Support(X ∪ Y) / Support(X)
+      </span>
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Lift:</span> Measures how much more likely Y is to appear with X compared to when they are independent.
+      <br />
+      <span class="bg-gray-800 px-2 py-1 inline-block rounded mt-6 text-blue-400 font-mono text-sm">
+        Lift(X → Y) = Confidence(X → Y) / Support(Y)
+      </span>
+      <ul class="list-disc list-inside ml-6 mt-6 space-y-1">
+        <li><span class="text-blue-400 font-medium">Lift &gt; 1:</span> Items X and Y occur together more often than expected by chance.</li>
+        <li><span class="text-blue-400 font-medium">Lift = 1:</span> No significant association.</li>
+        <li><span class="text-blue-400 font-medium">Lift &lt; 1:</span> Items X and Y occur together less often than expected.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">What are Association Rules?</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    An association rule is an implication of the form <span class="text-blue-400 font-medium">X → Y</span>, meaning "if X occurs, then Y is likely to occur."
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    For example, in retail analysis, a rule like:
+    <br />
+    <span class="bg-gray-800 px-2 py-1 inline-block mt-5 text-blue-400 font-mono text-sm rounded">{Bread, Butter} → {Milk}</span>
+    <br />
+    <br/>
+    suggests that customers who buy bread and butter are likely to buy milk as well.
+  </p>
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/itemsets.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<!-- Apriori Algorithm Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">The Apriori Algorithm: How It Works</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Apriori is one of the most popular algorithms for Association Rule Mining (ARM). It works by iteratively finding frequent itemsets and generating rules from them.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Steps of the Apriori Algorithm</h3>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">Calculate Support for Individual Items:</span> Identify items that meet the minimum support threshold.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Generate Frequent Itemsets:</span> Combine individual items to form pairs (2-itemsets), then triplets (3-itemsets), and so on.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Prune Infrequent Itemsets:</span> Remove itemsets that do not meet the minimum support requirement.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Generate Association Rules:</span> Compute confidence and lift for the frequent itemsets. Keep rules that satisfy the minimum confidence threshold.
+    </li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The Apriori algorithm is efficient because it uses the <span class="text-blue-400 font-medium">"Apriori Principle"</span>, which states:
+  </p>
+
+  <p class="text-gray-300 text-lg italic leading-relaxed text-justify my-4">
+    If an itemset is infrequent, all its supersets must also be infrequent.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    This helps in reducing the search space and improving performance.
+  </p>
+</div>
+
+  <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clusteringVsARM.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Clustering groups similar items together, as shown by bread and butter in the same circle. In contrast, ARM identifies relationships between items, represented by the arrow from bread to butter, implying a purchasing pattern. While clustering finds inherent groups, ARM focuses on if-then associations, making both techniques valuable for different types of data analysis. 
+  </p>
+
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Code/Moukthika_Gunapaneedu_ARM.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF ARM
+  </a>
+</div>
+
+<!-- ARM Data Selection and Preprocessing Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA SELECTION AND PREPROCESSING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+<div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR ARM</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR ARM
+  </a>
+</div>
+
+  <p class="text-gray-300 mt-6 text-lg leading-relaxed text-justify">
+    The dataset was carefully preprocessed to ensure it met the requirements for Association Rule Mining (ARM). First, numerical attributes that were not relevant for identifying associations were removed. Categorical variables were then transformed into a transactional format using one-hot encoding, where each row represents a unique transaction containing different categorical attributes. This step ensures that the dataset is structured for frequent pattern mining. Finally, the cleaned data was formatted into a CSV file without headers, making it compatible with ARM techniques like the Apriori algorithm for uncovering meaningful patterns and associations.
+  </p>
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cleaned_Arm.png" alt="Clean dataset for ARM preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET AFTER PREPARING FOR ARM</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/ARM/transaction_data_arm.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER PREPARING FOR ARM
+  </a>
+</div>
+
+</div>
+
+<!-- Applying Association Rule Mining Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">APPLYING ASSOCIATION RULE MINING</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Association Rule Mining (ARM) is used in this project to uncover hidden relationships between different features in the dataset. It helps identify patterns, such as which factors are strongly linked to a successful marketing campaign. This is useful for decision-making, such as improving customer targeting strategies.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Key Measures in ARM</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    In the context of this project, ARM uses the following metrics to assess the strength of discovered patterns:
+  </p>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">Support:</span> The proportion of records in which a particular feature combination appears.
+      <br />
+      <span class="italic">Example:</span> If 30% of customers had both "previous contact" and "high balance," the support is 0.30.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Confidence:</span> The likelihood that a second feature is present given the first feature is already observed.
+      <br />
+      <span class="italic">Example:</span> 80% of customers who were contacted previously also subscribed to the term deposit.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Lift:</span> Measures how much more likely the second feature is to occur compared to when they are independent.
+      <br />
+      <span class="italic">Example:</span> A lift of 2.5 for "previous contact → subscription" means that customers who were previously contacted are 2.5 times more likely to subscribe than a random customer.
+    </li>
+  </ul>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Association Rules in This Project</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6 mt-2">
+    ARM generates rules that describe strong relationships between features. A typical rule looks like this:
+    <br />
+    <span class="bg-gray-800 text-blue-400 font-mono text-sm px-2 py-1 rounded inline-block mt-5">{Long Call Duration, Previous Contact} → {Subscribed}</span>
+    <br />
+    <br/>
+
+    This suggests that customers who had a long conversation and were contacted previously are more likely to subscribe to the term deposit.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Apriori Algorithm: How It Works in This Project</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>Identifying frequent individual features that meet a minimum support threshold.</li>
+    <li>Combining features to form pairs (2-itemsets), then triplets (3-itemsets), etc.</li>
+    <li>Filtering out infrequent itemsets, ensuring only strong relationships remain.</li>
+    <li>Generating association rules by calculating confidence and lift values.</li>
+  </ul>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">How This Helps in the Project</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>Identifies which customer attributes strongly influence campaign success.</li>
+    <li>Helps optimize marketing strategies by focusing on features that lead to higher conversion rates.</li>
+    <li>Provides data-driven insights for future customer engagement.</li>
+  </ul>
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/arm_network.png" alt="ARM Network" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+ <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The network graph visualizes relationships between features (attributes) in the dataset based on association rules extracted from the Apriori algorithm. Each node represents an item (categorical variable), and each edge (arrow) indicates a strong association between two items.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Observations from the Graph:</h3>
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4 mb-6">
+    <li>
+      <span class="text-blue-400 font-medium">"loan_no" is strongly connected:</span>  
+      "loan_no" is associated with multiple attributes, including housing_no, job_management, and default_no.  
+      This suggests that people who do not have a loan are also more likely to not have housing loans and may have specific job roles (like management).
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">"job_management" is central to multiple associations:</span>  
+      It connects with default_no, poutcome_Unknown, and housing_no.  
+      This suggests that individuals in management roles are likely to have specific financial behaviors.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">"y_no" (no subscription to the term deposit) is linked to multiple features:</span>  
+      The outcome y_no (indicating no subscription to the marketing campaign) is associated with contact_cellular, education_tertiary, and default_no.  
+      This implies that people with tertiary education, no default history, and those contacted via cellular may have a pattern of declining the term deposit offer.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">"poutcome_Unknown" is frequently associated:</span>  
+      This indicates that the previous marketing outcome being unknown is an important factor in predicting associations.
+    </li>
+  </ul>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Association Rule Mining (ARM) helps uncover interesting relationships between features in a dataset. The graphs below visualize the top 15 rules sorted by <span class="text-blue-400 font-medium">Support</span>, <span class="text-blue-400 font-medium">Confidence</span>, and <span class="text-blue-400 font-medium">Lift</span>, providing a well-rounded view of frequently occurring, reliable, and statistically strong patterns.
+  </p>
+
+</div>
+
+<!-- Top 15 Association Rules by Support Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Top 15 Association Rules by Support</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- Image -->
+  <div class="flex justify-center mb-6">
+    <img src="assets/support.png" alt="Top 15 Association Rules by Support" class="rounded-lg shadow-md w-[90%] max-w-3xl border border-gray-700" />
+  </div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Support measures how frequently a rule appears in the dataset. Higher support means the rule involves items that often occur together.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Observations from the Graph:</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>
+      The most frequent rule is <span class="text-blue-400 font-medium">loan_no → default_no</span>, suggesting that many clients who did not take a loan also did not default, highlighting a strong general trend.
+    </li>
+    <li>
+      Rules like <span class="text-blue-400 font-medium">y_no → poutcome_Unknown</span> and <span class="text-blue-400 font-medium">default_no → loan_no</span> also have high support, showing common behavioral patterns among clients.
+    </li>
+    <li>
+      Many rules here involve the <span class="text-blue-400 font-medium">absence of default or loan</span>, indicating that the dataset is skewed toward cautious or financially stable individuals.
+    </li>
+    <li>
+      These rules might not be the most surprising, but they reflect the dominant patterns in the data and can help with baseline decision-making.
+    </li>
+  </ul>
+</div>
+
+<!-- Top 15 Association Rules by Confidence Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Top 15 Association Rules by Confidence</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- Image -->
+  <div class="flex justify-center mb-6">
+    <img src="assets/confidence.png" alt="Top 15 Association Rules by Confidence" class="rounded-lg shadow-md w-[90%] max-w-3xl border border-gray-700" />
+  </div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Confidence indicates the likelihood of the consequent occurring given the antecedent. Higher confidence means the rule is more predictive.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Observations from the Graph:</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>
+      Most top rules predict <span class="text-blue-400 font-medium">poutcome_Unknown</span>, which may suggest follow-ups were either not effective or not recorded.
+    </li>
+    <li>
+      The rule <span class="text-blue-400 font-medium">education_primary, contact_Unknown → poutcome_Unknown</span> has perfect or near-perfect confidence, implying that this combination almost always results in an unknown campaign outcome.
+    </li>
+    <li>
+      Multiple rules involve <span class="text-blue-400 font-medium">contact_Unknown</span> and <span class="text-blue-400 font-medium">housing_yes</span>, hinting that certain demographics consistently led to unclear or unrecorded outcomes.
+    </li>
+    <li>
+      High-confidence rules are useful for making targeted predictions — e.g., identifying which customer profiles are most likely to lead to specific results.
+    </li>
+  </ul>
+</div>
+
+<!-- Top 15 Association Rules by Lift Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">Top 15 Association Rules by Lift</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- Image -->
+  <div class="flex justify-center mb-6">
+    <img src="assets/lift.png" alt="Top 15 Association Rules by Lift" class="rounded-lg shadow-md w-[90%] max-w-3xl border border-gray-700" />
+  </div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Lift evaluates the strength of a rule compared to random chance. A lift &gt; 1 means the rule is more significant than what would happen by coincidence.
+  </p>
+
+  <h3 class="text-white text-2xl font-semibold mb-3">Observations from the Graph:</h3>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>
+      The rule <span class="text-blue-400 font-medium">poutcome_Unknown, default_no, job_management, contact_cellular → education_tertiary, housing_no, y_no</span> has the highest lift, revealing a strong and non-obvious relationship between job type, contact method, and campaign response.
+    </li>
+    <li>
+      Many rules with high lift include <span class="text-blue-400 font-medium">education_tertiary</span>, <span class="text-blue-400 font-medium">job_management</span>, and <span class="text-blue-400 font-medium">housing_no</span>, suggesting that individuals with higher education and certain job types form a highly correlated behavioral group.
+    </li>
+    <li>
+      Compared to support/confidence graphs, these rules are less frequent but more insightful, often revealing niche but valuable segments.
+    </li>
+    <li>
+      Lift helps identify hidden patterns — rules that are statistically stronger than they appear at first glance.
+    </li>
+  </ul>
+</div>
+
+<!-- Key Findings Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">KEY FINDINGS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- Support Findings -->
+  <h3 class="text-white text-2xl font-semibold mb-2">Top 15 Rules by Support (Most Frequent Associations)</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-2">
+    These rules highlight the most commonly occurring itemsets in the dataset.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4 italic">
+    Threshold Used: Minimum Support = 0.05 (5%)
+  </p>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-3 mb-6">
+    <li><span class="text-blue-400 font-medium">"default_no" → "loan_no"</span> has a high support (0.82), meaning a significant number of individuals who do not have a credit default also do not have a loan.</li>
+    <li><span class="text-blue-400 font-medium">"poutcome_Unknown" → "y_no"</span> suggests that when the outcome of a previous marketing campaign is unknown, customers are less likely to subscribe to a new offer.</li>
+    <li><span class="text-blue-400 font-medium">"default_no" → "contact_cellular"</span> implies that individuals without credit defaults are frequently contacted via cellular.</li>
+  </ul>
+
+  <!-- Confidence Findings -->
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-white text-2xl font-semibold mb-2">Top 15 Rules by Confidence (Strongest Predictive Power)</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-2">
+    These rules show the probability that the consequent occurs, given that the antecedent is present.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4 italic">
+    Threshold Used: Minimum Confidence = 0.80 (80%)
+  </p>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-3 mb-6">
+    <li><span class="text-blue-400 font-medium">Education and Contact Method Influence Marketing Outcomes:</span> Customers with primary education and contacted via unknown channels have a 99.8% probability of having an unknown outcome in the marketing campaign.</li>
+    <li><span class="text-blue-400 font-medium">Housing and Marital Status Matter:</span> People who are married, have no housing loans, and were contacted via unknown methods show strong associations with campaign outcomes.</li>
+    <li><span class="text-blue-400 font-medium">Multiple Attributes Together Strengthen Confidence:</span> Rules containing y_no (not subscribing to the offer), education level, and contact method had the highest confidence values.</li>
+  </ul>
+
+  <!-- Lift Findings -->
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-white text-2xl font-semibold mb-2">Top 15 Rules by Lift (Strongest Relationships Beyond Randomness)</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-2">
+    Lift measures the strength of a rule beyond chance.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4 italic">
+    Threshold Used: Minimum Lift = 1.0 (Rules must be better than random chance)
+  </p>
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-3">
+    <li><span class="text-blue-400 font-medium">Job Management and Financial Status:</span> People working in management roles without loans and housing loans have a high lift score (3.55) when predicting their campaign response.</li>
+    <li><span class="text-blue-400 font-medium">Multiple Financial Factors Together Increase Predictability:</span> Customers who have no loan, no housing, and a management job show a 3.55 times higher likelihood of responding a certain way to the marketing campaign than random chance.</li>
+  </ul>
+</div>
+
+<!-- Final Association Rule Mining Conclusion Bubble -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside text-gray-300 text-lg leading-relaxed text-justify space-y-4">
+    <li>
+      <span class="text-blue-400 font-medium">Financial Stability Matters –</span> Customers who do not have loans or credit defaults show distinct behaviors in marketing campaigns.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Past Interactions Influence Decisions –</span> If a customer’s previous outcome is unknown, they are less likely to respond positively to new campaigns.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Communication Method Impacts Response –</span> People contacted via cellular show different trends compared to other methods.
+    </li>
+    <li>
+      <span class="text-blue-400 font-medium">Demographics Play a Role –</span> Marital status, education, and job type have a strong influence on financial and marketing decisions.
+    </li>
+  </ul>
+</div>
+
+
+</body>
+</html>

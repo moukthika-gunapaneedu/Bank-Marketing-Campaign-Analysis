@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>REGRESSION</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Logistic Regression Overview Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERVIEW</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-3">What is Linear Regression?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Linear regression is a method used to predict a continuous outcome (like price or score) based on input variables. It fits a straight line that best represents the relationship between inputs and the target, minimizing the difference between predicted and actual values. Logistic regression, on the other hand, is used for classification—it predicts the probability of a categorical outcome, usually binary like yes/no. It uses a similar mathematical structure to linear regression but applies a transformation to output probabilities instead of raw numbers. Both models use weighted inputs and are trained with optimization methods, but their goals and outputs are fundamentally different.
+  </p>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-3">What is Logistic Regression?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Logistic regression is used to predict the probability of a categorical outcome, typically a binary one like “yes” or “no.” Instead of fitting a straight line, it uses a curve to map input values to probabilities between 0 and 1. These probabilities are then used to classify the input into one of two categories. Logistic regression is widely used for tasks like customer churn prediction, spam detection, and disease diagnosis. It’s valued for its simplicity, speed, and ability to output interpretable results.
+  </p>
+  
+
+  <div class="max-w-2xl mx-auto my-10">
+    <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+      <img src="assets/lr1.png" alt="Linear vs Logistic Regression Graph" class="rounded-md w-full object-contain">
+      <figcaption class="text-gray-400 text-center mt-2 text-sm">Comparison between Linear and Logistic Regression prediction outputs.</figcaption>
+    </figure>
+  </div>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-3">Similarities and Differences Between Linear and Logistic Regression</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Both linear and logistic regression use a linear combination of input features to make predictions and are easy to implement and interpret. However, linear regression is used for predicting continuous numeric values, while logistic regression is used for classification. Linear regression outputs raw numbers, while logistic regression converts outputs to probabilities and then categories. They also differ in how they are evaluated: linear regression uses error-based metrics like mean squared error, whereas logistic regression uses metrics like accuracy, precision, and AUC. Despite their differences, both models serve as fundamental tools in machine learning.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-3">The Role of the Sigmoid Function in Logistic Regression</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The sigmoid function is used in logistic regression to convert any number into a value between 0 and 1. This transformation allows the model to output probabilities, which are then used to classify inputs into categories. For example, a result of 0.82 means there’s an 82% chance that the input belongs to the positive class. Without the sigmoid function, the model would behave like linear regression and produce values outside the 0–1 range. The sigmoid is what makes logistic regression suitable for binary classification tasks.
+  </p>
+
+  <div class="max-w-2xl mx-auto my-10">
+    <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+      <img src="assets/lr2.png" alt="Sigmoid vs Linear Output" class="rounded-md w-full object-contain">
+      <figcaption class="text-gray-400 text-center mt-2 text-sm">S-curve output of logistic regression vs linear prediction line.</figcaption>
+    </figure>
+  </div>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-3">How Maximum Likelihood Is Used in Logistic Regression?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Logistic regression is trained using Maximum Likelihood Estimation (MLE). MLE finds the model parameters that make the observed outcomes most probable given the input data. It works by comparing the model’s predicted probabilities to the actual labels and adjusting the parameters to improve the fit. Unlike linear regression, which minimizes squared errors, logistic regression maximizes the likelihood of correct classifications. This makes MLE the key optimization method behind the learning process in logistic regression.
+  </p>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Code/Moukthika_Gunapaneedu_Reg.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF REGRESSION
+  </a>
+</div>
+
+<!-- Data Preparation Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR REGRESSION</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR REGRESSION
+  </a>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-6">
+    The dataset was first loaded and cleaned to separate input features (<code>X</code>) from the target variable (<code>y</code>). The target column contained categorical responses (“yes” and “no”), which were encoded into binary format using <code>LabelEncoder</code>, converting “yes” to 1 and “no” to 0. Next, the dataset was examined to distinguish between numerical and categorical features. This separation was essential for applying appropriate preprocessing techniques tailored to each model.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Two separate preprocessing pipelines were created—one for <span class="text-white font-semibold">Logistic Regression</span> and another for <span class="text-white font-semibold">Multinomial Naive Bayes (MNB)</span>—as both models have different requirements. Logistic Regression used <code>StandardScaler</code> to standardize numerical features and <code>OneHotEncoder</code> (with <code>drop='first'</code>) to handle categorical variables, avoiding multicollinearity. For MNB, numerical features were scaled using <code>MinMaxScaler</code> to bring all values into the 0–1 range, which suits the assumptions of the Naive Bayes model. Categorical encoding remained the same across both pipelines.
+  </p>
+
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_reg.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE DATASET AFTER PREPARING FOR REGRESSION</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Regression/prepared_data_logistic.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER PREPARING FOR REGRESSION
+  </a>
+</div>
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_mnb_Reg.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE DATASET AFTER PREPARING FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/Regression/prepared_data_logistic.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER PREPARING FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+</div>
