@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ensemble | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>ENSEMBLE</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Random Forest Overview Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERVIEW</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">What is Ensemble Learning?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Ensemble learning is a machine learning approach where multiple models (often called <span class="text-blue-400">"weak learners"</span>) are combined to produce a stronger overall model. Instead of relying on a single model to make predictions, ensemble methods merge the outputs of several models to improve <span class="text-blue-400">accuracy</span>, <span class="text-blue-400">stability</span>, and <span class="text-blue-400">robustness</span>. The main idea is that while one model might make mistakes, combining many models can cancel out individual errors and lead to better overall performance. Common ensemble techniques include <span class="text-blue-400">bagging</span> (like Random Forest), <span class="text-blue-400">boosting</span> (like AdaBoost and XGBoost), <span class="text-blue-400">stacking</span>, and <span class="text-blue-400">voting</span>. Ensemble learning is widely used because it often achieves better results than any single model alone, especially on complex or noisy datasets.
+  </p>
+
+     <div class="max-w-96 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/ensemble1.png" alt="Ensemble Learning" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+    <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">What is Random Forest?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Random Forest is an ensemble machine learning method that builds many <span class="text-blue-400">decision trees</span> during training and combines their outputs to make a final prediction. Each tree is trained on a random subset of the data (<span class="text-blue-400">bagging</span>) and uses random subsets of features at each split, making the trees different from one another. When it’s time to predict, the forest takes a <span class="text-blue-400">majority vote</span> (for classification) or an <span class="text-blue-400">average</span> (for regression) across all trees. This randomness helps Random Forest models to be more accurate, more stable, and less likely to overfit compared to a single decision tree.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The Random Forest algorithm builds multiple decision trees during the training phase, each trained on random subsets of the data and features. Every tree makes its own prediction, and during testing, the model uses a <span class="text-blue-400">voting system</span> where the majority prediction across all trees becomes the final output. This bagging technique helps to <span class="text-blue-400">reduce variance</span>, <span class="text-blue-400">improve stability</span>, and <span class="text-blue-400">prevent overfitting</span> compared to using a single decision tree. The image above visually represents this process, showing how multiple decision trees work independently and combine their results to produce a stronger overall prediction.
+  </p>
+
+<div class="max-w-xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/ensemble2.png" alt="Ensemble Learning" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+    <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Why Random Forest is Used Here?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Random Forest is used in this project because it handles <span class="text-blue-400">complex, real-world data</span> very well without much preprocessing or tuning. It can naturally deal with both <span class="text-blue-400">numerical and categorical features</span>, handle <span class="text-blue-400">missing values</span>, balance <span class="text-blue-400">class imbalance</span> (using <code>class_weight='balanced'</code>), and reduce <span class="text-blue-400">overfitting</span> by averaging many different trees. Since the project involves predicting outcomes based on many client, financial, and marketing variables, Random Forest is a strong choice to create a reliable, robust, and high-performing model without being overly sensitive to noisy or imbalanced data.
+  </p>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Code/Moukthika_Gunapaneedu_SVM.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF RANDOM FOREST
+  </a>
+</div>
+
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Data Requirements for Random Forest</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Random Forest can handle both numerical and categorical data, but in practice, categorical variables must be encoded as numbers (like using label encoding or one-hot encoding) before training. It does not require feature scaling (normalization or standardization) and can handle a mix of variable types easily. However, the data should have no missing values—any missing entries should be filled or removed beforehand, since Random Forest models like those in scikit-learn cannot automatically handle NaNs. Random Forest is very flexible but expects clean, fully numeric inputs.
+  </p>
+
+  
+   <div class="max-w-2x1 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR RANDOM FOREST</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR RANDOM FOREST
+  </a>
+</div>
+
+ <h2 class="text-3xl font-bold text-white mt-6 mb-4">Data Preparation</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The project involved preparing the dataset by removing unnecessary columns such as duration, pdays, contact, month, and day_of_week, which were either potential data leakage sources or less informative for the prediction task. All categorical variables were converted into numeric format to meet the input requirements of Random Forest. Binary columns like housing, loan, default, and y were mapped to 0 and 1, while other categorical features such as job, marital, education, and poutcome were label-encoded.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    After preprocessing, the data was split into features and target variables and then divided into training and testing sets using an 80-20 split. The cleaned full dataset, as well as the combined training and testing datasets, were saved into separate CSV files for future modeling. A Random Forest classifier was then trained using the training set, and its performance was evaluated on the testing set using a confusion matrix, accuracy score, and classification report to assess the effectiveness of the model.
+  </p>
+
+     <div class="max-w-xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_rf.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET AFTER PREPARING FOR RANDOM FOREST</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Random%20Forest/bank_cleaned_data_rf.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER PREPARING FOR RANDOM FOREST
+  </a>
+</div>
+
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Train-Test Split</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    To evaluate the performance of the Random Forest model, the cleaned dataset was divided into a training set and a testing set using an 80-20 split. The training set, consisting of 80% of the data, was used to fit the model and learn patterns, while the testing set, containing the remaining 20%, was used to assess how well the model generalized to unseen data. Splitting the data in this way helped to prevent overfitting and provided an unbiased estimate of the model’s accuracy and predictive capabilities on new, real-world examples.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Importance of Keeping Sets Disjoint</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Keeping the training and testing sets completely disjoint is essential to ensure that the model is evaluated fairly and accurately. If the same data points appear in both the training and testing sets, the model may simply memorize the answers instead of learning meaningful patterns, leading to artificially high performance metrics. By maintaining a strict separation, the testing set truly represents unseen data, allowing for an honest assessment of the model’s ability to generalize to new, real-world situations.
+  </p>
+
+<div class="max-w-xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/train_rf.png" alt="Training data" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>TRAINING DATASET FOR RANDOM FOREST</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Random%20Forest/train_rf.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR RANDOM FOREST
+  </a>
+</div>
+
+<div class="max-w-xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_rf.png" alt="Training data" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>TEST DATASET FOR RANDOM FOREST</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Random%20Forest/test_rf.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR RANDOM FOREST
+  </a>
+</div>
+
+</div>
+</div>
+
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">RESULTS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-3">Confusion Matrix</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The confusion matrix shows that the model correctly classified <strong>7,852</strong> instances of class 0 and <strong>181</strong> instances of class 1, while it misclassified <strong>184</strong> instances of class 0 as class 1 and <strong>826</strong> instances of class 1 as class 0. This indicates that the model performs well in identifying class 0 but struggles more with correctly predicting class 1, resulting in a higher number of false negatives. While the Random Forest model demonstrates strong performance in detecting the majority class, there is room for improvement in sensitivity toward the minority class.
+  </p>
+
+  <div class="max-w-xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_rf.png" alt="Training data" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<hr class="border-gray-700 mt-6 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-3">Classification Report</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The Random Forest model achieved an overall accuracy of <span class="text-blue-400 font-semibold">88.8%</span>, correctly classifying most of the samples. For class 0, the model showed very high performance with a precision of <span class="text-blue-400 font-semibold">0.90</span>, recall of <span class="text-blue-400 font-semibold">0.98</span>, and f1-score of <span class="text-blue-400 font-semibold">0.94</span>, indicating that it accurately and consistently identified the majority class. However, for class 1, the model struggled, achieving only <span class="text-blue-400 font-semibold">0.50</span> precision and <span class="text-blue-400 font-semibold">0.18</span> recall, resulting in a low f1-score of <span class="text-blue-400 font-semibold">0.26</span>, meaning it often failed to correctly detect instances of the minority class. The macro-averaged scores reflect this imbalance, with a lower macro f1-score of <span class="text-blue-400 font-semibold">0.60</span>, while the weighted average remains higher at <span class="text-blue-400 font-semibold">0.86</span>, influenced by the dominance of class 0 in the dataset.
+  </p>
+  <br />
+
+    <pre class="bg-gray-800 text-green-300 text-sm rounded-xl p-4 my-6 overflow-x-auto">
+Accuracy: 0.8883114010837112
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.90      0.98      0.94      8036
+           1       0.50      0.18      0.26      1007
+
+    accuracy                           0.89      9043
+   macro avg       0.70      0.58      0.60      9043
+weighted avg       0.86      0.89      0.86      9043
+  </pre>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The Random Forest model showed strong overall performance, correctly predicting whether customers would subscribe to a term deposit about <span class="text-blue-400 font-semibold">89%</span> of the time. It was especially good at identifying customers who were unlikely to subscribe, making very few mistakes in this group. This suggests that the model is reliable when it comes to recognizing customers who are not interested, which can help save marketing efforts and focus resources more effectively.
+  </p>
+  <br />
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    However, the model had difficulty identifying customers who would actually subscribe. It missed a significant number of potential subscribers, meaning it may not be as effective when the goal is to target and convince interested customers. Improving the model to better detect this smaller group would help make marketing campaigns more successful by reaching the right people at the right time.
+  </p>
+</div>
+
+</div>
+
+<!-- Conclusion Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The Random Forest analysis revealed several important patterns influencing customer subscription behavior. Longer call durations were positively linked with successful outcomes, emphasizing the value of maintaining engaging conversations during marketing calls. Customers who had positive experiences in previous campaigns were more likely to subscribe again, highlighting the importance of building and sustaining strong customer relationships.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Additionally, direct contact methods, especially telephone calls, proved more effective than other channels in driving customer engagement. Seasonal trends were also observed, with campaigns conducted during months like <span class="text-blue-400">May</span> and <span class="text-blue-400">August</span> achieving higher success rates, suggesting that the timing of outreach plays a crucial role in campaign performance.
+  </p>
+</div>
+
+
+

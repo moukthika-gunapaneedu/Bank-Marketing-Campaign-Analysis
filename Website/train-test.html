@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ensemble | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>TRAIN-TEST SPLIT</span>
+    </h1>
+  </div>
+</section>
+
+<!-- Train-Test Split Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Train-Test Split: What It Is and Why It Matters</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    In any machine learning project, evaluating the performance of a model accurately requires splitting the data into two disjoint sets: one for training the model (Train Set) and one for testing how well it performs on unseen data (Test Set). This split ensures that the model does not simply memorize the data, but instead learns patterns that can be applied to new, real-world scenarios. If the same data is used for both training and testing, the performance results will be misleadingly optimistic—because the model is being tested on what it has already seen.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Importance of Keeping Sets Disjoint</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    A disjoint split means that no data point used during training appears in the test set. This is critical because it simulates the real-world scenario where a model has to make predictions on completely new data. Using overlapping data would result in data leakage, where the model has unfair information during evaluation, leading to unreliable performance metrics.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">How the Split Was Created</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The data was split into 80% training and 20% testing, using train_test_split() from Scikit-learn, with a fixed random_state=42 to ensure reproducibility. To maintain the same distribution of the target variable ('yes' or 'no') across both sets, stratified sampling was used. This ensures that both the training and test sets reflect the real class imbalance of the original data (majority "no" and minority "yes").
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    This same base split was applied consistently across all models to allow fair performance comparisons.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Split Strategy for Each Algorithm</h3>
+  <ul class="list-disc text-gray-300 pl-6 text-lg leading-relaxed mb-4">
+    <li>Split Timing: After completing preprocessing steps specific to each variant.</li>
+    <li>Split Ratio: 80% training, 20% testing (train_test_split with random_state=42).</li>
+    <li>Disjointness: Fully disjoint; test set was not used during training or preprocessing.</li>
+  </ul>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Naive Bayes Models</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    MultinomialNB
+
+    Applied after binning numeric features (age, balance, campaign, previous) into 4 discrete bins.
+
+    Categorical features were one-hot encoded.
+
+    Model trained on the processed training set, with the same structure retained for testing.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    BernoulliNB
+
+    Numeric features were binarized (2 bins using quantiles).
+
+    Categorical features were one-hot encoded into binary indicators.
+
+    Split applied after converting all features to binary (0/1), suitable for BernoulliNB.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    CategoricalNB
+
+    Numeric features were binned into ordinal categories.
+
+    Categorical features were ordinally encoded into integers.
+
+    The split was applied after all transformations, ensuring the model received valid categorical inputs.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Decision Tree Classifier</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Split Timing: After discretization and encoding.
+
+    Split Ratio: 80% training, 20% testing.
+
+    Special Considerations: Trees are not sensitive to scaling, so no normalization was done.
+
+    The same train-test split was used as in other models to ensure consistent evaluation.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Logistic Regression</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Split Timing: After preprocessing (binarizing and encoding features).
+
+    Split Ratio: 80/20.
+
+    Preprocessing Note: Logistic regression benefits from feature scaling. Numeric features were optionally scaled using StandardScaler after the split to prevent data leakage.
+
+    This consistent strategy allowed the model to learn from clean training data and be evaluated on truly unseen examples.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Support Vector Machine (SVM)</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Split Timing: After preprocessing (binarizing and encoding features).
+
+    Split Ratio: 80/20.
+
+    Preprocessing Note: SVM models are sensitive to the scale of input features. Numeric features were scaled using StandardScaler after the split to avoid data leakage and ensure better model performance.
+
+    This approach helped the SVM model find an optimal separating boundary while being fairly evaluated on truly unseen test data.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Random Forest</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Split Timing: After preprocessing (binarizing and encoding features).
+
+    Split Ratio: 80/20.
+
+    Preprocessing Note: Random Forest models do not require feature scaling because they are based on tree structures that are not affected by feature magnitude. Only binarization and encoding were performed before splitting.
+
+    This setup allowed the Random Forest model to train on a clean, properly formatted dataset and be tested on new examples to measure its real-world predictive strength.
+  </p>
+</div>

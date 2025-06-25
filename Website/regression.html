@@ -186,3 +186,391 @@
   </a>
 </div>
 </div>
+
+<!-- Train-Test Split Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">TRAIN-TEST SPLIT</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    To ensure reliable and fair evaluation, the entire dataset was split into training and testing subsets using an <span class="text-white font-semibold">80-20 ratio</span>. This was done using <code>train_test_split</code>, with <code>stratify=y_encoded</code> to preserve the proportion of both classes (“yes” and “no”) in both sets. The training set was used to build the models, while the testing set was reserved for final evaluation. This disjoint separation is crucial to prevent data leakage, where information from the test set could influence the training process and produce misleadingly high performance.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The split ensured that the models would be evaluated on data they had never seen before, simulating real-world deployment. Keeping the same train-test split across both models allowed for a fair comparison under consistent conditions.
+  </p>
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/train_reg.png" alt="Training data for Logistic Regression" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TRAINING DATASET FOR LOGISTIC REGRESSION</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Regression/train_data_logistic.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR LOGISTIC REGRESSION
+  </a>
+</div>
+
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_reg.png" alt="Training data for Logistic Regression" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TEST DATASET FOR LOGISTIC REGRESSION</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Regression/test_data_logistic.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR LOGISTIC REGRESSION
+  </a>
+</div>
+
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/train_mnb_reg.png" alt="Training data for Logistic Regression" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TRAINING DATASET FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Regression/train_data_mnb_reg.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+
+    <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_mnb_reg.png" alt="Training data for Logistic Regression" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>PART OF THE TEST DATASET FOR MULTINOMIAL NAIVE BAYES</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/Regression/test_data_mnb_reg.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR MULTINOMIAL NAIVE BAYES
+  </a>
+</div>
+</div>
+</div>
+
+<!-- Model Evaluation Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">MODEL EVALUATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Both models—Logistic Regression and Multinomial Naive Bayes—were trained on their respective preprocessed training datasets. Once trained, each model made predictions on the test set, and their performance was evaluated using multiple metrics: accuracy, confusion matrix, and a full classification report including precision, recall, and F1-score.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Logistic Regression achieved high overall accuracy, but struggled to correctly identify the “yes” class due to class imbalance. Its recall for the positive class was notably low, indicating many false negatives. Multinomial Naive Bayes, while slightly lower in overall accuracy, performed significantly better in capturing the minority “yes” class, showing improved recall and F1-score. The confusion matrices and classification reports provided detailed insight into how well each model handled both majority and minority classes.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-8">
+    These evaluations highlighted the trade-offs between accuracy and balanced classification, especially when dealing with imbalanced datasets where one outcome is far more common than the other.
+  </p>
+
+  <!-- MODEL EVALUATION OUTPUTS SIDE BY SIDE -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Logistic Regression -->
+    <div class="bg-gray-800 p-4 rounded-xl shadow-md overflow-x-auto">
+      <h3 class="text-xl font-semibold text-white mb-3">=== Logistic Regression ===</h3>
+      <pre class="text-green-300 text-sm"><code>Accuracy: 0.9014
+Confusion Matrix:
+[[7782  203]
+ [ 689  369]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+          no       0.92      0.97      0.95      7985
+         yes       0.65      0.35      0.45      1058
+
+    accuracy                           0.90      9043
+   macro avg       0.78      0.66      0.70      9043
+weighted avg       0.89      0.90      0.89      9043</code></pre>
+    </div>
+
+    <!-- Multinomial Naive Bayes -->
+    <div class="bg-gray-800 p-4 rounded-xl shadow-md overflow-x-auto">
+      <h3 class="text-xl font-semibold text-white mb-3">=== Multinomial Naive Bayes ===</h3>
+      <pre class="text-green-300 text-sm"><code>Accuracy: 0.8906
+Confusion Matrix:
+[[7779  206]
+ [ 783  275]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+          no       0.91      0.97      0.94      7985
+         yes       0.57      0.26      0.36      1058
+
+    accuracy                           0.89      9043
+   macro avg       0.74      0.62      0.65      9043
+weighted avg       0.87      0.89      0.87      9043</code></pre>
+    </div>
+  </div>
+
+<div class="grid grid-cols-1 mt-6 md:grid-cols-2 gap-6">
+    <!-- Logistic Regression Block -->
+    <div class="bg-gray-800 p-5 rounded-xl shadow-md">
+      <h3 class="text-2xl font-semibold text-white mb-3">Logistic Regression</h3>
+      <ul class="text-gray-300 text-base space-y-1 list-disc list-inside">
+        <li><strong class="text-white">Accuracy:</strong> 90.14%</li>
+        <li><strong class="text-white">True Negatives:</strong> 7782</li>
+        <li><strong class="text-white">False Positives:</strong> 203</li>
+        <li><strong class="text-white">False Negatives:</strong> 689</li>
+        <li><strong class="text-white">True Positives:</strong> 369</li>
+      </ul>
+      <p class="text-gray-300 mt-4 text-justify text-base">
+        Logistic Regression shows strong overall accuracy. It excels at correctly predicting customers who won’t subscribe to a term deposit. However, it still misses a significant number of those who would subscribe, highlighting room for improvement in detecting the minority class.
+      </p>
+    </div>
+
+    <!-- Multinomial Naive Bayes Block -->
+    <div class="bg-gray-800 p-5 rounded-xl shadow-md">
+      <h3 class="text-2xl font-semibold text-white mb-3">Multinomial Naive Bayes</h3>
+      <ul class="text-gray-300 text-base space-y-1 list-disc list-inside">
+        <li><strong class="text-white">Accuracy:</strong> 89.06%</li>
+        <li><strong class="text-white">True Negatives:</strong> 7779</li>
+        <li><strong class="text-white">False Positives:</strong> 206</li>
+        <li><strong class="text-white">False Negatives:</strong> 783</li>
+        <li><strong class="text-white">True Positives:</strong> 275</li>
+      </ul>
+      <p class="text-gray-300 mt-4 text-justify text-base">
+        MNB performs almost as well in predicting "no" cases but underperforms when identifying "yes" outcomes, with higher false negatives than logistic regression. This shows that while it's efficient and fast, MNB may be more sensitive to the structure of categorical features and less capable in imbalanced scenarios.
+      </p>
+    </div>
+  </div>
+
+      <div class="max-w-4xl mt-6 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_reg_mnb.png" alt="Confusion Matrix for Logistic Regression" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+
+
+  <!-- Combined Insight Paragraph -->
+  <div class="mt-8">
+    <p class="text-gray-300 text-lg text-justify">
+      The visual confirms what the metrics suggest: both models are highly accurate overall, but Logistic Regression provides better recall for the positive class, making it a more reliable choice for identifying potential subscribers. However, neither model is perfect in handling class imbalance, and strategies like SMOTE or threshold tuning could further improve results.
+    </p>
+  </div>
+
+  <!-- ROC Curve Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-16">
+  <h2 class="text-3xl font-bold text-white mb-4">ROC CURVE COMPARISON</h2>
+  <hr class="border-gray-700 mb-6" />
+
+<ul class="list-disc list-inside text-gray-300 text-justify text-lg leading-relaxed space-y-3">
+    <li>
+      <span class="text-white font-semibold">Model Training:</span> Both Logistic Regression and Multinomial Naive Bayes models were trained on preprocessed data.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Probability Predictions:</span> For each model, predicted probabilities of the "yes" class were obtained using <code>.predict_proba()</code>.
+    </li>
+    <li>
+      <span class="text-white font-semibold">ROC Curve Computation:</span> The True Positive Rate (TPR) and False Positive Rate (FPR) were calculated using <code>roc_curve()</code> for each model.
+    </li>
+    <li>
+      <span class="text-white font-semibold">AUC Calculation:</span> The Area Under the Curve (AUC) was computed using <code>auc()</code> to quantify the model's ability to distinguish between classes.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Visualization:</span> The ROC curves of both models were plotted, along with the diagonal line representing a random classifier (AUC = 0.5) for comparison.
+    </li>
+  </ul>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 mt-6 gap-6 mb-10">
+    <!-- Logistic Regression AUC -->
+    <div class="bg-gray-800 p-5 rounded-xl shadow-md">
+      <h3 class="text-2xl font-semibold text-white mb-3">Logistic Regression</h3>
+      <p class="text-gray-300 text-justify text-base">
+        <span class="text-white font-semibold">AUC: 0.91</span><br />
+        Logistic Regression achieved an AUC of 0.91, indicating excellent performance in distinguishing between customers who subscribed and those who didn’t.
+      </p>
+    </div>
+
+    <!-- Naive Bayes AUC -->
+    <div class="bg-gray-800 p-5 rounded-xl shadow-md">
+      <h3 class="text-2xl font-semibold text-white mb-3">Multinomial Naive Bayes</h3>
+      <p class="text-gray-300 text-justify text-base">
+        <span class="text-white font-semibold">AUC: 0.76</span><br />
+        Multinomial Naive Bayes achieved a lower AUC of 0.76, which suggests moderate discriminative ability, though less effective compared to logistic regression.
+      </p>
+    </div>
+  </div>
+
+<div class="max-w-2xl mt-6 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/roc_reg_mnb.png" alt="ROC for Logistic Regression" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+
+  <p class="text-gray-300 text-lg text-justify">
+    The ROC curve for Logistic Regression lies consistently above that of Naive Bayes, showcasing better classification performance across different thresholds.
+    <br /><br />
+    Overall, Logistic Regression outperforms Naive Bayes in terms of AUC, making it more reliable for binary classification in this banking dataset.
+  </p>
+</div>
+
+<!-- Precision-Recall Curve Explanation as Bullets -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-12">
+  <h2 class="text-3xl font-bold text-white mb-4">PRECISION-RECALL CURVE COMPARISION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <ul class="list-disc list-inside text-gray-300 text-lg text-justify space-y-3">
+    <li>
+      <span class="text-white font-semibold">Probability Prediction:</span>
+      Probabilities for the positive class ("yes") were predicted using both Logistic Regression and Multinomial Naive Bayes models.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Curve Computation:</span>
+      The <code>precision_recall_curve()</code> function was used to compute how precision and recall trade off at different thresholds.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Average Precision Score (AP):</span>
+      This metric was calculated using <code>average_precision_score()</code> to summarize the precision-recall curve into a single number.
+    </li>
+    <li>
+      <span class="text-white font-semibold">Visualization:</span>
+      Precision-Recall curves were plotted for both models to provide a visual understanding of their effectiveness in detecting the minority class.
+    </li>
+  </ul>
+
+  <div class="max-w-2xl mt-6 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/precision-recall_reg_mnb.png" alt="Precision-Recall for Logistic Regression" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+<p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    <span class="text-white font-semibold">Logistic Regression</span> achieved a significantly higher Average Precision (AP) of <span class="text-white font-semibold">0.55</span>, demonstrating stronger ability to maintain a good balance between precision and recall across different thresholds.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    <span class="text-white font-semibold">Multinomial Naive Bayes</span> yielded a lower AP of <span class="text-white font-semibold">0.39</span>, showing reduced effectiveness in identifying true positives without sacrificing precision.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The curve for Logistic Regression remains higher than Naive Bayes for most of the recall range, reinforcing its superior performance especially in imbalanced classification scenarios.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Precision-recall curves are particularly important for imbalanced datasets, as they emphasize performance on the positive (minority) class, where Logistic Regression clearly outperforms Naive Bayes in this use case.
+  </p>
+</div>
+
+<!-- Model Accuracy Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">MODEL ACCURACY COMPARISION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    This bar chart offers a clear side-by-side comparison of the overall accuracy of the two models used for classification: <span class="text-white font-semibold">Logistic Regression</span> and <span class="text-white font-semibold">Multinomial Naive Bayes</span>.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    <span class="text-white font-semibold">Logistic Regression</span> achieved an accuracy of <span class="text-white font-semibold">90.14%</span>, indicating its strong ability to correctly classify both 'yes' and 'no' outcomes, even in the presence of class imbalance.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    <span class="text-white font-semibold">Multinomial Naive Bayes</span>, while slightly lower, still performed well with an accuracy of <span class="text-white font-semibold">89.06%</span>.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The small difference in accuracy may seem negligible at first glance. However, in practical terms, even a 1% boost can translate into hundreds of correctly classified cases in large datasets. Moreover, Logistic Regression's stronger performance in metrics like precision, recall, F1-score, and AUC further reinforce its reliability for this prediction task.
+  </p>
+
+  
+  <div class="max-w-96 mt-6 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/comp_reg_mnb.png" alt="Comparision for Logistic Regression" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+</div>
+
+</div>
+
+<!-- Conclusion Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Insights from Logistic Regression</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The results of the Logistic Regression model offer valuable insight into how well certain customer patterns can help predict whether a person will subscribe to a term deposit. With an accuracy of over 90%, the model demonstrated that it can make reliable predictions based on the data provided. It performed especially well in identifying those who are not likely to subscribe, which is helpful for organizations aiming to reduce the effort spent on unlikely prospects.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    However, what’s most meaningful is how Logistic Regression strikes a balance between identifying positive and negative outcomes. Even though it's slightly less sensitive to capturing the 'yes' responses, it still picked up on a substantial number of them, which is crucial for a real-world banking scenario. The model seems to be a practical fit when a company wants to maximize correct decisions while also limiting false alarms. The visualizations like the ROC and precision-recall curves confirmed that it maintains strong overall performance under different thresholds and criteria.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Comparing Multinomial Naive Bayes and Logistic Regression</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    When comparing both models, Logistic Regression consistently outperformed Multinomial Naive Bayes across most evaluation criteria. Although Naive Bayes did a fairly good job in terms of overall accuracy, it fell behind when it came to correctly identifying those rare 'yes' outcomes—the very predictions that matter most in campaigns aiming for conversions. The differences were especially visible in the confusion matrices and recall values, where Logistic Regression proved to be more balanced and nuanced in its predictions.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    What this comparison teaches is that not all models are equally equipped to handle complex, real-world data, especially when the classes (yes/no) are imbalanced. Multinomial Naive Bayes tends to be quicker and simpler, but Logistic Regression offered more thoughtful predictions by better handling the subtle differences in features. In marketing contexts where precision matters—like predicting who will respond to a campaign—Logistic Regression seems to provide more actionable and trustworthy results.
+  </p>
+</div>
+
+<!-- Overall Comparison Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERALL COMPARISON OF THE MODELS</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Naive Bayes: Fast but Too Simple for the Task</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Naive Bayes is based on probabilities and works under the assumption that all features (such as age, balance, job type, etc.) are independent of each other. This assumption helps it run very quickly and efficiently, especially on large datasets. In this project, Multinomial Naive Bayes achieved a respectable accuracy of ~89%, and it correctly identified many of the "no" responses, which are the majority in this imbalanced dataset.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    However, its biggest weakness became clear when we looked at how it handled the rare "yes" cases—people who actually subscribed. It struggled to identify them well, often misclassifying them as "no." This happened because Naive Bayes relies too heavily on simple rules and doesn’t capture interactions or patterns between features. So, while it's great for quick, general predictions, it's not the best choice for nuanced decisions where context and feature relationships matter.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Decision Trees: Intuitive, Transparent, but Can Be Biased</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Decision Trees work by splitting data into branches based on decision rules, almost like asking a series of yes/no questions. They’re easy to interpret and visualize, which makes them very appealing. Three variations of decision trees were tested in this project—with different settings for depth and feature selection.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The third tree, which was fine-tuned using entropy and limited depth, performed best with an accuracy of ~89%, slightly behind Logistic Regression but still strong. One of its strengths was its ability to highlight the most important features influencing decisions—like the outcome of previous marketing campaigns and how the customer was contacted. However, trees are also prone to overfitting if not controlled properly, meaning they can learn noise in the data instead of general rules. Even though Decision Trees did well overall, they struggled with precision in detecting "yes" cases and weren’t as consistent across all metrics compared to LR.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Logistic Regression: Balanced and Reliable Performer</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Logistic Regression ultimately came out on top in most performance metrics. It offered a clean balance between accuracy (90.1%) and meaningful recall/precision for both "no" and "yes" classes. Its biggest advantage is that it handles relationships between variables well, even when those relationships are subtle. This made it particularly good at recognizing the minority class—those who subscribed—without sacrificing performance on the majority class.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Another important advantage of Logistic Regression is its predictable behavior and stability. Unlike Decision Trees, which can change drastically with small changes in data, Logistic Regression remains consistent. It doesn’t assume feature independence (like Naive Bayes does), so it can capture more real-world complexity in behavior, especially when people’s decisions are influenced by multiple overlapping factors like job type, time of year, and previous contact history.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Which Model Works Best and Why?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    In the context of predicting term deposit subscriptions—a task where class imbalance is a challenge, and precision matters—Logistic Regression turned out to be the most dependable and effective model. It offered strong accuracy, handled rare "yes" cases with more sensitivity than Naive Bayes or Decision Trees, and remained stable throughout testing.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Naive Bayes, while fast, was too simplistic for this task. It’s a good option when you need a quick, baseline model or when feature independence is reasonable—but not when decisions are shaped by many interacting factors.
+    Decision Trees gave interpretable results and helped expose which features mattered most, but they were not as good at generalizing and struggled with detecting positive cases consistently.
+    Therefore, for a real-world use case like this—where banking decisions can affect customers and business strategy—Logistic Regression provides the right mix of accuracy, fairness, and insight.
+  </p>
+</div>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA | BankIntel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+<!-- Navbar -->
+<nav class="bg-gray-900 p-4 sticky top-0 z-50 shadow-lg">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html#home" class="text-xl font-bold flex items-center gap-2 hover:text-blue-400">
+      🏦 BankIntel: Insights for Smarter Banking
+    </a>
+    <ul class="flex space-x-6 text-sm relative">
+      <li><a href="index.html#intro" class="hover:text-blue-400">Introduction</a></li>
+      <li><a href="eda.html" class="hover:text-blue-400">EDA</a></li>
+
+      <!-- Models Dropdown -->
+      <li class="relative group">
+        <button class="hover:text-blue-400 flex items-center gap-1 font-semibold">
+          Models Implemented <svg class="w-3 h-3 mt-[1px]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.585l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="absolute left-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block z-50">
+          <div class="px-4 py-3 border-b">
+            <p class="text-sm font-medium text-gray-600 mb-1">Unsupervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="pca.html" class="block hover:text-blue-500">PCA</a></li>
+              <li><a href="clustering.html" class="block hover:text-blue-500">Clustering</a></li>
+              <li><a href="arm.html" class="block hover:text-blue-500">ARM</a></li>
+            </ul>
+          </div>
+          <div class="px-4 py-3">
+            <p class="text-sm font-medium text-gray-600 mb-1">Supervised Learning</p>
+            <ul class="space-y-1 pl-2">
+              <li><a href="naive-bayes.html" class="block hover:text-blue-500">Naïve Bayes</a></li>
+              <li><a href="dt.html" class="block hover:text-blue-500">DT</a></li>
+              <li><a href="regression.html" class="block hover:text-blue-500">Regression</a></li>
+              <li><a href="svm.html" class="block hover:text-blue-500">SVM</a></li>
+              <li><a href="ensemble.html" class="block hover:text-blue-500">Ensemble</a></li>
+              <li><a href="train-test.html" class="block hover:text-blue-500">Train-Test Split</a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <li><a href="conclusion.html" class="hover:text-blue-400">Conclusion</a></li>
+      <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="relative min-h-[50vh] flex flex-col justify-center items-center text-center px-6 py-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/analytics.jpg');">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-0"></div>
+  <div class="relative z-10 bg-black bg-opacity-60 p-6 md:p-10 rounded-lg shadow-lg shadow-black/30">
+    <h1 class="text-3xl md:text-5xl font-bold text-white flex items-center gap-3">
+      <span>SUPPORT VECTOR MACHINE</span>
+    </h1>
+  </div>
+</section>
+
+<!-- SVM Overview Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">OVERVIEW</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">What are Support Vector Machines (SVMs)?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Support Vector Machines (SVMs) are powerful supervised learning models used for classification and regression tasks. They work by finding the best hyperplane that separates data points of different classes with the maximum margin, meaning the largest possible distance between the closest points (support vectors) of each class and the hyperplane. If the data isn’t linearly separable, SVMs can use something called a kernel trick to map the data into a higher-dimensional space where separation is possible. This makes SVMs very flexible and effective, even for complex datasets.
+  </p>
+
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Why are SVMs linear separators?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    SVMs are linear separators because, at their core, they try to find a straight line (in 2D), a flat plane (in 3D), or a hyperplane (in higher dimensions) that divides the data into classes. They look for the line or plane that not only separates the classes but does so with the widest possible gap between them. Even when data is more complex, SVMs still aim to find a linear separation, but possibly in a transformed higher-dimensional space (using a kernel), where the classes become linearly separable. So the idea of linear separation is always at the heart of how an SVM works.
+  </p>
+
+   <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">How does the kernel trick work?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The kernel works by transforming the data into a higher-dimensional space without actually computing the new coordinates directly. Instead, it calculates the dot product between two points as if they were mapped to that higher space. This allows SVMs to find a linear separator in a new space even if the data looks messy and non-linear in the original space. Think of it like secretly stretching or twisting the data behind the scenes, so a simple straight line can separate it, all without having to do the heavy lifting of physically moving the data points.
+  </p>
+
+<!-- SVM Kernel Transformation Visualization -->
+<div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/svm gif.gif" alt="SVM Kernel Transformation" class="rounded-md w-full object-contain" />
+    <figcaption class="text-gray-400 text-sm text-center mt-2">
+      <span class="text-white font-semibold">SVM Kernel Trick Visualization</span>
+    </figcaption>
+  </figure>
+</div>
+
+
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Why is the dot product so critical?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The dot product is critical because it measures the similarity between two points, and SVMs need that information to decide where the boundary (hyperplane) should go. Kernels are designed to compute this dot product in the transformed higher-dimensional space without ever having to map the data explicitly, saving tons of time and computation. Without the dot product trick, we'd have to actually move every point into a complicated higher-dimensional space and then calculate distances and separations, which would be way too slow and messy for real-world problems.
+  </p>
+</div>
+
+
+<!-- Polynomial Kernel Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+<h3 class="text-2xl font-semibold text-white mb-2">What do the polynomial and RBF kernel functions look like?</h3>
+<hr class="border-gray-700 mb-6" />
+<h3 class="text-2xl font-semibold text-white mb-4">Polynomial Kernel</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The polynomial kernel allows SVMs to create curved decision boundaries by taking the dot product between two points, adding a constant, and then raising the result to a power (degree d). This makes it possible for the model to capture interactions between features and recognize more complex patterns, like circles or spirals, instead of being limited to straight lines. By adjusting the degree, it controls how "bendy" the decision surface gets, making it flexible enough to handle moderately complicated datasets without making the model too wild.
+  </p>
+
+  <div class="text-white text-center text-xl font-medium mb-6">
+    $$ K(x, y) = (r + x^\top y)^d $$
+  </div>
+
+  <p class="text-gray-400 text-base text-justify">
+    where <code>r</code> is a constant (often 0 or 1), <code>d</code> is the degree of the polynomial, and <code>x^\top y</code> is the dot product of the two input vectors. It basically lets the SVM draw curved boundaries (like circles, ellipses) instead of straight lines.
+  </p>
+
+  <hr class="border-gray-700 mt-6 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-4">RBF (Radial Basis Function) Kernel</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    The RBF kernel, also known as the Gaussian kernel, measures how close two points are and turns that into a similarity score. If two points are very close, their kernel value is near 1; if they’re far apart, the value drops close to 0. This ability to focus on local neighborhoods makes the RBF kernel extremely powerful for capturing complex, wiggly boundaries. It’s the most popular kernel because it can handle nearly any non-linear data pattern without needing to manually choose features or transformations.
+  </p>
+
+  <div class="text-white text-center text-xl font-medium mb-6">
+    $$ K(x, y) = \exp\left(-\gamma \|x - y\|^2 \right) $$
+  </div>
+
+  <p class="text-gray-400 text-base text-justify">
+    where \( \gamma \) controls how tightly the influence of each data point spreads.
+    <br><br>
+    This kernel lets the SVM create wavy and very flexible decision boundaries by focusing on how close points are to each other.
+  </p>
+
+  <!-- Polynomial Kernel Mapping Example Bubble (White Theme, Full Width Match) -->
+<div class="bg-white border-l-4 border-blue-600 shadow-lg rounded-2xl p-8 my-6 max-w-6xl mx-auto">
+  <h2 class="text-2xl font-bold text-blue-700 mb-4">Polynomial Kernel Mapping Example</h2>
+
+  <p class="text-justify text-gray-800 mb-4">
+    <span class="font-semibold">Example:</span> Suppose you have a 2D point: <code>x = (x₁, x₂)</code><br>
+    Let’s apply a polynomial kernel with <code>r = 1</code> and <code>d = 2</code>.
+  </p>
+
+  <p class="text-gray-800 mb-4">
+    The polynomial kernel is:
+    \[
+    K(x, y) = (1 + x^\top y)^2
+    \]
+    On expanding:
+    \[
+    1 + 2(x_1y_1 + x_2y_2) + (x_1y_1 + x_2y_2)^2
+    \]
+  </p>
+
+  <p class="text-justify text-gray-800 mb-4">
+    If you manually expand further, you realize the kernel implicitly maps your data into a higher-dimensional feature space:
+    \[
+    \phi(x_1, x_2) = \left( 1, \sqrt{2}x_1, \sqrt{2}x_2, x_1^2, \sqrt{2}x_1x_2, x_2^2 \right)
+    \]
+    The transformation function maps a point from 2D to 6D, allowing the kernel dot product to match the value computed in original 2D space.
+  </p>
+
+  <h3 class="font-semibold text-blue-600 mb-2">Real Point Example</h3>
+  <p class="text-gray-800 mb-4">
+    Consider a real point, say <code>(2, 3)</code>.<br>
+    Plug into the transformation:
+    \[
+    \phi(2, 3) = \left( 1, \sqrt{2} \cdot 2, \sqrt{2} \cdot 3, 2^2, \sqrt{2} \cdot 2 \cdot 3, 3^2 \right)
+    = (1, 2.828, 4.242, 4, 8.485, 9)
+    \]
+  </p>
+
+  <p class="text-justify text-sm text-gray-600 italic">
+    We started from a 2D point and used the polynomial kernel to map it into a 6D space. This lets SVMs find a linear boundary even when the original data isn’t linearly separable.
+  </p>
+</div>
+
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Code/Moukthika_Gunapaneedu_SVM.ipynb" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    💻 CODE FOR IMPLEMENTATION OF SUPPORT VECTOR MACHINE
+  </a>
+</div>
+
+<!-- SVM Data Preparation (Dark Theme) -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">DATA PREPARATION</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <h3 class="text-2xl font-semibold text-white mb-2">Data Requirements for SVM</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Support Vector Machine (SVM) requires labeled, numeric data for effective modeling. In supervised learning settings like this project, each input feature must be represented numerically so that the algorithm can compute distances, margins, and dot products between data points. Although categorical or qualitative features can be part of the original dataset, they must first be converted into a numeric format through techniques like label encoding or one-hot encoding. Additionally, SVM performance improves when continuous features are scaled, as the algorithm is sensitive to the relative magnitude of input values. Only after ensuring that all features are numeric and the dataset is labeled can SVM be successfully applied for classification or regression tasks.
+  </p>
+
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Why SVMs Require Labeled Numeric Data?</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    SVMs can only work on labeled numeric data because the algorithm relies on calculating distances, margins, and dot products between data points to find the optimal separating hyperplane. These mathematical operations are only defined for numerical values, not for raw categorical or qualitative data. Labels are necessary because SVM is a supervised learning method, meaning it needs a known output (class) for each input during training to learn how to separate the classes. Without numeric representations and proper labels, SVM would not be able to measure similarity between points, draw margins, or build an accurate decision boundary.
+  </p>
+
+   <div class="max-w-2x1 mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_data.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET BEFORE PREPARING FOR SVM</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analyzer/blob/main/Data/bank_cleaned_data.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET BEFORE PREPARING FOR SVM
+  </a>
+</div>
+
+ <p class="text-gray-300 text-lg leading-relaxed text-justify mt-6 mb-6">
+    For data preparation, the project began by analyzing each feature based on its type and relevance to the prediction task. Continuous variables such as <span class="text-white font-medium">age</span>, <span class="text-white font-medium">balance</span>, and <span class="text-white font-medium">campaign</span> were retained due to their quantitative nature, while categorical features like <span class="text-white font-medium">job</span>, <span class="text-white font-medium">marital status</span>, <span class="text-white font-medium">education</span>, <span class="text-white font-medium">default</span>, <span class="text-white font-medium">housing</span>, and <span class="text-white font-medium">loan</span> were label encoded to convert them into a numeric format suitable for SVM modeling.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    Columns such as <span class="text-white font-medium">contact</span>, <span class="text-white font-medium">day_of_week</span>, <span class="text-white font-medium">month</span>, <span class="text-white font-medium">duration</span>, <span class="text-white font-medium">pdays</span>, <span class="text-white font-medium">previous</span>, and <span class="text-white font-medium">poutcome</span> were dropped to avoid introducing noise, redundancy, or data leakage into the model.
+    After selecting and encoding the appropriate features, continuous variables were standardized to ensure that all inputs were on a similar scale, which is critical for SVM performance. The cleaned and transformed data was then split into training and testing sets to allow for proper model evaluation and validation.
+    This structured approach ensures the SVM receives clean, relevant, and numerically formatted data for optimal learning and prediction.
+  </p>
+
+     <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/clean_svm.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>DATASET AFTER PREPARING FOR SVM</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/SVM/data_svm_cleaned.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE DATASET AFTER PREPARING FOR SVM
+  </a>
+</div>
+
+<!-- Train-Test Split Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">Train-Test Split</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    To evaluate the SVM model fairly and prevent overfitting, the cleaned and preprocessed dataset was divided into a training set and a testing set. The training set was used to build and fit the model, while the testing set was reserved to assess the model's predictive performance on unseen data. A standard <span class="text-white font-medium">80-20 split</span> was applied, where 80% of the data was allocated for training and 20% for testing. The splitting was performed randomly but with a fixed random seed to ensure reproducibility. This method ensures that the model learns patterns from one portion of the data and is validated on a separate, unbiased portion, providing a reliable measure of its generalization ability.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-2">Importance of Keeping Sets Disjoint</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    In supervised learning, it is essential that the training and testing sets remain completely disjoint, meaning they share no overlapping data points. Keeping the sets disjoint ensures that the model is evaluated on data it has never seen before, providing a true measure of its ability to generalize to new, unseen information. If any overlap existed between the training and testing sets, the model could artificially perform well by memorizing specific patterns rather than genuinely learning how to make predictions. Disjoint sets prevent data leakage, promote unbiased evaluation, and are a fundamental requirement for building reliable and trustworthy machine learning models.
+  </p>
+
+     <div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/train_svm.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>TRAINING DATASET FOR SVM</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/SVM/train_data_svm.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TRAINING DATASET FOR SVM
+  </a>
+</div>
+
+<div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/test_svm.png" alt="Clean dataset preview" class="rounded-md w-full object-contain">
+    <figcaption class="mt-4 text-center text-gray-400 text-sm"><em>TEST DATASET FOR SVM</em></figcaption>
+  </figure>
+</div>
+
+<div class="flex justify-center mt-8">
+  <a href="https://github.com/moukthika-gunapaneedu/Bank-Marketing-Campaign-Analysis/blob/main/Data/SVM/test_data_svm.csv" 
+     target="_blank"
+     class="px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-blue-500 hover:scale-105 transition transform duration-200 ease-in-out">
+    🗃️ CLICK HERE TO VIEW THE TEST DATASET FOR SVM
+  </a>
+</div>
+</div>
+</div>
+
+<!-- Models Implemented Section -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">MODELS IMPLEMENTED</h2>
+  <hr class="border-gray-700 mb-6" />
+
+  <!-- Linear SVM -->
+  <h3 class="text-2xl font-semibold text-white mb-2">Linear SVM</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    Linear SVM is a classification technique that attempts to find the best straight-line (or hyperplane in higher dimensions) boundary that separates different classes in the data. It works by maximizing the margin, or distance, between the hyperplane and the nearest data points from each class, which helps the model generalize better to unseen data. Linear SVM is best suited for datasets where the classes are linearly separable or nearly separable without needing complex transformations. It is computationally efficient even for large datasets, but its performance can be limited when the data has complex, non-linear relationships that cannot be captured by a straight boundary.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    To apply a Linear SVM, the first step is to ensure the dataset is fully numeric and labeled, as SVM requires numerical input for distance calculations. After preprocessing, the data should be split into a training set and a testing set to evaluate performance. A Linear SVM model can then be trained using the training data by specifying the kernel as <code class="text-blue-400 bg-gray-800 px-1 rounded">"linear"</code> and selecting an appropriate cost (C) value to balance margin maximization and classification errors. Once trained, the model can predict outcomes on the testing data, and its performance can be evaluated using metrics like accuracy and a confusion matrix to understand how well it separates the classes.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <!-- Polynomial SVM -->
+  <h3 class="text-2xl font-semibold text-white mb-2">Polynomial SVM (Degree = 2)</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    A Polynomial SVM with degree 2 transforms the original input features into a higher-dimensional space where it becomes easier to separate classes using a curved, non-linear decision boundary. Instead of drawing a straight line like a linear SVM, a polynomial SVM captures relationships where the classes might be divided by curves, parabolas, or other second-degree patterns.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    To apply it, the data must first be numeric and labeled, followed by a split into training and testing sets. A Polynomial SVM model can then be trained by specifying the kernel as <code class="text-blue-400 bg-gray-800 px-1 rounded">"poly"</code> and setting the degree parameter to <code class="text-blue-400 bg-gray-800 px-1 rounded">2</code>. The cost (C) value should also be chosen to control the trade-off between maximizing the margin and minimizing classification errors. Once trained, the model's performance can be evaluated using accuracy and confusion matrix results to check how well the curved boundary separates the classes.
+  </p>
+
+  <hr class="border-gray-700 mb-6" />
+  <!-- RBF SVM -->
+  <h3 class="text-2xl font-semibold text-white mb-2">RBF SVM</h3>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    An RBF (Radial Basis Function) SVM maps the input data into an infinite-dimensional space, allowing it to create highly flexible and complex decision boundaries that can capture even subtle patterns between classes. This kernel is especially useful when the data is not linearly separable or when the relationship between features and classes is highly non-linear.
+  </p>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    To apply an RBF SVM, the data must first be numeric and labeled, and it should be split into a training set and a testing set. The SVM model is then trained by setting the kernel to <code class="text-blue-400 bg-gray-800 px-1 rounded">"rbf"</code> and selecting appropriate values for the cost (C) and gamma parameters. The cost controls the trade-off between margin size and classification error, while gamma controls the influence of individual training points. After training, the model's effectiveness is evaluated using metrics like accuracy and a confusion matrix to see how well it captures the complex structure of the data.
+  </p>
+</div>
+
+<!-- Linear SVM Results Section (Blue-only highlights) -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">RESULTS</h2>
+   <hr class="border-gray-700 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-4">Linear SVM</h3>
+
+  <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_lsvm.png" alt="Confusion Matrix for Linear SVM" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    At a lower cost of <span class="text-blue-400 font-medium">0.1</span>, the Linear SVM achieved a balanced trade-off between margin maximization and classification errors. The confusion matrix shows that <span class="text-blue-400 font-medium">4614</span> "no" instances and <span class="text-blue-400 font-medium">624</span> "yes" instances were correctly classified, while <span class="text-blue-400 font-medium">3422</span> "no" instances and <span class="text-blue-400 font-medium">383</span> "yes" instances were misclassified. Despite the lower penalty for misclassification, the results remain steady, indicating that the model's ability to separate the two classes was not heavily influenced by the cost change at this setting.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    With a cost value of <span class="text-blue-400 font-medium">1.0</span>, the Linear SVM produced the exact same confusion matrix as with cost 0.1, correctly predicting <span class="text-blue-400 font-medium">4614</span> "no" and <span class="text-blue-400 font-medium">624</span> "yes" instances while misclassifying <span class="text-blue-400 font-medium">3422</span> "no" and <span class="text-blue-400 font-medium">383</span> "yes" cases. This suggests that, for this dataset, moderate increases in the penalty parameter do not significantly impact the model’s decision boundary. The model behavior remains consistent across this range, likely due to the complexity and overlap in the feature space.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Increasing the cost to <span class="text-blue-400 font-medium">1.5</span> also resulted in no change to the confusion matrix compared to the lower cost values. The predictions remained identical, with <span class="text-blue-400 font-medium">4614</span> correct "no" classifications, <span class="text-blue-400 font-medium">3422</span> misclassified "no" cases, <span class="text-blue-400 font-medium">624</span> correct "yes" classifications, and <span class="text-blue-400 font-medium">383</span> misclassified "yes" cases. This stability across different cost values indicates that beyond a certain point, adjustments to the cost parameter alone are not sufficient to improve the model, and deeper changes such as feature engineering or model type adjustments may be needed. The accuracy remained same across all the three cases: <span class="text-blue-400 font-semibold">57.92%</span>
+  </p>
+
+   <hr class="border-gray-700 mt-6 mb-6" />
+
+    <h3 class="text-2xl font-semibold text-white mb-4">Polynomial SVM (Degree = 2)</h3>
+
+      <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_psvm.png" alt="Confusion Matrix for Polynomial SVM" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    With a cost of <span class="text-blue-400 font-medium">0.1</span>, the Polynomial SVM achieved the highest accuracy among the three models, at <span class="text-blue-400 font-semibold">72.27%</span>. The confusion matrix shows that <span class="text-blue-400 font-medium">6018</span> "no" instances and <span class="text-blue-400 font-medium">517</span> "yes" instances were correctly classified, while <span class="text-blue-400 font-medium">2018</span> "no" instances and <span class="text-blue-400 font-medium">490</span> "yes" instances were misclassified. The lower cost allowed for a more flexible margin, which helped the model correctly classify more overall instances but still led to a significant number of errors, particularly in distinguishing the minority class.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    At a cost of <span class="text-blue-400 font-medium">1.0</span>, the Polynomial SVM produced a slightly lower accuracy of <span class="text-blue-400 font-semibold">69.17%</span>. The model correctly predicted <span class="text-blue-400 font-medium">5692</span> "no" instances and <span class="text-blue-400 font-medium">563</span> "yes" instances, while misclassifying <span class="text-blue-400 font-medium">2344</span> "no" instances and <span class="text-blue-400 font-medium">444</span> "yes" instances. Increasing the cost slightly improved the correct classification of the minority class ("yes"), but overall, the model became slightly more rigid, leading to more errors in the majority class and a slight drop in overall accuracy compared to the lower cost setting.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    With a cost of <span class="text-blue-400 font-medium">1.5</span>, the Polynomial SVM achieved an accuracy of <span class="text-blue-400 font-semibold">68.36%</span>, the lowest among the three settings. It correctly classified <span class="text-blue-400 font-medium">5613</span> "no" instances and <span class="text-blue-400 font-medium">569</span> "yes" instances, while misclassifying <span class="text-blue-400 font-medium">2423</span> "no" instances and <span class="text-blue-400 font-medium">438</span> "yes" instances. Although the number of correctly classified "yes" instances improved marginally compared to cost 1.0, the overall tightening of the margin led to a decrease in total accuracy, suggesting diminishing returns from further increasing the cost parameter.
+  </p>
+
+   <hr class="border-gray-700 mt-6 mb-6" />
+   <h3 class="text-2xl font-semibold text-white mb-4">RBF SVM</h3>
+
+      <div class="max-w-4xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/cm_rsvm.png" alt="Confusion Matrix for RBF SVM" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    With a cost of <span class="text-blue-400 font-medium">0.1</span>, the RBF Kernel SVM achieved an accuracy of <span class="text-blue-400 font-semibold">62.42%</span>. The confusion matrix shows <span class="text-blue-400 font-medium">5034</span> "no" instances and <span class="text-blue-400 font-medium">611</span> "yes" instances were correctly classified, while <span class="text-blue-400 font-medium">3002</span> "no" instances and <span class="text-blue-400 font-medium">396</span> "yes" instances were misclassified. The low cost made the model more tolerant of errors, leading to a wider margin but also higher misclassification, especially in the majority "no" class, which contributed to the lower overall accuracy.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    When the cost was increased to <span class="text-blue-400 font-medium">1.0</span>, the RBF SVM's accuracy improved to <span class="text-blue-400 font-semibold">66.75%</span>. The model correctly classified <span class="text-blue-400 font-medium">5458</span> "no" instances and <span class="text-blue-400 font-medium">578</span> "yes" instances, while misclassifying <span class="text-blue-400 font-medium">2578</span> "no" instances and <span class="text-blue-400 font-medium">429</span> "yes" instances. A higher cost penalized misclassification more heavily, resulting in fewer errors compared to cost 0.1, but the model still struggled to perfectly separate the classes due to the overlap and complexity of the data.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    At a cost of <span class="text-blue-400 font-medium">1.5</span>, the RBF SVM reached an accuracy of <span class="text-blue-400 font-semibold">67.74%</span>, slightly higher than the previous two settings. It correctly classified <span class="text-blue-400 font-medium">5555</span> "no" instances and <span class="text-blue-400 font-medium">571</span> "yes" instances, while misclassifying <span class="text-blue-400 font-medium">2481</span> "no" instances and <span class="text-blue-400 font-medium">436</span> "yes" instances. The trend shows that increasing the cost led to marginal improvements in accuracy and slightly better balance in classification, but overall gains became smaller, indicating that cost adjustments alone could not fully overcome the challenges in the dataset.
+  </p>
+  
+  <hr class="border-gray-700 mt-6 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-4">Overall Comparison of Different SVM Variations</h3>
+<div class="max-w-2xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/accuracyVsCostSVM.png" alt=" Accuracy VS Cost for SVM" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    The plot of <span class="text-blue-400 font-medium">Accuracy vs Cost</span> for the different SVM variations shows that the <span class="text-blue-400 font-medium">Polynomial Kernel SVM (degree = 2)</span> consistently achieved the highest accuracy across all cost values, although its performance slightly decreased as the cost increased. The <span class="text-blue-400 font-medium">RBF Kernel SVM</span> showed steady improvement in accuracy as the cost increased, indicating that it benefited from a tighter decision boundary. In contrast, the <span class="text-blue-400 font-medium">Linear SVM</span>'s accuracy remained constant and significantly lower than the other two models, suggesting that a linear boundary was insufficient for capturing the patterns in the dataset. Overall, the trends in the plot make sense based on the complexity of the data and the flexibility of each kernel.
+  </p>
+
+  <hr class="border-gray-700 mt-6 mb-6" />
+  <h3 class="text-2xl font-semibold text-white mb-4">Linear SVM Decision Boundary Visualizations Across Different Feature Pairs</h3>
+
+  <div class="max-w-1xl mx-auto my-10">
+  <figure class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-4">
+    <img src="assets/linearSVMDB.png" alt=" Decision Boundary for SVM" class="rounded-md w-full object-contain">
+  </figure>
+</div>
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <span class="text-blue-400 font-medium">1. Linear SVM Decision Boundary (age vs balance):</span><br>
+    This plot shows the decision boundary created by a linear SVM using the features <span class="text-blue-400">"age"</span> and <span class="text-blue-400">"balance"</span>. The boundary attempts to separate the two classes based on a combination of a client's age and average account balance. Although the classes overlap significantly, especially at lower balance values, the linear separator tries to distinguish regions where younger clients with lower balances behave differently compared to older clients with higher balances. This is expected in real-world financial data where client characteristics are mixed.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    <span class="text-blue-400 font-medium">2. Linear SVM Decision Boundary (age vs campaign):</span><br>
+    In this visualization, the linear SVM uses <span class="text-blue-400">"age"</span> and <span class="text-blue-400">"campaign"</span> (number of contacts during the campaign) as features. The decision boundary here is almost horizontal, indicating that the number of contacts (<span class="text-blue-400">campaign</span>) has a stronger impact on the classification than age. As the campaign count increases, the model tends to predict a different class, while age has a smaller separating effect. The clear horizontal division reflects the influence of campaign effort more than client demographic factors.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    <span class="text-blue-400 font-medium">3. Linear SVM Decision Boundary (balance vs campaign):</span><br>
+    This plot depicts the decision boundary between <span class="text-blue-400">"balance"</span> and <span class="text-blue-400">"campaign"</span> using a linear SVM. The boundary appears slightly tilted, suggesting that both balance and campaign efforts contribute to separation. Clients with very low balances and higher campaign counts are mostly grouped in one class, while higher balances slightly shift classification. However, because of significant overlap in client profiles, the linear SVM draws a straight separator that compromises between the two influences, highlighting the challenge of separating complex client behaviors linearly.
+  </p>
+
+    <hr class="border-gray-700 mt-6 mb-6" />
+   <h3 class="text-2xl font-semibold text-white mb-4">Comparison of Different SVM Kernels</h3>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-6">
+    In this project, three different SVM kernels, <span class="text-blue-400">Linear</span>, <span class="text-blue-400">Polynomial (degree = 2)</span>, and <span class="text-blue-400">RBF</span>, were evaluated by modeling the client data across multiple cost (C) values. Each model's performance was assessed using confusion matrices, classification reports, and overall accuracy. The following summarizes the results:
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    <span class="text-blue-400 font-medium">Linear Kernel:</span><br>
+    The Linear SVM achieved an accuracy of around <span class="text-blue-400">58%</span>, and its performance remained largely unchanged across different cost values (C=0.1, 1.0, 1.5). The decision boundary created was a straight line, but due to the overlapping nature of the real-world data, the linear separator struggled to classify the points correctly. Linear SVM worked best when the data was linearly separable, but in this case, it underperformed.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    <span class="text-blue-400 font-medium">Polynomial Kernel (degree=2):</span><br>
+    The Polynomial SVM showed better results compared to the Linear SVM, with the highest accuracy around <span class="text-blue-400">72%</span> at C=0.1. As the cost increased to 1.0 and 1.5, the accuracy slightly dropped but remained higher than Linear SVM. The polynomial kernel allowed the model to form curved decision boundaries, better capturing the complex relationships in the data and leading to improved classification performance.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    <span class="text-blue-400 font-medium">RBF (Radial Basis Function) Kernel:</span><br>
+    The RBF SVM had an accuracy of about <span class="text-blue-400">67–68%</span> across the tested cost values. As the cost increased from 0.1 to 1.5, the accuracy improved slightly. The RBF kernel, being a powerful non-linear separator, helped in handling the overlapping regions better than the Linear SVM but slightly underperformed compared to the Polynomial kernel on this dataset. It captured non-linear patterns but was limited by the complexity and noise in the data.
+  </p>
+
+</div>
+
+<!-- Conclusion -->
+<div class="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 max-w-6xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold text-white mb-4">CONCLUSION</h2>
+    <hr class="border-gray-700 mt-6 mb-6" />
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    The SVM models revealed that certain features, particularly <span class="text-blue-400">account balance</span>, <span class="text-blue-400">age</span>, and <span class="text-blue-400">previous campaign outcomes</span>, were strong indicators of whether a customer would subscribe to a term deposit. Customers who had a higher balance or had previously responded positively to campaigns were more likely to subscribe again. Demographic factors such as <span class="text-blue-400">job type</span> and <span class="text-blue-400">education level</span> also showed patterns of influence, with specific groups responding differently to marketing efforts. These findings highlight that both financial status and personal background are important in predicting customer behavior.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify mb-4">
+    In comparing the different SVM kernels, the <span class="text-blue-400">Polynomial SVM (degree=2)</span> performed the best, suggesting that customer responses are influenced by more complex, non-linear relationships rather than simple straight-line separations. The <span class="text-blue-400">RBF SVM</span> also captured non-linear patterns well, while the <span class="text-blue-400">Linear SVM</span> struggled with the overlapping nature of the data. These results demonstrate that machine learning models, especially those capable of handling non-linear decision boundaries, offer clear improvements over simpler, traditional statistical methods in predicting customer subscription behavior.
+  </p>
+
+  <p class="text-gray-300 text-lg leading-relaxed text-justify">
+    Overall, the SVM findings support the idea that personalized and targeted marketing strategies, informed by key customer demographics and financial behaviors, can be more effective. The analysis shows that factors like the <span class="text-blue-400">number of campaign contacts</span>, <span class="text-blue-400">previous interactions</span>, and <span class="text-blue-400">economic context</span> such as loan status all play a role in customer decisions. Using flexible machine learning models like SVMs allows organizations to better understand and predict customer responses, ultimately leading to smarter, more efficient marketing campaigns.
+  </p>
+</div>
