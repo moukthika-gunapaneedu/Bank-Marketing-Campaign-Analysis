@@ -561,67 +561,536 @@ if response.status_code == 200:
   </h2>
   <hr class="border-t border-gray-600 my-4">
 
-  <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-      <!-- Image -->
-      <div class="w-full md:w-1/2">
-        <img src="assets/age_dist.png" alt="Age distribution histogram" class="rounded-lg shadow-md w-full object-contain">
-      </div>
+  <!-- Container -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+  
+  <!-- Image Preview -->
+  <img 
+    src="assets/age_dist.png" 
+    alt="Age Distribution of Clients"
+    class="rounded-xl shadow-lg max-w-[90%] md:max-w-lg cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openModal()"
+  >
 
-      <!-- Text -->
-      <div class="w-full md:w-1/2 text-justify leading-relaxed">
-        <p>
-          This histogram represents the age distribution of clients in the dataset. Most clients fall within the 
-          <strong class="text-white">30 to 50-year-old</strong> range, with the highest concentration around 
-          <strong class="text-white">30 to 40 years old</strong>. There are fewer younger and older individuals in the dataset, 
-          suggesting that the bank's primary customer base consists of 
-          <strong class="text-white">middle-aged clients</strong>. Understanding this distribution is crucial, 
-          as different age groups may have varying financial needs, investment habits, and responsiveness to marketing campaigns.
-        </p>
-      </div>
-    </div>
-
-  <hr class="border-t border-gray-600 my-4">
-   <!--  Job Distribution Image -->
-  <div class="flex justify-center mt-6">
-    <img src="assets/job_dist.png" alt="Job Distribution of Clients" class="rounded-lg shadow-md border border-gray-700 w-full md:w-3/4">
+  <!-- Text Block -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide">
+    <p>
+      This histogram represents the age distribution of clients in the dataset. Most clients fall within the 
+      <span class="text-white font-semibold">30 to 50-year-old</span> range, with the highest concentration around 
+      <span class="text-white font-semibold">30 to 40 years old</span>. There are fewer younger and older individuals 
+      in the dataset, suggesting that the bank’s primary customer base consists of 
+      <span class="text-white font-semibold">middle-aged clients</span>. Understanding this distribution is crucial, 
+      as different age groups may have varying financial needs, investment habits, and responsiveness to marketing campaigns.
+    </p>
   </div>
 
-    <div class="mt-6 space-y-4 text-justify leading-relaxed text-gray-300">
-      <p>
-        This pie chart illustrates the breakdown of clients by occupation. The most common job categories include <strong class="text-white">blue-collar workers (22.2%)</strong>, <strong class="text-white">management (20.9%)</strong>, and <strong class="text-white">technicians (16.8%)</strong>.
-      </p>
-      <p>
-        Other notable categories include administrative roles, services, and self-employed individuals. This insight helps in tailoring financial products, as different professions may have varying income levels, financial priorities, and likelihood to invest in term deposits.
-        The relatively small proportion of students and retired individuals indicates that the bank's marketing strategy primarily targets working professionals.
-      </p>
+  <!-- Modal (hidden by default) -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/age_dist.png" 
+        alt="Enlarged Age Distribution"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
     </div>
+  </div>
+
+</div>
+
+  <hr class="border-t border-gray-600 my-4">
+   <!-- Job Distribution Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+  
+  <!-- Clickable Image -->
+  <img 
+    src="assets/job_dist.png" 
+    alt="Job Distribution of Clients"
+    class="rounded-xl shadow-lg max-w-[90%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openJobModal()"
+  >
+
+  <!-- Description Text -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This pie chart illustrates the breakdown of clients by occupation. The most common job categories include 
+      <span class="text-white font-semibold">blue-collar workers (22.2%)</span>, 
+      <span class="text-white font-semibold">management (20.9%)</span>, and 
+      <span class="text-white font-semibold">technicians (16.8%)</span>.
+    
+    
+      Other notable categories include administrative roles, services, and self-employed individuals. This insight helps in tailoring financial products, 
+      as different professions may have varying income levels, financial priorities, and likelihood to invest in term deposits.
+      The relatively small proportion of students and retired individuals indicates that the bank’s marketing strategy primarily targets working professionals.
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="jobModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeJobModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/job_dist.png" 
+        alt="Enlarged Job Distribution"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
 
     <hr class="border-t border-gray-600 my-4">
-      <div class="flex justify-center mt-6">
-       <img src="assets/martial_Status.png" alt="Martial Status" class="rounded-lg shadow-md border border-gray-700 w-full md:w-3/4">
-      </div>
+    <!-- Marital Status Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+  
+  <!-- Clickable Image -->
+  <img 
+    src="assets/martial_Status.png" 
+    alt="Marital Status Chart"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openMaritalModal()"
+  >
 
-    <div class="mt-6 space-y-4 text-justify leading-relaxed text-gray-300">
-      <p class="text-justify">
-      This bar chart displays the distribution of clients based on their marital status. A significant portion of the clients are <strong>married</strong>, followed by <strong>single</strong> and <strong>divorced</strong> individuals. This suggests that a large part of the bank’s customer base may be financially stable individuals managing household finances. Understanding marital status can help in designing targeted financial products such as joint savings accounts, home loans, or investment plans catered to families.
+  <!-- Text Content -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This bar chart displays the distribution of clients based on their marital status. A significant portion of the clients are 
+      <span class="text-white font-semibold">married</span>, followed by 
+      <span class="text-white font-semibold">single</span> and 
+      <span class="text-white font-semibold">divorced</span> individuals. This suggests that a large part of the bank’s customer base may be financially stable individuals managing household finances. Understanding marital status can help in designing targeted financial products such as joint savings accounts, home loans, or investment plans catered to families.
     </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="maritalModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeMaritalModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/martial_Status.png" 
+        alt="Enlarged Marital Status Chart"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
     </div>
+  </div>
+</div>
 
-    <hr class="border-t border-gray-600 my-4">
-      <div class="flex justify-center mt-6">
-       <img src="assets/edu.png" alt="Education Level Breakdown" class="rounded-lg shadow-md border border-gray-700 w-full md:w-3/4">
-      </div>
+<hr class="border-t border-gray-600 my-4">
+<!-- Education Level Breakdown Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+  
+  <!-- Clickable Image -->
+  <img 
+    src="assets/edu.png" 
+    alt="Education Level Breakdown"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openEduModal()"
+  >
 
-    <div class="mt-6 space-y-4 text-justify leading-relaxed text-gray-300">
-      <p class="text-justify">
-      This graph highlights the educational background of clients. <strong>Secondary education</strong> is the most common level, followed by <strong>tertiary</strong> (university-level) and <strong>primary education</strong>. Clients with higher education levels may have better financial literacy and may be more likely to invest in banking products. Those with lower education levels may require simplified financial products or additional guidance in decision-making. This insight helps in designing marketing campaigns that cater to different customer segments based on their financial knowledge.
+  <!-- Description Text -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This graph highlights the educational background of clients. 
+      <span class="text-white font-semibold">Secondary education</span> is the most common level, followed by 
+      <span class="text-white font-semibold">tertiary</span> (university-level) and 
+      <span class="text-white font-semibold">primary education</span>. Clients with higher education levels may have better financial literacy and may be more likely to invest in banking products. Those with lower education levels may require simplified financial products or additional guidance in decision-making. This insight helps in designing marketing campaigns that cater to different customer segments based on their financial knowledge.
     </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="eduModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeEduModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/edu.png" 
+        alt="Enlarged Education Chart"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
     </div>
+  </div>
+</div>
+
+<hr class="border-t border-gray-600 my-4">
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+  
+  <!-- Clickable Line Graph -->
+  <img 
+    src="assets/avg_age.png" 
+    alt="Average Bank Balance by Age"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openAgeModal()"
+  >
+
+  <!-- Description Text -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+<p>
+      This line graph shows the <span class="text-white font-semibold">average yearly bank balance</span> for different age groups. Generally, 
+      <span class="text-white font-semibold">older clients</span> tend to have higher balances, likely due to accumulated savings over time. 
+    
+      The data also reveals a few <span class="text-white font-semibold">extreme outliers</span> with significantly high balances, possibly representing 
+      <span class="text-white font-semibold">wealthy individuals</span> or <span class="text-white font-semibold">business owners</span>. Understanding this trend can help the bank offer 
+      <span class="text-white font-semibold">age-specific financial products</span>, such as <span class="text-white font-semibold">retirement savings plans</span> for older clients and 
+      <span class="text-white font-semibold">investment options</span> for younger ones.
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="ageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeAgeModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/avg_age.png" 
+        alt="Enlarged Average Bank Balance by Age"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
+<hr class="border-t border-gray-600 my-4">
+<!-- Call Duration vs Subscription Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+  
+  <!-- Clickable Image -->
+  <img 
+    src="assets/CallVsSub.png" 
+    alt="Call Duration vs Subscription Status"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openCallModal()"
+  >
+
+  <!-- Description Text -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This box plot explores the relationship between <span class="text-white font-semibold">call duration</span> and 
+      <span class="text-white font-semibold">client subscription status</span>. It shows that clients who engaged in 
+      <span class="text-white font-semibold">longer calls</span> were more likely to subscribe to a term deposit.
+      This suggests that <span class="text-white font-semibold">effective communication</span> and 
+      <span class="text-white font-semibold">detailed discussions</span> with potential customers play a key role in persuading them to invest. 
+      The presence of <span class="text-white font-semibold">outliers with extremely long calls</span> may indicate 
+      <span class="text-white font-semibold">follow-up calls or negotiations</span>. Banks can use this insight to 
+      <span class="text-white font-semibold">train sales representatives</span> on effective conversation strategies to 
+      <span class="text-white font-semibold">increase conversion rates</span>.
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="callModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeCallModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/CallVsSub.png" 
+        alt="Enlarged Call Duration vs Subscription Status"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
+<hr class="border-t border-gray-600 my-4">
+<!-- Previous Campaign Contact Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+
+  <!-- Clickable Donut Chart -->
+  <img 
+    src="assets/PrevCamp.png" 
+    alt="Previous Campaign Contact vs Subscription Status"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openPrevModal()"
+  >
+
+  <!-- Description Text Block -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This donut chart visualizes the <span class="text-white font-semibold">outcomes of previous marketing campaigns</span>. 
+      A large proportion of clients were <span class="text-white font-semibold">not previously contacted</span>, 
+      while those who were contacted in past campaigns showed <span class="text-white font-semibold">mixed results</span>.
+
+      Only a <span class="text-white font-semibold">small percentage</span> of clients successfully subscribed due to previous interactions, 
+      indicating that past marketing efforts may not have been <span class="text-white font-semibold">highly effective</span>. 
+      This suggests that <span class="text-white font-semibold">improving follow-up strategies</span> or 
+      <span class="text-white font-semibold">refining customer targeting</span> could enhance future campaign success.
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="prevModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closePrevModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/PrevCamp.png" 
+        alt="Enlarged Previous Campaign Contact Chart"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
+<hr class="border-t border-gray-600 my-4">
+<!-- Overall Subscription Rate Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+
+  <!-- Clickable Image -->
+  <img 
+    src="assets/subscription_rate.png" 
+    alt="Overall Subscription Rate"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openSubModal()"
+  >
+
+  <!-- Description Text Block -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This chart presents the <span class="text-white font-semibold">overall subscription rate</span> among clients. 
+      The <span class="text-white font-semibold">vast majority</span> of individuals did not subscribe, 
+      indicating that <span class="text-white font-semibold">converting customers remains a challenge</span>.
+      A <span class="text-white font-semibold">relatively small proportion</span> of clients agreed to invest in a term deposit, 
+      which may suggest a need for <span class="text-white font-semibold">better marketing tactics</span>, 
+      <span class="text-white font-semibold">more personalized offers</span>, or 
+      <span class="text-white font-semibold">improved customer trust</span>. 
+      The bank may also explore whether <span class="text-white font-semibold">specific groups</span> 
+      (e.g., by <span class="text-white font-semibold">age</span>, <span class="text-white font-semibold">job</span>, or <span class="text-white font-semibold">education</span>) 
+      have a <span class="text-white font-semibold">higher likelihood of subscribing</span>.
+    </p>
+  </div>
+
+
+  <!-- Modal -->
+  <div id="subModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeSubModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/subscription_rate.png" 
+        alt="Enlarged Subscription Rate Chart"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
+<hr class="border-t border-gray-600 my-4">
+<!-- Pdays Distribution Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+
+  <!-- Clickable Image -->
+  <img 
+    src="assets/pdays_dist.png" 
+    alt="Pdays Distribution Violin Plot"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openPdaysModal()"
+  >
+
+  <!-- Description Text -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This violin plot illustrates the distribution of <span class="text-white font-semibold">pdays</span>, 
+      which represents the <span class="text-white font-semibold">number of days since a client was last contacted</span> 
+      in a previous campaign. The plot shows that clients who were contacted <span class="text-white font-semibold">more recently</span> 
+      (lower pdays values) were <span class="text-white font-semibold">more likely to subscribe</span>, 
+      reinforcing the importance of <span class="text-white font-semibold">timely follow-ups</span>.
+      Those who were contacted a long time ago or <span class="text-white font-semibold">never before</span> 
+      (pdays = -1) had a <span class="text-white font-semibold">lower probability of subscribing</span>. 
+      This highlights the significance of <span class="text-white font-semibold">maintaining customer engagement</span> 
+      and improving <span class="text-white font-semibold">follow-up efficiency</span>.
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="pdaysModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closePdaysModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/pdays_dist.png" 
+        alt="Enlarged Pdays Distribution Plot"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
+<hr class="border-t border-gray-600 my-4">
+<!-- Correlation Heatmap Section -->
+<div class="flex flex-col items-center px-6 py-10 bg-[#0f172a] text-[#cbd5e1]">
+
+  <!-- Clickable Heatmap Image -->
+  <img 
+    src="assets/corr.png" 
+    alt="Correlation Heatmap"
+    class="rounded-xl shadow-lg max-w-[80%] md:max-w-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+    onclick="openCorrModal()"
+  >
+
+  <!-- Description Text -->
+  <div class="mt-8 max-w-4xl text-justify leading-relaxed text-base md:text-lg tracking-wide space-y-4">
+    <p>
+      This heatmap visualizes the <span class="text-white font-semibold">correlations between different numerical features</span> 
+      in the dataset. A <span class="text-white font-semibold">strong positive correlation</span> is observed between 
+      <span class="text-white font-semibold">call duration</span> and <span class="text-white font-semibold">subscription success</span>, 
+      meaning that <span class="text-white font-semibold">longer call durations</span> tend to result in more successful 
+      term deposit subscriptions.
+      Other variables, such as <span class="text-white font-semibold">age</span> and <span class="text-white font-semibold">balance</span>, 
+      show relatively <span class="text-white font-semibold">weak correlations</span>, suggesting that 
+      <span class="text-white font-semibold">demographic factors alone</span> may not be strong predictors. 
+      Understanding these relationships can guide <span class="text-white font-semibold">feature selection</span> 
+      when building a <span class="text-white font-semibold">predictive model</span>.
+    </p>
+  </div>
+
+  <!-- Modal -->
+  <div id="corrModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class="relative">
+      <!-- Close Button -->
+      <button onclick="closeCorrModal()" class="absolute top-2 right-2 text-white bg-gray-800 hover:bg-gray-600 rounded-full p-2">
+        ✕
+      </button>
+
+      <!-- Enlarged Image -->
+      <img 
+        src="assets/corr.png" 
+        alt="Enlarged Correlation Heatmap"
+        class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl"
+      >
+    </div>
+  </div>
+</div>
+
+
+
+
 </section>
 
 
 
+<script>
+  function openModal() {
+    document.getElementById("modal").classList.remove("hidden");
+  }
+  function closeModal() {
+    document.getElementById("modal").classList.add("hidden");
+  }
+</script>
 
+<script>
+  function openJobModal() {
+    document.getElementById("jobModal").classList.remove("hidden");
+  }
+  function closeJobModal() {
+    document.getElementById("jobModal").classList.add("hidden");
+  }
+</script>
+
+<script>
+  function openMaritalModal() {
+    document.getElementById("maritalModal").classList.remove("hidden");
+  }
+  function closeMaritalModal() {
+    document.getElementById("maritalModal").classList.add("hidden");
+  }
+</script>
+
+<script>
+  function openEduModal() {
+    document.getElementById("eduModal").classList.remove("hidden");
+  }
+  function closeEduModal() {
+    document.getElementById("eduModal").classList.add("hidden");
+  }
+</script>
+
+<script>
+  function openAgeModal() {
+    document.getElementById("ageModal").classList.remove("hidden");
+  }
+  function closeAgeModal() {
+    document.getElementById("ageModal").classList.add("hidden");
+  }
+</script>
+<script>
+  function openCallModal() {
+    document.getElementById("callModal").classList.remove("hidden");
+  }
+  function closeCallModal() {
+    document.getElementById("callModal").classList.add("hidden");
+  }
+</script>
+<script>
+  function openPrevModal() {
+    document.getElementById("prevModal").classList.remove("hidden");
+  }
+  function closePrevModal() {
+    document.getElementById("prevModal").classList.add("hidden");
+  }
+</script>
+<script>
+  function openSubModal() {
+    document.getElementById("subModal").classList.remove("hidden");
+  }
+  function closeSubModal() {
+    document.getElementById("subModal").classList.add("hidden");
+  }
+</script>
+
+<script>
+  function openPdaysModal() {
+    document.getElementById("pdaysModal").classList.remove("hidden");
+  }
+  function closePdaysModal() {
+    document.getElementById("pdaysModal").classList.add("hidden");
+  }
+</script>
+
+<script>
+  function openCorrModal() {
+    document.getElementById("corrModal").classList.remove("hidden");
+  }
+  function closeCorrModal() {
+    document.getElementById("corrModal").classList.add("hidden");
+  }
+</script>
 </body>
 </html>
 
